@@ -1,0 +1,14 @@
+﻿<Properties StartupItem="PlatformerMac/PlatformerMac.csproj" MonoDevelop.MonoMac.LastXamMacNagTime="5/20/2015 3:39:43 AM">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="PlatformerMac/Controls.cs">
+    <Files>
+      <File FileName="PlatformerMac/Platformer.cs" Line="1" Column="1" />
+      <File FileName="PlatformerMac/Controls.cs" Line="2" Column="17" />
+      <File FileName="PlatformerMac/Main.cs" Line="1" Column="1" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
