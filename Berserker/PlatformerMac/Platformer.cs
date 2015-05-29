@@ -1,5 +1,6 @@
 ﻿#region Using Statements
 using System;
+using System.Collections.Generic;
 using System.IO;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -21,7 +22,7 @@ namespace PlatformerMac
 		Enemy enemy1;
 		Tree tree1;
 		Controls controls;
-
+		public static List<Enemy> Enemies = new List<Enemy>();
 		public Platformer()
 		{
 			graphics = new GraphicsDeviceManager(this);
@@ -43,6 +44,7 @@ namespace PlatformerMac
 
 			player1 = new Player(50, 50, 50, 50);
 			enemy1 = new Enemy(100, 100, 50, 50);
+			Enemies.Add (enemy1);
 			tree1 = new Tree (250, 250, 50, 50);
 			base.Initialize();
 			Console.WriteLine ("Init");
@@ -96,6 +98,7 @@ namespace PlatformerMac
 
 			player1.Update(controls, gameTime);
 			enemy1.Update (controls, gameTime, player1.getX(), player1.getY());
+			player1.Attack (controls, Enemies);
 
 			base.Update(gameTime);
 		}
@@ -106,12 +109,14 @@ namespace PlatformerMac
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
 		protected override void Draw(GameTime gameTime)
 		{
-			GraphicsDevice.Clear(Color.CornflowerBlue);
+			GraphicsDevice.Clear(Color.DarkRed);
 
 			// TODO: Add your drawing code here
 			spriteBatch.Begin();
 			player1.Draw(spriteBatch);
-			enemy1.Draw (spriteBatch);
+			for (int i = 0; i < Enemies.Count; i++) {
+				Enemies [i].Draw (spriteBatch);
+			}
 			tree1.Draw (spriteBatch);
 			spriteBatch.End();
 

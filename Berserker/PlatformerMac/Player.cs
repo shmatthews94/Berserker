@@ -45,23 +45,6 @@ namespace PlatformerMac
 			movedX = 0;
         }
 
-        public int getX()
-		{
-            return spriteX;
-        }
-        public int getY()
-        {
-            return spriteY;
-        }
-        public void setX(int x)
-        {
-            spriteX = x;
-        }
-        public void setY(int y)
-        {
-            spriteY = y;
-        }
-
         public void LoadContent(ContentManager content)
         {
             image = content.Load<Texture2D>("viking character.png");
@@ -75,6 +58,17 @@ namespace PlatformerMac
 		public void Update(Controls controls, GameTime gameTime)
 		{
 			Move (controls);
+		}
+
+		public void Attack(Controls controls, List<Enemy> Baddies)
+		{
+			if(controls.onPress(Keys.Space, Buttons.A))
+				for (int i = 0; i < Baddies.Count; i++) {
+					double xdist = Math.Pow(this.spriteX - Baddies[i].getX(), 2);
+					double ydist = Math.Pow(this.spriteY - Baddies[i].getY(), 2);
+					if (Math.Pow((xdist + ydist), .5) < 50)
+						Baddies.Remove (Baddies [i]);
+				}
 		}
 
 		public void Move(Controls controls)

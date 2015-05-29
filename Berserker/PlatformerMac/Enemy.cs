@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Storage;
 
 namespace PlatformerMac
 {
-	class Enemy : Sprite
+	public class Enemy : Sprite
 	{
 		private bool moving;
 		private bool grounded;

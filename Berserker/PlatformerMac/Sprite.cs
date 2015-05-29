@@ -17,6 +17,22 @@ namespace PlatformerMac
 		public Sprite ()
 		{
 		}
+		public int getX()
+		{
+			return spriteX;
+		}
+		public int getY()
+		{
+			return spriteY;
+		}
+		public void setX(int x)
+		{
+			spriteX = x;
+		}
+		public void setY(int y)
+		{
+			spriteY = y;
+		}
 	}
 }
 
