@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Storage;
 using Microsoft.Xna.Framework.Audio;
 namespace PlatformerMac
 {
-	abstract class Sprite
+	public class Sprite
 	{
 		protected int spriteX, spriteY;
 		protected int spriteWidth, spriteHeight;

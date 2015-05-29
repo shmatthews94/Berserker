@@ -69,6 +69,7 @@
     <Compile Include="Controls.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Sprite.cs" />
+    <Compile Include="Enemy.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
@@ -81,5 +82,6 @@
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Content\viking.png" />
+    <BundleResource Include="Content\viking character.png" />
   </ItemGroup>
 </Project>

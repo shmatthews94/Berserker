@@ -28,7 +28,7 @@ namespace PlatformerMac
 
 	class AppDelegate : NSApplicationDelegate
 	{
-		private static Platformer game;
+		public static Platformer game;
 
 		public override void FinishedLaunching (MonoMac.Foundation.NSObject notification)
 		{

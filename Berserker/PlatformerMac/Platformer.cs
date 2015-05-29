@@ -18,6 +18,7 @@ namespace PlatformerMac
 		GraphicsDeviceManager graphics;
 		SpriteBatch spriteBatch;
 		Player player1;
+		Enemy enemy1;
 		Controls controls;
 
 		public Platformer()
@@ -37,6 +38,7 @@ namespace PlatformerMac
 			// TODO: Add your initialization logic here
 
 			player1 = new Player(50, 50, 50, 50);
+			enemy1 = new Enemy(100, 100, 50, 50);
 			base.Initialize();
 			Console.WriteLine ("Init");
 
@@ -54,6 +56,7 @@ namespace PlatformerMac
 			// Create a new SpriteBatch, which can be used to draw textures.
 			spriteBatch = new SpriteBatch(GraphicsDevice);
 			player1.LoadContent(this.Content);
+			enemy1.LoadContent (this.Content);
 			// TODO: use this.Content to load your game content here
 		}
 
@@ -86,6 +89,7 @@ namespace PlatformerMac
 			Console.WriteLine ();
 
 			player1.Update(controls, gameTime);
+			enemy1.Update (controls, gameTime, player1.getX(), player1.getY());
 
 			base.Update(gameTime);
 		}
@@ -101,6 +105,7 @@ namespace PlatformerMac
 			// TODO: Add your drawing code here
 			spriteBatch.Begin();
 			player1.Draw(spriteBatch);
+			enemy1.Draw (spriteBatch);
 			spriteBatch.End();
 
 			base.Draw(gameTime);

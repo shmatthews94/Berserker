@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Storage;
 
 namespace PlatformerMac
 {
-	class Player : Sprite
+	public class Player : Sprite
     {
 		private bool moving;
 		private bool grounded;
@@ -45,7 +45,8 @@ namespace PlatformerMac
 			movedX = 0;
         }
 
-        public int getX(){
+        public int getX()
+		{
             return spriteX;
         }
         public int getY()
@@ -63,7 +64,7 @@ namespace PlatformerMac
 
         public void LoadContent(ContentManager content)
         {
-            image = content.Load<Texture2D>("viking.png");
+            image = content.Load<Texture2D>("viking character.png");
         }
 
         public void Draw(SpriteBatch sb)
