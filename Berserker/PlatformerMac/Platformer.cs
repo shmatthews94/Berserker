@@ -19,11 +19,15 @@ namespace PlatformerMac
 		SpriteBatch spriteBatch;
 		Player player1;
 		Enemy enemy1;
+		Tree tree1;
 		Controls controls;
 
 		public Platformer()
 		{
 			graphics = new GraphicsDeviceManager(this);
+			graphics.PreferredBackBufferWidth = 600;  // set this value to the desired width of your window
+			graphics.PreferredBackBufferHeight = 600;   // set this value to the desired height of your window
+			graphics.ApplyChanges();
 			Content.RootDirectory = "Content";
 		}
 
@@ -39,6 +43,7 @@ namespace PlatformerMac
 
 			player1 = new Player(50, 50, 50, 50);
 			enemy1 = new Enemy(100, 100, 50, 50);
+			tree1 = new Tree (250, 250, 50, 50);
 			base.Initialize();
 			Console.WriteLine ("Init");
 
@@ -57,6 +62,7 @@ namespace PlatformerMac
 			spriteBatch = new SpriteBatch(GraphicsDevice);
 			player1.LoadContent(this.Content);
 			enemy1.LoadContent (this.Content);
+			tree1.LoadContent (this.Content);
 			// TODO: use this.Content to load your game content here
 		}
 
@@ -106,6 +112,7 @@ namespace PlatformerMac
 			spriteBatch.Begin();
 			player1.Draw(spriteBatch);
 			enemy1.Draw (spriteBatch);
+			tree1.Draw (spriteBatch);
 			spriteBatch.End();
 
 			base.Draw(gameTime);

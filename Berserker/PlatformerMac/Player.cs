@@ -106,6 +106,24 @@ namespace PlatformerMac
 			spriteX += movedX;
 			movedY = Convert.ToInt32(y_vel);
 			spriteY += movedY;
+			if (spriteX >= 550)
+				spriteX = 550;
+			else if (spriteX <= 0)
+				spriteX = 0;
+			if (spriteY >= 550)
+				spriteY = 550;
+			else if (spriteY <= 0)
+				spriteY = 0;
+
+			if (spriteX >= 550)
+				spriteX = 550;
+			else if (spriteX <= 0)
+				spriteX = 0;
+			if (spriteY >= 550)
+				spriteY = 550;
+			else if (spriteY <= 0)
+				spriteY = 0;
+			
 			// Gravity
 
 			// Check up/down collisions, then left/right
