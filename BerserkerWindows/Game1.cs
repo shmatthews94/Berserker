@@ -49,12 +49,12 @@ namespace Berserker
 
             // TODO: use this.Content to load your game content here
             Texture2D animTex = Content.Load<Texture2D>("ax");
-            idleAnim = new Animation(animTex, new Point(32, 32), new Point(8, 6), new TimeSpan(1000000), new Point(0,0), new Point(8,0));
-            attackDownAnim = new Animation(animTex, new Point(32, 32), new Point(8, 6), new TimeSpan(1000000), new Point(0, 1), new Point(8, 1));
-            walkDownAnim = new Animation(animTex, new Point(32, 32), new Point(8, 6), new TimeSpan(1000000), new Point(0, 2), new Point(8, 2));
-            walkLeftAnim = new Animation(animTex, new Point(32, 32), new Point(8, 6), new TimeSpan(1000000), new Point(0, 3), new Point(8, 3));
-            walkRightAnim = new Animation(animTex, new Point(32, 32), new Point(8, 6), new TimeSpan(1000000), new Point(0, 4), new Point(8, 4));
-            walkUpAnim = new Animation(animTex, new Point(32, 32), new Point(8, 6), new TimeSpan(1000000), new Point(0, 5), new Point(8, 5));
+            idleAnim = new Animation(animTex, new Point(8, 6), new Point(32, 32), new Point(0,0), new Point(7,0), new TimeSpan(1000000), true);
+            attackDownAnim = new Animation(animTex, new Point(8, 6), new Point(32, 32), new Point(0, 1), new Point(7, 1), new TimeSpan(1000000), false);
+            walkDownAnim = new Animation(animTex, new Point(8, 6), new Point(32, 32), new Point(0, 2), new Point(7, 2), new TimeSpan(1000000), true);
+            walkLeftAnim = new Animation(animTex, new Point(8, 6), new Point(32, 32), new Point(0, 3), new Point(7, 3), new TimeSpan(1000000), true);
+            walkRightAnim = new Animation(animTex, new Point(8, 6), new Point(32, 32), new Point(0, 4), new Point(7, 4), new TimeSpan(1000000), true);
+            walkUpAnim = new Animation(animTex, new Point(8, 6), new Point(32, 32), new Point(0, 5), new Point(7, 5), new TimeSpan(1000000), true);
         }
 
         /// <summary>
@@ -95,12 +95,17 @@ namespace Berserker
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
+            spriteBatch.Begin();
+
             idleAnim.Draw(spriteBatch, new Vector2(250,200));
             attackDownAnim.Draw(spriteBatch, new Vector2(300, 200));
             walkDownAnim.Draw(spriteBatch, new Vector2(350,200));
             walkLeftAnim.Draw(spriteBatch, new Vector2(400,200));
             walkRightAnim.Draw(spriteBatch, new Vector2(450,200));
             walkUpAnim.Draw(spriteBatch, new Vector2(500,200));
+
+            spriteBatch.End();
+
             base.Draw(gameTime);
         }
     }

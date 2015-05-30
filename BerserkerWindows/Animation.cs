@@ -9,64 +9,80 @@ namespace Berserker
 {
     class Animation
     {
-        //  Animation fields
+        //  fields
         Texture2D animationTexture;
         Point sheetSize;
+        Point frameSize;
+        Point currentFrame;
+        Point startFrame;
+        Point endFrame;
+
+        //  Minimum time required between each frame of the animation
         TimeSpan frameInterval;
+        //  Time since the currentFrame has been updated
         TimeSpan elapsedTime;
+        //  Holds true if the animation loops indefinitely
+        bool isLooping;
+        //  Holds false if the animation has terminated
+        bool active;
 
-        public Point CurrentFrame;
-        public Point FrameSize;
-        public Point StartFrame;
-        public Point EndFrame;
         //  Constructor
-        public Animation(Texture2D animSheet, Point frameSize, Point animSheetSize, TimeSpan interval, Point startIndex, Point endIndex)
+        public Animation(Texture2D animationTexture, Point sheetSize, Point frameSize,
+            Point startFrame, Point endFrame, TimeSpan frameInterval, bool isLooping)
         {
-            animationTexture = animSheet;
-            FrameSize = frameSize;
-            sheetSize = animSheetSize;
-            frameInterval = interval;
+            this.animationTexture = animationTexture;
+            this.sheetSize = sheetSize;
+            this.frameSize = frameSize;
+            this.startFrame = startFrame;
+            this.endFrame = endFrame;
+            this.frameInterval = frameInterval;
+            this.isLooping = isLooping;
 
-            StartFrame = startIndex;
-            EndFrame = endIndex;
-
-            CurrentFrame = StartFrame;
+            currentFrame = startFrame;
+            elapsedTime = TimeSpan.Zero;
+            active = true;
         }
 
         public void Update(GameTime gameTime)
         {
+            if (!active) return;
+
             //  Checks to see if enough time passes to move on to the next frame
             //  Moves to the next row if it reaches the end of the row
-            //  Loops back to the start of the animation if the animation ends
+            //  Loops back to the start of the animation if it is a loop and
+            //  the animation has reached the last frame
             if (elapsedTime >= frameInterval)
             {
                 elapsedTime = TimeSpan.Zero;
-                CurrentFrame.X++;
-                if (CurrentFrame.X >= sheetSize.X || (CurrentFrame.X >= EndFrame.X && CurrentFrame.Y == EndFrame.Y))
+                currentFrame.X++;
+                if (currentFrame.X >= sheetSize.X ||
+                    (currentFrame.X > endFrame.X && currentFrame.Y == endFrame.Y))
                 {
-                    CurrentFrame.X = StartFrame.X;
-                    CurrentFrame.Y++;
+                    currentFrame.X = startFrame.X;
+                    currentFrame.Y++;
                 }
-                if (CurrentFrame.Y >= sheetSize.Y || CurrentFrame.Y >= EndFrame.Y)
+                if (currentFrame.Y >= sheetSize.Y || currentFrame.Y > endFrame.Y)
                 {
-                    CurrentFrame.Y = StartFrame.Y;
+                    if (isLooping)
+                        currentFrame.Y = startFrame.Y;
+                    else
+                    {
+                        currentFrame.X = endFrame.X;
+                        currentFrame.Y = endFrame.Y;
+                        active = false;
+                    }
                 }
             }
             elapsedTime += gameTime.ElapsedGameTime;
         }
 
         //  Draws the current frame where the parameter position indicates its location on the sceen
-        //  May want to 
         public void Draw(SpriteBatch spriteBatch, Vector2 position)
         {
-            spriteBatch.Begin();
             spriteBatch.Draw(animationTexture, position, new Rectangle(
-                FrameSize.X * CurrentFrame.X,
-                FrameSize.Y * CurrentFrame.Y,
-                FrameSize.X,
-                FrameSize.Y),
+                frameSize.X * currentFrame.X, frameSize.Y * currentFrame.Y,
+                frameSize.X, frameSize.Y),
                 Color.White);
-            spriteBatch.End();
         }
     }
 }
