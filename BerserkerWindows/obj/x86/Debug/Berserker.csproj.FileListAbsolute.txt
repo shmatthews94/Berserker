@@ -1,0 +1,9 @@
+c:\users\adrianleo\documents\visual studio 2013\Projects\Berserker\Berserker\bin\WindowsGL\Debug\Berserker.exe
+c:\users\adrianleo\documents\visual studio 2013\Projects\Berserker\Berserker\bin\WindowsGL\Debug\Berserker.pdb
+c:\users\adrianleo\documents\visual studio 2013\Projects\Berserker\Berserker\bin\WindowsGL\Debug\MonoGame.Framework.dll
+c:\users\adrianleo\documents\visual studio 2013\Projects\Berserker\Berserker\bin\WindowsGL\Debug\OpenTK.dll
+c:\users\adrianleo\documents\visual studio 2013\Projects\Berserker\Berserker\obj\x86\Debug\Berserker.csprojResolveAssemblyReference.cache
+c:\users\adrianleo\documents\visual studio 2013\Projects\Berserker\Berserker\obj\x86\Debug\Berserker.exe
+c:\users\adrianleo\documents\visual studio 2013\Projects\Berserker\Berserker\obj\x86\Debug\Berserker.pdb
+c:\users\adrianleo\documents\visual studio 2013\Projects\Berserker\Berserker\bin\WindowsGL\Debug\Content\lance.png
+c:\users\adrianleo\documents\visual studio 2013\Projects\Berserker\Berserker\bin\WindowsGL\Debug\Content\SmileyWalk.png
