@@ -24,5 +24,10 @@ namespace Berserker
         {
             Position += amount;
         }
+
+        public virtual void Draw(SpriteBatch spriteBatch)
+        {
+            spriteBatch.Draw(Texture, new Vector2((int)Position.X, (int)Position.Y), Hitbox, Color.White);
+        }
     }
 }

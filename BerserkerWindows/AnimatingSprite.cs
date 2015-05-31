@@ -12,6 +12,16 @@ namespace Berserker
         public List<Animation> Animations = new List<Animation>();
         public Animation currentAnimation = null;
 
+        public int Width()
+        {
+            return Dimensions.X;
+        }
+
+        public int Height()
+        {
+            return Dimensions.Y;
+        }
+
         public void PlayAnimation(Animation animation)
         {
             if (currentAnimation != animation)
@@ -31,6 +41,7 @@ namespace Berserker
         {
             if (currentAnimation != null)
             {
+                Dimensions = new Point(currentAnimation.Width, currentAnimation.Height);
                 currentAnimation.IsActive = true;
                 currentAnimation.Complete = false;
                 currentAnimation.ElapsedTime = TimeSpan.Zero;
@@ -43,6 +54,7 @@ namespace Berserker
         public void StopAnimation()
         {
             currentAnimation = null;
+            Dimensions = new Point(0, 0);
         }
 
         public bool IsPlaybackComplete()

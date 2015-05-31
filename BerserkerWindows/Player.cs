@@ -10,15 +10,17 @@ namespace Berserker
 {
     public class Player : AnimatingSprite
     {
+        #region Fields
         public int HP;
         public Vector2 Velocity;
 
         public string Direction;
         bool IsAttacking;
 
-        Attack attack;
+        AnimatingSprite attack;
+        #endregion
 
-        #region Player Animations
+        #region Movement Animations
         Animation idle;
         Animation attackDownAnim;
 
@@ -72,17 +74,17 @@ namespace Berserker
 
         private void initializeAttackAnimations()
         {
-            attack = new Attack();
+            attack = new AnimatingSprite();
             attack.currentAnimation = null;
 
-            normalDown = new Animation(Texture, new Point(8, 12), new Point(32, 32),
-                new Point(0, 6), new Point(3, 6), new TimeSpan(1000000), false);
-            normalLeft = new Animation(Texture, new Point(8, 12), new Point(32, 32),
-                new Point(4, 6), new Point(7, 6), new TimeSpan(1000000), false);
-            normalRight = new Animation(Texture, new Point(8, 12), new Point(32, 32),
+            normalDown = new Animation(Texture, new Point(8, 24), new Point(32, 16),
+                new Point(0, 12), new Point(3, 12), new TimeSpan(1000000), false);
+            normalLeft = new Animation(Texture, new Point(16, 12), new Point(16, 32),
+                new Point(8, 6), new Point(11, 6), new TimeSpan(1000000), false);
+            normalRight = new Animation(Texture, new Point(16, 12), new Point(16, 32),
                 new Point(0, 7), new Point(3, 7), new TimeSpan(1000000), false);
-            normalUp = new Animation(Texture, new Point(8, 12), new Point(32, 32),
-                new Point(4, 7), new Point(7, 7), new TimeSpan(1000000), false);
+            normalUp = new Animation(Texture, new Point(8, 24), new Point(32, 16),
+                new Point(4, 15), new Point(7, 15), new TimeSpan(1000000), false);
 
             smashDown = new Animation(Texture, new Point(8, 12), new Point(32, 32),
                 new Point(0, 8), new Point(3, 8), new TimeSpan(1000000), false);
@@ -173,13 +175,13 @@ namespace Berserker
             if (IsAttacking)
             {
                 if (Direction == "down")
-                    attack.currentAnimation.Position = new Vector2(Position.X, Position.Y + 32.0f);
+                    attack.currentAnimation.Position = new Vector2(Position.X, Position.Y + Height());
                 if (Direction == "right")
-                    attack.currentAnimation.Position = new Vector2(Position.X + 32.0f, Position.Y);
+                    attack.currentAnimation.Position = new Vector2(Position.X + Width(), Position.Y);
                 if (Direction == "left")
-                    attack.currentAnimation.Position = new Vector2(Position.X - 32.0f, Position.Y);
+                    attack.currentAnimation.Position = new Vector2(Position.X - attack.Width(), Position.Y);
                 if (Direction == "up")
-                    attack.currentAnimation.Position = new Vector2(Position.X, Position.Y - 32.0f);
+                    attack.currentAnimation.Position = new Vector2(Position.X, Position.Y - attack.Height());
                 attack.currentAnimation.Update(gameTime);
             }
         }
@@ -211,31 +213,32 @@ namespace Berserker
                     PlayAnimation(facingUp);
                 }
             }
-            if (input.isPressed(Keys.S))
-            {
-                IsAttacking = true;
+            if (!IsAttacking)
+                if (input.isPressed(Keys.S))
+                {
+                    IsAttacking = true;
 
-                if (Direction == "down")
-                {
-                    attack.PlayAnimation(smashDown);
-                    PlayAnimation(facingDown);
+                    if (Direction == "down")
+                    {
+                        attack.PlayAnimation(smashDown);
+                        PlayAnimation(facingDown);
+                    }
+                    else if (Direction == "left")
+                    {
+                        attack.PlayAnimation(smashLeft);
+                        PlayAnimation(facingLeft);
+                    }
+                    else if (Direction == "right")
+                    {
+                        attack.PlayAnimation(smashRight);
+                        PlayAnimation(facingRight);
+                    }
+                    else if (Direction == "up")
+                    {
+                        attack.PlayAnimation(smashUp);
+                        PlayAnimation(facingUp);
+                    }
                 }
-                else if (Direction == "left")
-                {
-                    attack.PlayAnimation(smashLeft);
-                    PlayAnimation(facingLeft);
-                }
-                else if (Direction == "right")
-                {
-                    attack.PlayAnimation(smashRight);
-                    PlayAnimation(facingRight);
-                }
-                else if (Direction == "up")
-                {
-                    attack.PlayAnimation(smashUp);
-                    PlayAnimation(facingUp);
-                }
-            }
             if (IsAttacking) return;
 
             if (input.CurrentKeyboardState.Equals(new KeyboardState()))
@@ -277,7 +280,7 @@ namespace Berserker
             }
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public override void Draw(SpriteBatch spriteBatch)
         {
             currentAnimation.Draw(spriteBatch);
             if (attack.currentAnimation != null)

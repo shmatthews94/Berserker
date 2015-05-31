@@ -17,6 +17,9 @@ namespace Berserker
         public Point StartFrame;
         public Point EndFrame;
 
+        public int Width;
+        public int Height;
+
         //  Minimum time required between each frame of the animation
         TimeSpan frameInterval;
         //  Time since the currentFrame has been updated
@@ -37,6 +40,9 @@ namespace Berserker
             this.sheetSize = sheetSize;
             this.frameSize = frameSize;            
             this.frameInterval = frameInterval;
+
+            Width = frameSize.X;
+            Height = frameSize.Y;
 
             IsLooping = isLooping;
 
@@ -89,9 +95,9 @@ namespace Berserker
         //  Draws the current frame where the parameter position indicates its location on the sceen
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(animationTexture, Position, new Rectangle(
-                frameSize.X * CurrentFrame.X, frameSize.Y * CurrentFrame.Y,
-                frameSize.X, frameSize.Y),
+            spriteBatch.Draw(animationTexture, new Vector2((int)Position.X, (int)Position.Y), new Rectangle(
+                Width * CurrentFrame.X, Height * CurrentFrame.Y,
+                Width, Height),
                 Color.White);
         }
     }

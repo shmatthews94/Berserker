@@ -2,6 +2,8 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Berserker
 {
@@ -15,6 +17,16 @@ namespace Berserker
 
         Player player;
         Input input;
+        List<Enemy> enemies = new List<Enemy>();
+        List<GameObject> gameObjects = new List<GameObject>();
+        List<GameObject> sortedGameObjects
+        {
+            get
+            {
+                return gameObjects.OrderBy(o => o.Position.Y).ToList();
+            }
+        }
+        Enemy enemy;
 
         public Game1()
         {
@@ -32,7 +44,14 @@ namespace Berserker
         {
             // TODO: Add your initialization logic here
             player = new Player();
-            input = new Input();
+            input = new Input();            
+
+            enemy = new Enemy();
+            enemies.Add(enemy);
+
+            gameObjects.Add(player);
+            gameObjects.Add(enemy);
+
             base.Initialize();
         }
 
@@ -47,7 +66,11 @@ namespace Berserker
 
             // TODO: use this.Content to load your game content here
             Texture2D playerTexture = Content.Load<Texture2D>("ax");
+            Texture2D enemyTexture = Content.Load<Texture2D>("shadow");
+            //Texture2D treeTexture = Content.Load<Texture2D>("tree");
+
             player.Initialize(new Vector2(400.0f, 200.0f), playerTexture);
+            enemy.Initialize(new Vector2(50.0f, 50.0f), enemyTexture, 2.0f);
         }
 
         /// <summary>
@@ -73,6 +96,7 @@ namespace Berserker
 
             input.Update();
             player.Update(gameTime, input);
+            enemy.Update(gameTime);
 
             base.Update(gameTime);
         }        
@@ -88,7 +112,10 @@ namespace Berserker
             // TODO: Add your drawing code here
             spriteBatch.Begin();
 
-            player.Draw(spriteBatch);
+            foreach (GameObject gameObject in sortedGameObjects)
+            {
+                gameObject.Draw(spriteBatch);
+            }
 
             spriteBatch.End();
 
