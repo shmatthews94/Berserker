@@ -25,6 +25,14 @@ namespace PlatformerMac
 		{
 			return spriteY;
 		}
+		public int getHeight()
+		{
+			return spriteHeight;
+		}
+		public int getWidth() 
+		{
+			return spriteWidth;
+		}
 		public void setX(int x)
 		{
 			spriteX = x;
