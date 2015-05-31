@@ -33,6 +33,12 @@ namespace PlatformerMac
 		{
 			spriteY = y;
 		}
+		public int getWidth() {
+			return spriteWidth;
+		}
+		public int getHeight() {
+			return spriteHeight;
+		}
 	}
 }
 
