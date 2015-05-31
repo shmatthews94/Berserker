@@ -36,7 +36,7 @@ namespace PlatformerMac
 			pushing = false;
 
 			// Movement
-			speed = 5;
+			speed = 3;
 			friction = .15;
 			x_accel = 0;
 			y_accel = 0;

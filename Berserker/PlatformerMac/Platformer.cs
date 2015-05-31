@@ -20,8 +20,9 @@ namespace PlatformerMac
 		SpriteBatch spriteBatch;
 		Player player1;
 		Enemy enemy1;
-		Tree tree1;
+		Tree tree1, tree2, tree3;
 		Controls controls;
+		int spawncounter;
 		public static List<Enemy> Enemies = new List<Enemy>();
 		public static List<Tree> Trees = new List<Tree>();
 		public Platformer()
@@ -31,7 +32,7 @@ namespace PlatformerMac
 			graphics.PreferredBackBufferHeight = 600;   // set this value to the desired height of your window
 			graphics.ApplyChanges();
 			Content.RootDirectory = "Content";
-			this.TargetElapsedTime = TimeSpan.FromSeconds(1.0f / 100.0f);
+			this.TargetElapsedTime = TimeSpan.FromSeconds(1.0f / 50.0f);
 		}
 
 		/// <summary>
@@ -45,10 +46,12 @@ namespace PlatformerMac
 			// TODO: Add your initialization logic here
 
 			player1 = new Player(50, 50, 50, 50);
-			enemy1 = new Enemy(100, 100, 50, 50);
-			Enemies.Add (enemy1);
 			tree1 = new Tree (250, 250, 50, 50);
+			tree2 = new Tree (300, 250, 50, 50);
+			tree3 = new Tree (250, 300, 50, 50);
 			Trees.Add (tree1);
+			Trees.Add (tree2);
+			Trees.Add (tree3);
 			base.Initialize();
 			Console.WriteLine ("Init");
 
@@ -66,8 +69,9 @@ namespace PlatformerMac
 			// Create a new SpriteBatch, which can be used to draw textures.
 			spriteBatch = new SpriteBatch(GraphicsDevice);
 			player1.LoadContent(this.Content);
-			enemy1.LoadContent (this.Content);
 			tree1.LoadContent (this.Content);
+			tree2.LoadContent (this.Content);
+			tree3.LoadContent (this.Content);
 			// TODO: use this.Content to load your game content here
 		}
 
@@ -99,10 +103,33 @@ namespace PlatformerMac
 
 			Console.WriteLine ();
 
+			if (spawncounter == 150) {
+				Enemy newenemy = new Enemy (100, 100, 50, 50);
+				newenemy.LoadContent(this.Content);
+				Enemies.Add(newenemy);
+			}
+			if (spawncounter == 300) {
+				Enemy newenemy = new Enemy (500, 100, 50, 50);
+				newenemy.LoadContent(this.Content);
+				Enemies.Add(newenemy);
+			}
+			if (spawncounter == 450) {
+				Enemy newenemy = new Enemy (100, 500, 50, 50);
+				newenemy.LoadContent(this.Content);
+				Enemies.Add(newenemy);
+			}
+			if (spawncounter == 600) {
+				Enemy newenemy = new Enemy (500, 500, 50, 50);
+				newenemy.LoadContent(this.Content);
+				Enemies.Add(newenemy);
+				spawncounter = 0;
+			}
 			player1.Update(controls, gameTime, Trees);
-			enemy1.Update (controls, gameTime, player1.getX(), player1.getY(), Trees);
+			for (int i = 0; i < Enemies.Count; i++) {
+				Enemies[i].Update (controls, gameTime, player1.getX (), player1.getY (), Trees);
+			}
 			player1.Attack (controls, Enemies);
-
+			spawncounter++;
 			base.Update(gameTime);
 		}
 
@@ -120,7 +147,9 @@ namespace PlatformerMac
 			for (int i = 0; i < Enemies.Count; i++) {
 				Enemies [i].Draw (spriteBatch);
 			}
-			tree1.Draw (spriteBatch);
+			for (int i = 0; i < Trees.Count; i++) {
+				Trees [i].Draw (spriteBatch);
+			}
 			spriteBatch.End();
 
 			base.Draw(gameTime);

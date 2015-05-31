@@ -18,22 +18,6 @@ namespace PlatformerMac
 			this.spriteWidth = width;
 			this.spriteHeight = height;
 		}
-		public int getX()
-		{
-			return spriteX;
-		}
-		public int getY()
-		{
-			return spriteY;
-		}
-		public void setX(int x)
-		{
-			spriteX = x;
-		}
-		public void setY(int y)
-		{
-			spriteY = y;
-		}
 		public void LoadContent(ContentManager content)
 		{
 			image = content.Load<Texture2D>("tree.png");
