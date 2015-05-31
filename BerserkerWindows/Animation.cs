@@ -7,80 +7,90 @@ using System.Text;
 
 namespace Berserker
 {
-    class Animation
+    public class Animation
     {
         //  fields
         Texture2D animationTexture;
         Point sheetSize;
         Point frameSize;
-        Point currentFrame;
-        Point startFrame;
-        Point endFrame;
+        public Point CurrentFrame;
+        public Point StartFrame;
+        public Point EndFrame;
 
         //  Minimum time required between each frame of the animation
         TimeSpan frameInterval;
         //  Time since the currentFrame has been updated
-        TimeSpan elapsedTime;
+        public TimeSpan ElapsedTime;
         //  Holds true if the animation loops indefinitely
-        bool isLooping;
+        public bool IsLooping;
         //  Holds false if the animation has terminated
-        bool active;
+        public bool IsActive;
+        public bool Complete;
+
+        public Vector2 Position;
 
         //  Constructor
-        public Animation(Texture2D animationTexture, Point sheetSize, Point frameSize,
-            Point startFrame, Point endFrame, TimeSpan frameInterval, bool isLooping)
+        public Animation(Texture2D animationTexture, Point sheetSize, Point frameSize, Point startFrame,
+            Point endFrame, TimeSpan frameInterval, bool isLooping)
         {
             this.animationTexture = animationTexture;
             this.sheetSize = sheetSize;
-            this.frameSize = frameSize;
-            this.startFrame = startFrame;
-            this.endFrame = endFrame;
+            this.frameSize = frameSize;            
             this.frameInterval = frameInterval;
-            this.isLooping = isLooping;
 
-            currentFrame = startFrame;
-            elapsedTime = TimeSpan.Zero;
-            active = true;
+            IsLooping = isLooping;
+
+            StartFrame.X = startFrame.X;
+            StartFrame.Y = startFrame.Y;
+            EndFrame.X = endFrame.X;
+            EndFrame.Y = endFrame.Y;
+            CurrentFrame.X = StartFrame.X;
+            CurrentFrame.Y = StartFrame.Y;
+
+            ElapsedTime = TimeSpan.Zero;
+            IsActive = true;
+            Complete = false;
         }
 
         public void Update(GameTime gameTime)
         {
-            if (!active) return;
+            if (!IsActive) return;
 
             //  Checks to see if enough time passes to move on to the next frame
             //  Moves to the next row if it reaches the end of the row
             //  Loops back to the start of the animation if it is a loop and
             //  the animation has reached the last frame
-            if (elapsedTime >= frameInterval)
+            if (ElapsedTime >= frameInterval)
             {
-                elapsedTime = TimeSpan.Zero;
-                currentFrame.X++;
-                if (currentFrame.X >= sheetSize.X ||
-                    (currentFrame.X > endFrame.X && currentFrame.Y == endFrame.Y))
+                ElapsedTime = TimeSpan.Zero;
+                CurrentFrame.X++;
+                if (CurrentFrame.X >= sheetSize.X ||
+                    (CurrentFrame.X > EndFrame.X && CurrentFrame.Y == EndFrame.Y))
                 {
-                    currentFrame.X = startFrame.X;
-                    currentFrame.Y++;
+                    CurrentFrame.X = StartFrame.X;
+                    CurrentFrame.Y++;
                 }
-                if (currentFrame.Y >= sheetSize.Y || currentFrame.Y > endFrame.Y)
+                if (CurrentFrame.Y >= sheetSize.Y || CurrentFrame.Y > EndFrame.Y)
                 {
-                    if (isLooping)
-                        currentFrame.Y = startFrame.Y;
+                    if (IsLooping)
+                        CurrentFrame.Y = StartFrame.Y;
                     else
                     {
-                        currentFrame.X = endFrame.X;
-                        currentFrame.Y = endFrame.Y;
-                        active = false;
+                        CurrentFrame.X = EndFrame.X;
+                        CurrentFrame.Y = EndFrame.Y;
+                        IsActive = false;
+                        Complete = true;
                     }
                 }
             }
-            elapsedTime += gameTime.ElapsedGameTime;
+            ElapsedTime += gameTime.ElapsedGameTime;
         }
 
         //  Draws the current frame where the parameter position indicates its location on the sceen
-        public void Draw(SpriteBatch spriteBatch, Vector2 position)
+        public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(animationTexture, position, new Rectangle(
-                frameSize.X * currentFrame.X, frameSize.Y * currentFrame.Y,
+            spriteBatch.Draw(animationTexture, Position, new Rectangle(
+                frameSize.X * CurrentFrame.X, frameSize.Y * CurrentFrame.Y,
                 frameSize.X, frameSize.Y),
                 Color.White);
         }

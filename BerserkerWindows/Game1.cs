@@ -12,12 +12,9 @@ namespace Berserker
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        Animation idleAnim;
-        Animation attackDownAnim;
-        Animation walkDownAnim;
-        Animation walkLeftAnim;
-        Animation walkRightAnim;
-        Animation walkUpAnim;
+
+        Player player;
+        Input input;
 
         public Game1()
         {
@@ -34,7 +31,8 @@ namespace Berserker
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-
+            player = new Player();
+            input = new Input();
             base.Initialize();
         }
 
@@ -48,13 +46,8 @@ namespace Berserker
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
-            Texture2D animTex = Content.Load<Texture2D>("ax");
-            idleAnim = new Animation(animTex, new Point(8, 6), new Point(32, 32), new Point(0,0), new Point(7,0), new TimeSpan(1000000), true);
-            attackDownAnim = new Animation(animTex, new Point(8, 6), new Point(32, 32), new Point(0, 1), new Point(7, 1), new TimeSpan(1000000), false);
-            walkDownAnim = new Animation(animTex, new Point(8, 6), new Point(32, 32), new Point(0, 2), new Point(7, 2), new TimeSpan(1000000), true);
-            walkLeftAnim = new Animation(animTex, new Point(8, 6), new Point(32, 32), new Point(0, 3), new Point(7, 3), new TimeSpan(1000000), true);
-            walkRightAnim = new Animation(animTex, new Point(8, 6), new Point(32, 32), new Point(0, 4), new Point(7, 4), new TimeSpan(1000000), true);
-            walkUpAnim = new Animation(animTex, new Point(8, 6), new Point(32, 32), new Point(0, 5), new Point(7, 5), new TimeSpan(1000000), true);
+            Texture2D playerTexture = Content.Load<Texture2D>("ax");
+            player.Initialize(new Vector2(400.0f, 200.0f), playerTexture);
         }
 
         /// <summary>
@@ -77,14 +70,12 @@ namespace Berserker
                 Exit();
 
             // TODO: Add your update logic here
-            idleAnim.Update(gameTime);
-            attackDownAnim.Update(gameTime);
-            walkDownAnim.Update(gameTime);
-            walkLeftAnim.Update(gameTime);
-            walkRightAnim.Update(gameTime);
-            walkUpAnim.Update(gameTime);
+
+            input.Update();
+            player.Update(gameTime, input);
+
             base.Update(gameTime);
-        }
+        }        
 
         /// <summary>
         /// This is called when the game should draw itself.
@@ -97,12 +88,7 @@ namespace Berserker
             // TODO: Add your drawing code here
             spriteBatch.Begin();
 
-            idleAnim.Draw(spriteBatch, new Vector2(250,200));
-            attackDownAnim.Draw(spriteBatch, new Vector2(300, 200));
-            walkDownAnim.Draw(spriteBatch, new Vector2(350,200));
-            walkLeftAnim.Draw(spriteBatch, new Vector2(400,200));
-            walkRightAnim.Draw(spriteBatch, new Vector2(450,200));
-            walkUpAnim.Draw(spriteBatch, new Vector2(500,200));
+            player.Draw(spriteBatch);
 
             spriteBatch.End();
 

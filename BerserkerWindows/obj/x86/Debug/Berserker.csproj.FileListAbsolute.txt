@@ -9,10 +9,10 @@ c:\users\adrianleo\documents\visual studio 2013\Projects\Berserker\Berserker\bin
 c:\users\adrianleo\documents\visual studio 2013\Projects\Berserker\Berserker\bin\WindowsGL\Debug\Content\SmileyWalk.png
 C:\Users\AdrianLeo\Documents\GitHub\Berserker\BerserkerWindows\obj\x86\Debug\Berserker.exe
 C:\Users\AdrianLeo\Documents\GitHub\Berserker\BerserkerWindows\obj\x86\Debug\Berserker.pdb
-C:\Users\AdrianLeo\Documents\GitHub\Berserker\BerserkerWindows\bin\WindowsGL\Debug\Content\ax.gif
-C:\Users\AdrianLeo\Documents\GitHub\Berserker\BerserkerWindows\bin\WindowsGL\Debug\Content\lance.png
 C:\Users\AdrianLeo\Documents\GitHub\Berserker\BerserkerWindows\bin\WindowsGL\Debug\Berserker.exe
 C:\Users\AdrianLeo\Documents\GitHub\Berserker\BerserkerWindows\bin\WindowsGL\Debug\Berserker.pdb
 C:\Users\AdrianLeo\Documents\GitHub\Berserker\BerserkerWindows\bin\WindowsGL\Debug\MonoGame.Framework.dll
 C:\Users\AdrianLeo\Documents\GitHub\Berserker\BerserkerWindows\bin\WindowsGL\Debug\OpenTK.dll
 C:\Users\AdrianLeo\Documents\GitHub\Berserker\BerserkerWindows\obj\x86\Debug\Berserker.csprojResolveAssemblyReference.cache
+C:\Users\AdrianLeo\Documents\GitHub\Berserker\BerserkerWindows\bin\WindowsGL\Debug\Content\shadow.png
+C:\Users\AdrianLeo\Documents\GitHub\Berserker\BerserkerWindows\bin\WindowsGL\Debug\Content\ax.png
