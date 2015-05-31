@@ -40,25 +40,9 @@ namespace PlatformerMac
 			friction = .15;
 			x_accel = 0;
 			y_accel = 0;
-			x_vel = 0;
-			y_vel = 0;
+			x_vel = 1;
+			y_vel = 1;
 			movedX = 0;
-		}
-
-		public int getX(){
-			return spriteX;
-		}
-		public int getY()
-		{
-			return spriteY;
-		}
-		public void setX(int x)
-		{
-			spriteX = x;
-		}
-		public void setY(int y)
-		{
-			spriteY = y;
 		}
 
 		public void LoadContent(ContentManager content)
@@ -71,20 +55,50 @@ namespace PlatformerMac
 			sb.Draw(image, new Rectangle(spriteX, spriteY, spriteWidth, spriteHeight), Color.White);
 		}
 
-		public void Update(Controls controls, GameTime gameTime, int x, int y)
+		public void Update(Controls controls, GameTime gameTime, int x, int y, List<Tree> Trees)
 		{
-			Move (x, y);
+			Move (x, y, Trees);
 		}
 
-		public void Move(int x, int y)
+
+		public void Move(int x, int y, List<Tree> Trees)
 		{
 
 			// Sideways Acceleration
 
-
+			for (int i = 0; i < Trees.Count; i++) {
+				//left side
+				if ((spriteX + spriteWidth == Trees [i].getX ()) && (spriteX < Trees[i].getX()) && (spriteY + spriteHeight > Trees [i].getY ()) && (spriteY < Trees [i].getY () + Trees [i].getHeight ())) {
+					if (x_vel > 0) {
+						spriteX = Trees [i].getX () - spriteWidth;
+						x_vel = 0;
+					}
+				}
+				//right side
+				if ((spriteX > Trees [i].getX ()) && (spriteX == Trees [i].getX () + Trees [i].getWidth ()) && (spriteY + spriteHeight > Trees [i].getY ()) && (spriteY < Trees [i].getY () + Trees [i].getHeight ())) {
+					if (x_vel < 0) {
+						spriteX = Trees [i].getX () + Trees [i].getWidth ();
+						x_vel = 0;
+					}
+				}
+				//top side
+				if ((spriteX + spriteWidth > Trees [i].getX ()) && (spriteX < Trees [i].getX () + Trees [i].getWidth ()) && (spriteY + spriteHeight == Trees [i].getY ()) && (spriteY < Trees [i].getY ())) {
+					if (y_vel > 0) {
+						spriteY = Trees [i].getY () - spriteHeight;
+						y_vel = 0;
+					}
+				}
+				//bottom side
+				if ((spriteX + spriteWidth > Trees [i].getX ()) && (spriteX < Trees [i].getX () + Trees [i].getWidth ()) && (spriteY == Trees [i].getY () + Trees [i].getHeight ()) && (spriteY > Trees [i].getY ())) {
+					if (y_vel < 0) {
+						spriteY = Trees [i].getY () + Trees [i].getHeight ();
+						y_vel = 0;
+					}
+				}
+			}
 			double playerFriction = pushing ? (friction * 3) : friction;
-			x_vel = speed * (1 - playerFriction) + x_accel * .10;
-			y_vel = speed * (1 - playerFriction) + y_accel * .10;
+			x_vel = x_vel * (1 - playerFriction);
+			y_vel = y_vel * (1 - playerFriction);
 			if (x < this.spriteX)
 				x_vel *= -1;
 			if (y < this.spriteY)
@@ -93,6 +107,9 @@ namespace PlatformerMac
 			spriteX += movedX;
 			movedY = Convert.ToInt32(y_vel);
 			spriteY += movedY;
+			x_vel = 1;
+			y_vel = 1;
+
 			// Gravity
 
 			// Check up/down collisions, then left/right

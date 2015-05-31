@@ -1,6 +1,23 @@
+<<<<<<< HEAD
 ﻿<Properties StartupItem="Berserker.csproj" MonoDevelop.MonoMac.LastXamMacNagTime="5/31/2015 9:26:48 PM">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench />
+=======
+﻿<Properties MonoDevelop.MonoMac.LastXamMacNagTime="5/31/2015 10:46:22 PM" StartupItem="Berserker.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Player.cs">
+    <Files>
+      <File FileName="Controls.cs" Line="1" Column="1" />
+      <File FileName="Main.cs" Line="1" Column="1" />
+      <File FileName="MainMenu.cs" Line="1" Column="1" />
+      <File FileName="Player.cs" Line="132" Column="22" />
+      <File FileName="Sprite.cs" Line="1" Column="1" />
+      <File FileName="Platformer.cs" Line="1" Column="1" />
+      <File FileName="Enemy.cs" Line="1" Column="1" />
+      <File FileName="Tree.cs" Line="1" Column="1" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+>>>>>>> bbf3c0e50029f029dcbf2d622dc7cfce92675316
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>

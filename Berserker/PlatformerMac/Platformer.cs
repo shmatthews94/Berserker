@@ -23,6 +23,7 @@ namespace PlatformerMac
 		Tree tree1;
 		Controls controls;
 		public static List<Enemy> Enemies = new List<Enemy>();
+		public static List<Tree> Trees = new List<Tree>();
 		public Platformer()
 		{
 			graphics = new GraphicsDeviceManager(this);
@@ -30,6 +31,7 @@ namespace PlatformerMac
 			graphics.PreferredBackBufferHeight = 600;   // set this value to the desired height of your window
 			graphics.ApplyChanges();
 			Content.RootDirectory = "Content";
+			this.TargetElapsedTime = TimeSpan.FromSeconds(1.0f / 100.0f);
 		}
 
 		/// <summary>
@@ -46,6 +48,7 @@ namespace PlatformerMac
 			enemy1 = new Enemy(100, 100, 50, 50);
 			Enemies.Add (enemy1);
 			tree1 = new Tree (250, 250, 50, 50);
+			Trees.Add (tree1);
 			base.Initialize();
 			Console.WriteLine ("Init");
 
@@ -96,8 +99,8 @@ namespace PlatformerMac
 
 			Console.WriteLine ();
 
-			player1.Update(controls, gameTime);
-			enemy1.Update (controls, gameTime, player1.getX(), player1.getY());
+			player1.Update(controls, gameTime, Trees);
+			enemy1.Update (controls, gameTime, player1.getX(), player1.getY(), Trees);
 			player1.Attack (controls, Enemies);
 
 			base.Update(gameTime);
