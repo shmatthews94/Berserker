@@ -25,6 +25,14 @@ namespace Berserker
 		public int maxFallSpeed = 10;
 		private int jumpPoint = 0;
 
+        public Rectangle rectangle
+        {
+            get
+            {
+                return new Rectangle(spriteX, spriteY, spriteWidth, spriteHeight);
+            }
+        }
+
 		public Enemy(int x, int y, int width, int height)
 		{
 			this.spriteX = x;

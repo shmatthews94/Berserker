@@ -27,6 +27,9 @@ namespace Berserker
         public static List<Enemy> Enemies = new List<Enemy>();
         public static List<Tree> Trees = new List<Tree>();
         public static List<Object> Objects = new List<Object>();
+
+        TimeSpan elapsedTime = TimeSpan.Zero;
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -143,7 +146,6 @@ namespace Berserker
             //set our keyboardstate tracker update can change the gamestate on every cycle
             controls.Update();
 
-
             if (Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
@@ -190,6 +192,7 @@ namespace Berserker
                 Enemies[i].Update(controls, gameTime, player1.getX(), player1.getY(), Trees);
             }
             player1.Attack(controls, Enemies);
+            player1.SpearAttack(controls, Enemies);
             spawncounter++;
             objectcounter++;
             base.Update(gameTime);
@@ -202,6 +205,8 @@ namespace Berserker
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.DarkGreen);
+
+            
 
             // TODO: Add your drawing code here
             spriteBatch.Begin();
