@@ -1,89 +1,121 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Storage;
 
 namespace Berserker
 {
-    class Enemy : AnimatingSprite
-    {
-        public int HP;
-        public Vector2 Velocity;
+	public class Enemy : Sprite
+	{
+		private bool moving;
+		private bool grounded;
+		private int speed;
+		private int x_accel;
+		private int y_accel;
+		private double friction;
+		public double x_vel;
+		public double y_vel;
+		public int movedX;
+		public int movedY;
+		private bool pushing;
+		public double gravity = 0.1;
+		public int maxFallSpeed = 10;
+		private int jumpPoint = 0;
 
-        #region Movement Animations
-        Animation idle;
-        Animation attackDownAnim;
+		public Enemy(int x, int y, int width, int height)
+		{
+			this.spriteX = x;
+			this.spriteY = y;
+			this.spriteWidth = width;
+			this.spriteHeight = height;
+			grounded = false;
+			moving = false;
+			pushing = false;
 
-        Animation walkDown;
-        Animation walkLeft;
-        Animation walkRight;
-        Animation walkUp;
+			// Movement
+			speed = 1;
+			friction = .15;
+			x_accel = 0;
+			y_accel = 0;
+			x_vel = 1;
+			y_vel = 1;
+			movedX = 0;
+		}
+			
 
-        Animation facingDown;
-        Animation facingLeft;
-        Animation facingRight;
-        Animation facingUp;
-        #endregion
+		public void LoadContent(ContentManager content)
+		{
+			image = content.Load<Texture2D>("viking character.png");
+		}
 
-        public void Initialize(Vector2 pos, Texture2D tex, float speed)
-        {
-            Position = pos;
-            Texture = tex;
+		public void Draw(SpriteBatch sb)
+		{
+			sb.Draw(image, new Rectangle(spriteX, spriteY, spriteWidth, spriteHeight), Color.White);
+		}
 
-            HP = 5;
-            Velocity = new Vector2(speed, speed);
+		public void Update(Controls controls, GameTime gameTime, int x, int y, List<Tree> Trees)
+		{
+			Move (x, y, Trees);
+		}
 
-            initializeMovementAnimations();
-            PlayAnimation(idle);
-        }
 
-        private void initializeMovementAnimations()
-        {
-            idle = new Animation(Texture, new Point(8, 12), new Point(32, 32),
-                new Point(0, 0), new Point(7, 0), new TimeSpan(1000000), true);
-            attackDownAnim = new Animation(Texture, new Point(8, 12), new Point(32, 32),
-                new Point(0, 1), new Point(7, 1), new TimeSpan(1000000), false);
-            walkDown = new Animation(Texture, new Point(8, 12), new Point(32, 32),
-                new Point(0, 2), new Point(7, 2), new TimeSpan(1000000), true);
-            walkLeft = new Animation(Texture, new Point(8, 12), new Point(32, 32),
-                new Point(0, 3), new Point(7, 3), new TimeSpan(1000000), true);
-            walkRight = new Animation(Texture, new Point(8, 12), new Point(32, 32),
-                new Point(0, 4), new Point(7, 4), new TimeSpan(1000000), true);
-            walkUp = new Animation(Texture, new Point(8, 12), new Point(32, 32),
-                new Point(0, 5), new Point(7, 5), new TimeSpan(1000000), true);
+		public void Move(int x, int y, List<Tree> Trees)
+		{
 
-            facingDown = new Animation(Texture, new Point(8, 12), new Point(32, 32),
-                new Point(0, 2), new Point(0, 2), new TimeSpan(1000000), true);
-            facingLeft = new Animation(Texture, new Point(8, 12), new Point(32, 32),
-                new Point(0, 3), new Point(0, 3), new TimeSpan(1000000), true);
-            facingRight = new Animation(Texture, new Point(8, 12), new Point(32, 32),
-                new Point(0, 4), new Point(0, 4), new TimeSpan(1000000), true);
-            facingUp = new Animation(Texture, new Point(8, 12), new Point(32, 32),
-                new Point(0, 5), new Point(0, 5), new TimeSpan(1000000), true);
+			// Sideways Acceleration
 
-            AddAnimation(idle);
-            AddAnimation(attackDownAnim);
-            AddAnimation(walkDown);
-            AddAnimation(walkLeft);
-            AddAnimation(walkRight);
-            AddAnimation(walkUp);
-        }
+			for (int i = 0; i < Trees.Count; i++) {
+				//left side
+				if ((spriteX + spriteWidth == Trees [i].getX ()) && (spriteX < Trees[i].getX()) && (spriteY + spriteHeight > Trees [i].getY ()) && (spriteY < Trees [i].getY () + Trees [i].getHeight ())) {
+					if (x_vel > 0) {
+						spriteX = Trees [i].getX () - spriteWidth;
+						x_vel = 0;
+					}
+				}
+				//right side
+				if ((spriteX > Trees [i].getX ()) && (spriteX == Trees [i].getX () + Trees [i].getWidth ()) && (spriteY + spriteHeight > Trees [i].getY ()) && (spriteY < Trees [i].getY () + Trees [i].getHeight ())) {
+					if (x_vel < 0) {
+						spriteX = Trees [i].getX () + Trees [i].getWidth ();
+						x_vel = 0;
+					}
+				}
+				//top side
+				if ((spriteX + spriteWidth > Trees [i].getX ()) && (spriteX < Trees [i].getX () + Trees [i].getWidth ()) && (spriteY + spriteHeight == Trees [i].getY ()) && (spriteY < Trees [i].getY ())) {
+					if (y_vel > 0) {
+						spriteY = Trees [i].getY () - spriteHeight;
+						y_vel = 0;
+					}
+				}
+				//bottom side
+				if ((spriteX + spriteWidth > Trees [i].getX ()) && (spriteX < Trees [i].getX () + Trees [i].getWidth ()) && (spriteY == Trees [i].getY () + Trees [i].getHeight ()) && (spriteY > Trees [i].getY ())) {
+					if (y_vel < 0) {
+						spriteY = Trees [i].getY () + Trees [i].getHeight ();
+						y_vel = 0;
+					}
+				}
+			}
+			double playerFriction = pushing ? (friction * 3) : friction;
+			x_vel = x_vel * (1 - playerFriction);
+			y_vel = y_vel * (1 - playerFriction);
+			if (x < this.spriteX)
+				x_vel *= -1;
+			if (y < this.spriteY)
+				y_vel *= -1;
+			movedX = Convert.ToInt32(x_vel);
+			spriteX += movedX;
+			movedY = Convert.ToInt32(y_vel);
+			spriteY += movedY;
+			x_vel = 1;
+			y_vel = 1;
 
-        public void Update(GameTime gameTime)
-        {
-            UpdateAnimation(gameTime);
-        }
+			// Gravity
 
-        public void Move()
-        {
+			// Check up/down collisions, then left/right
 
-        }
+		}
 
-        public override void Draw(SpriteBatch spriteBatch)
-        {
-            currentAnimation.Draw(spriteBatch);
-        }
-    }
+	}
 }

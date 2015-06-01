@@ -9,25 +9,18 @@ using Microsoft.Xna.Framework.Storage;
 
 namespace Berserker
 {
-	public class Tree : Sprite
+	public class Object : Sprite
 	{
-		public int type;
-		public Tree (int x, int y, int width, int height, int t)
+		public Object (int x, int y, int width, int height)
 		{
 			this.spriteX = x;
 			this.spriteY = y;
 			this.spriteWidth = width;
 			this.spriteHeight = height;
-			this.type = t;
 		}
 		public void LoadContent(ContentManager content)
 		{
-			if (type == 1) {
-				image = content.Load<Texture2D> ("tree.png");
-			}
-			if (type == 2) {
-				image = content.Load<Texture2D> ("tower.png");
-			}
+			image = content.Load<Texture2D>("shroom.png");
 		}
 
 		public void Draw(SpriteBatch sb)
@@ -37,7 +30,7 @@ namespace Berserker
 
 		public void Update(Controls controls, GameTime gameTime)
 		{
-			
+
 		}
 
 	}
