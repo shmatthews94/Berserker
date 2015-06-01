@@ -44,6 +44,7 @@ namespace PlatformerMac
 			y_vel = 1;
 			movedX = 0;
 		}
+			
 
 		public void LoadContent(ContentManager content)
 		{

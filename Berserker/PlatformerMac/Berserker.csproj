@@ -88,5 +88,6 @@
     <BundleResource Include="Content\viking character.png" />
     <BundleResource Include="Content\tree.png" />
     <BundleResource Include="Content\shroom.png" />
+    <BundleResource Include="Content\tower.png" />
   </ItemGroup>
 </Project>

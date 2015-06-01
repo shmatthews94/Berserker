@@ -11,16 +11,23 @@ namespace PlatformerMac
 {
 	public class Tree : Sprite
 	{
-		public Tree (int x, int y, int width, int height)
+		public int type;
+		public Tree (int x, int y, int width, int height, int t)
 		{
 			this.spriteX = x;
 			this.spriteY = y;
 			this.spriteWidth = width;
 			this.spriteHeight = height;
+			this.type = t;
 		}
 		public void LoadContent(ContentManager content)
 		{
-			image = content.Load<Texture2D>("tree.png");
+			if (type == 1) {
+				image = content.Load<Texture2D> ("tree.png");
+			}
+			if (type == 2) {
+				image = content.Load<Texture2D> ("tower.png");
+			}
 		}
 
 		public void Draw(SpriteBatch sb)

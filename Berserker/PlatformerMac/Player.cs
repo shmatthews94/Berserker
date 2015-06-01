@@ -12,9 +12,9 @@ namespace PlatformerMac
     {
 		private bool moving;
 		private bool grounded;
-		private int speed;
-		private int x_accel;
-		private int y_accel;
+		private double speed;
+		private double x_accel;
+		private double y_accel;
 		private double friction;
 		public double x_vel;
 		public double y_vel;
@@ -133,9 +133,8 @@ namespace PlatformerMac
 					Objects.Remove (Objects [i]);
 			}
 
-			double playerFriction = pushing ? (friction * 3) : friction;
-			x_vel = x_vel * (1 - playerFriction) + x_accel * .05;
-			y_vel = y_vel * (1 - playerFriction) + y_accel * .05;
+			x_vel = x_vel * (1 - friction) + x_accel * .05;
+			y_vel = y_vel * (1 - friction) + y_accel * .05;
 			movedX = Convert.ToInt32(x_vel);
 			spriteX += movedX;
 			movedY = Convert.ToInt32(y_vel);
