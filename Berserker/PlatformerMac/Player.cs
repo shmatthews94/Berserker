@@ -269,23 +269,23 @@ namespace Berserker
 			movedY = Convert.ToInt32(y_vel);
 			spriteY += movedY;
 
-			if (spriteX >= 550)
-				spriteX = 550;
-			else if (spriteX <= 0)
-				spriteX = 0;
-			if (spriteY >= 550)
-				spriteY = 550;
-			else if (spriteY <= 0)
-				spriteY = 0;
+			if (spriteX >= 500)
+				spriteX = 500;
+			else if (spriteX <= 50)
+				spriteX = 50;
+			if (spriteY >= 500)
+				spriteY = 500;
+			else if (spriteY <= 50)
+				spriteY = 50;
 
-			if (spriteX >= 550)
-				spriteX = 550;
-			else if (spriteX <= 0)
-				spriteX = 0;
-			if (spriteY >= 550)
-				spriteY = 550;
-			else if (spriteY <= 0)
-				spriteY = 0;
+			if (spriteX >= 500)
+				spriteX = 500;
+			else if (spriteX <= 50)
+				spriteX = 50;
+			if (spriteY >= 500)
+				spriteY = 500;
+			else if (spriteY <= 50)
+				spriteY = 50;
 
 			// Gravity
 

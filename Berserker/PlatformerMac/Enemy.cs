@@ -119,6 +119,23 @@ namespace Berserker
 			x_vel = 1;
 			y_vel = 1;
 
+			if (spriteX >= 500)
+				spriteX = 500;
+			else if (spriteX <= 50)
+				spriteX = 50;
+			if (spriteY >= 500)
+				spriteY = 500;
+			else if (spriteY <= 50)
+				spriteY = 50;
+
+			if (spriteX >= 500)
+				spriteX = 500;
+			else if (spriteX <= 50)
+				spriteX = 50;
+			if (spriteY >= 500)
+				spriteY = 500;
+			else if (spriteY <= 50)
+				spriteY = 50;
 			// Gravity
 
 			// Check up/down collisions, then left/right
