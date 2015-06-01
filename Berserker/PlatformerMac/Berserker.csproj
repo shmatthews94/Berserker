@@ -72,6 +72,7 @@
     <Compile Include="Enemy.cs" />
     <Compile Include="Tree.cs" />
     <Compile Include="Attack.cs" />
+    <Compile Include="Object.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
@@ -86,5 +87,6 @@
     <BundleResource Include="Content\viking.png" />
     <BundleResource Include="Content\viking character.png" />
     <BundleResource Include="Content\tree.png" />
+    <BundleResource Include="Content\shroom.png" />
   </ItemGroup>
 </Project>

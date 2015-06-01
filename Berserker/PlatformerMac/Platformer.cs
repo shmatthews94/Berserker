@@ -23,8 +23,10 @@ namespace PlatformerMac
 		Tree tree1, tree2, tree3;
 		Controls controls;
 		int spawncounter;
+		int objectcounter;
 		public static List<Enemy> Enemies = new List<Enemy>();
 		public static List<Tree> Trees = new List<Tree>();
+		public static List<Object> Objects = new List<Object>();
 		public Platformer()
 		{
 			graphics = new GraphicsDeviceManager(this);
@@ -124,12 +126,19 @@ namespace PlatformerMac
 				Enemies.Add(newenemy);
 				spawncounter = 0;
 			}
-			player1.Update(controls, gameTime, Trees);
+			if (objectcounter % 353 == 0) {
+				Random rand = new Random ();
+				Object object1 = new Object((int)rand.Next(0, 550), (int)rand.Next(0, 550), 50, 50);
+				object1.LoadContent(this.Content);
+				Objects.Add(object1);
+			}
+			player1.Update(controls, gameTime, Trees, Objects);
 			for (int i = 0; i < Enemies.Count; i++) {
 				Enemies[i].Update (controls, gameTime, player1.getX (), player1.getY (), Trees);
 			}
 			player1.Attack (controls, Enemies);
 			spawncounter++;
+			objectcounter++;
 			base.Update(gameTime);
 		}
 
@@ -149,6 +158,9 @@ namespace PlatformerMac
 			}
 			for (int i = 0; i < Trees.Count; i++) {
 				Trees [i].Draw (spriteBatch);
+			}
+			for (int i = 0; i < Objects.Count; i++) {
+				Objects [i].Draw (spriteBatch);
 			}
 			spriteBatch.End();
 

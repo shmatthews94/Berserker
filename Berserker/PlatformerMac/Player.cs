@@ -34,9 +34,9 @@ namespace PlatformerMac
 			grounded = false;
 			moving = false;
 			pushing = false;
-
+			 
 			// Movement
-			speed = 3;
+			speed = 5;
 			friction = .15;
 			x_accel = 0;
 			y_accel = 0;
@@ -55,9 +55,9 @@ namespace PlatformerMac
             sb.Draw(image, new Rectangle(spriteX, spriteY, spriteWidth, spriteHeight), Color.White);
         }
 
-		public void Update(Controls controls, GameTime gameTime, List<Tree> Trees)
+		public void Update(Controls controls, GameTime gameTime, List<Tree> Trees, List<Object> Objects)
 		{
-			Move (controls, Trees);
+			Move (controls, Trees, Objects);
 		}
 
 		public void Attack(Controls controls, List<Enemy> Baddies)
@@ -72,7 +72,7 @@ namespace PlatformerMac
 		}
 
 
-		public void Move(Controls controls, List<Tree> Trees)
+		public void Move(Controls controls, List<Tree> Trees, List<Object> Objects)
 		{
 			// Sideways Acceleration
 			if (controls.onPress(Keys.Right, Buttons.DPadRight))
@@ -92,6 +92,8 @@ namespace PlatformerMac
 				y_accel += speed;
 			else if (controls.onRelease(Keys.Down, Buttons.DPadDown))
 				y_accel -= speed;
+
+			// EDGE DETECTION
 
 			for (int i = 0; i < Trees.Count; i++) {
 				//left side
@@ -122,6 +124,13 @@ namespace PlatformerMac
 						y_vel = 0;
 					}
 				}
+			}
+
+			// OBJECT DETECTION
+
+			for (int i = 0; i < Objects.Count; i++) {
+				if (spriteX < Objects [i].getX () + Objects [i].getWidth () && spriteX + spriteWidth > Objects [i].getX () && spriteY < Objects [i].getY () + Objects [i].getHeight () && spriteHeight + spriteY > Objects [i].getY ())
+					Objects.Remove (Objects [i]);
 			}
 
 			double playerFriction = pushing ? (friction * 3) : friction;
