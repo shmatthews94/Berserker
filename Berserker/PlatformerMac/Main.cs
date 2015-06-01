@@ -8,7 +8,7 @@ using MonoMac.Foundation;
 
 #endregion
 
-namespace PlatformerMac
+namespace Berserker
 {
 	static class Program
 	{
@@ -28,7 +28,7 @@ namespace PlatformerMac
 
 	class AppDelegate : NSApplicationDelegate
 	{
-		public static Platformer game;
+		public static Game1 game;
 
 		public override void FinishedLaunching (MonoMac.Foundation.NSObject notification)
 		{
@@ -39,7 +39,7 @@ namespace PlatformerMac
 				}
 				return null;
 			};
-			game = new Platformer ();
+			game = new Game1 ();
 			game.Run ();
 		}
 

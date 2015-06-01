@@ -9,12 +9,12 @@ using Microsoft.Xna.Framework.Input;
 
 #endregion
 
-namespace PlatformerMac
+namespace Berserker
 {
 	/// <summary>
 	/// This is the main type for your game
 	/// </summary>
-	public class Platformer : Game
+	public class Game1 : Game
 	{
 		GraphicsDeviceManager graphics;
 		SpriteBatch spriteBatch;
@@ -27,7 +27,10 @@ namespace PlatformerMac
 		public static List<Enemy> Enemies = new List<Enemy>();
 		public static List<Tree> Trees = new List<Tree>();
 		public static List<Object> Objects = new List<Object>();
-		public Platformer()
+
+		TimeSpan elapsedTime = TimeSpan.Zero;
+
+		public Game1()
 		{
 			graphics = new GraphicsDeviceManager(this);
 			graphics.PreferredBackBufferWidth = 600;  // set this value to the desired width of your window
@@ -51,15 +54,15 @@ namespace PlatformerMac
 			Trees.Add(new Tree(0, 0, 50, 50, 1));
 			Trees.Add(new Tree(0, 50, 50, 50, 1));
 			Trees.Add(new Tree(0, 100, 50, 50, 1));
-			Trees.Add (new Tree (0, 150, 50, 50, 1));
-			Trees.Add (new Tree (0, 200, 50, 50, 1));
-			Trees.Add (new Tree (0, 250, 50, 50, 1));
-			Trees.Add (new Tree (0, 300, 50, 50, 1));
-			Trees.Add (new Tree (0, 350, 50, 50, 1));
-			Trees.Add (new Tree (0, 400, 50, 50, 1));
-			Trees.Add (new Tree (0, 450, 50, 50, 1));
-			Trees.Add (new Tree (0, 500, 50, 50, 1));
-			Trees.Add (new Tree (0, 550, 50, 50, 1));
+			Trees.Add(new Tree(0, 150, 50, 50, 1));
+			Trees.Add(new Tree(0, 200, 50, 50, 1));
+			Trees.Add(new Tree(0, 250, 50, 50, 1));
+			Trees.Add(new Tree(0, 300, 50, 50, 1));
+			Trees.Add(new Tree(0, 350, 50, 50, 1));
+			Trees.Add(new Tree(0, 400, 50, 50, 1));
+			Trees.Add(new Tree(0, 450, 50, 50, 1));
+			Trees.Add(new Tree(0, 500, 50, 50, 1));
+			Trees.Add(new Tree(0, 550, 50, 50, 1));
 			Trees.Add(new Tree(0, 0, 50, 50, 1));
 			Trees.Add(new Tree(50, 0, 50, 50, 1));
 			Trees.Add(new Tree(100, 0, 50, 50, 1));
@@ -74,15 +77,15 @@ namespace PlatformerMac
 			Trees.Add(new Tree(550, 0, 50, 50, 1));
 			Trees.Add(new Tree(550, 50, 50, 50, 1));
 			Trees.Add(new Tree(550, 100, 50, 50, 1));
-			Trees.Add (new Tree (550, 150, 50, 50, 1));
-			Trees.Add (new Tree (550, 200, 50, 50, 1));
-			Trees.Add (new Tree (550, 250, 50, 50, 1));
-			Trees.Add (new Tree (550, 300, 50, 50, 1));
-			Trees.Add (new Tree (550, 350, 50, 50, 1));
-			Trees.Add (new Tree (550, 400, 50, 50, 1));
-			Trees.Add (new Tree (550, 450, 50, 50, 1));
-			Trees.Add (new Tree (550, 500, 50, 50, 1));
-			Trees.Add (new Tree (550, 550, 50, 50, 1));
+			Trees.Add(new Tree(550, 150, 50, 50, 1));
+			Trees.Add(new Tree(550, 200, 50, 50, 1));
+			Trees.Add(new Tree(550, 250, 50, 50, 1));
+			Trees.Add(new Tree(550, 300, 50, 50, 1));
+			Trees.Add(new Tree(550, 350, 50, 50, 1));
+			Trees.Add(new Tree(550, 400, 50, 50, 1));
+			Trees.Add(new Tree(550, 450, 50, 50, 1));
+			Trees.Add(new Tree(550, 500, 50, 50, 1));
+			Trees.Add(new Tree(550, 550, 50, 50, 1));
 			Trees.Add(new Tree(0, 550, 50, 50, 1));
 			Trees.Add(new Tree(50, 550, 50, 50, 1));
 			Trees.Add(new Tree(100, 550, 50, 50, 1));
@@ -100,7 +103,7 @@ namespace PlatformerMac
 			Trees.Add(new Tree(50, 500, 50, 50, 2));
 			Trees.Add(new Tree(500, 50, 50, 50, 2));
 			base.Initialize();
-			Console.WriteLine ("Init");
+			Console.WriteLine("Init");
 
 
 			controls = new Controls();
@@ -116,10 +119,11 @@ namespace PlatformerMac
 			// Create a new SpriteBatch, which can be used to draw textures.
 			spriteBatch = new SpriteBatch(GraphicsDevice);
 			player1.LoadContent(this.Content);
-			for (int i = 0; i < Trees.Count; i++) {
-				Trees [i].LoadContent (this.Content);
+			for (int i = 0; i < Trees.Count; i++)
+			{
+				Trees[i].LoadContent(this.Content);
 			}
-			
+
 			// TODO: use this.Content to load your game content here
 		}
 
@@ -142,47 +146,53 @@ namespace PlatformerMac
 			//set our keyboardstate tracker update can change the gamestate on every cycle
 			controls.Update();
 
-
 			if (Keyboard.GetState().IsKeyDown(Keys.Escape))
 				Exit();
 
 			// TODO: Add your update logic here
 			//Up, down, left, right affect the coordinates of the sprite
 
-			Console.WriteLine ();
+			Console.WriteLine();
 
-			if (spawncounter == 150) {
-				Enemy newenemy = new Enemy (110, 110, 50, 50);
+			if (spawncounter == 150)
+			{
+				Enemy newenemy = new Enemy(110, 110, 50, 50);
 				newenemy.LoadContent(this.Content);
 				Enemies.Add(newenemy);
 			}
-			if (spawncounter == 300) {
-				Enemy newenemy = new Enemy (490, 110, 50, 50);
+			if (spawncounter == 300)
+			{
+				Enemy newenemy = new Enemy(490, 110, 50, 50);
 				newenemy.LoadContent(this.Content);
 				Enemies.Add(newenemy);
 			}
-			if (spawncounter == 450) {
-				Enemy newenemy = new Enemy (110, 490, 50, 50);
+			if (spawncounter == 450)
+			{
+				Enemy newenemy = new Enemy(110, 490, 50, 50);
 				newenemy.LoadContent(this.Content);
 				Enemies.Add(newenemy);
 			}
-			if (spawncounter == 600) {
-				Enemy newenemy = new Enemy (490, 490, 50, 50);
+			if (spawncounter == 600)
+			{
+				Enemy newenemy = new Enemy(490, 490, 50, 50);
 				newenemy.LoadContent(this.Content);
 				Enemies.Add(newenemy);
 				spawncounter = 0;
 			}
-			if (objectcounter % 997 == 0) {
-				Random rand = new Random ();
+			if (objectcounter % 997 == 0)
+			{
+				Random rand = new Random();
 				Object object1 = new Object((int)rand.Next(100, 450), (int)rand.Next(100, 450), 50, 50);
 				object1.LoadContent(this.Content);
 				Objects.Add(object1);
 			}
 			player1.Update(controls, gameTime, Trees, Objects);
-			for (int i = 0; i < Enemies.Count; i++) {
-				Enemies[i].Update (controls, gameTime, player1.getX (), player1.getY (), Trees);
+			for (int i = 0; i < Enemies.Count; i++)
+			{
+				Enemies[i].Update(controls, gameTime, player1.getX(), player1.getY(), Trees);
 			}
-			player1.Attack (controls, Enemies);
+			player1.Attack(controls, Enemies);
+			player1.SpearAttack(controls, Enemies);
 			spawncounter++;
 			objectcounter++;
 			base.Update(gameTime);
@@ -196,17 +206,22 @@ namespace PlatformerMac
 		{
 			GraphicsDevice.Clear(Color.DarkGreen);
 
+
+
 			// TODO: Add your drawing code here
 			spriteBatch.Begin();
 			player1.Draw(spriteBatch);
-			for (int i = 0; i < Enemies.Count; i++) {
-				Enemies [i].Draw (spriteBatch);
+			for (int i = 0; i < Enemies.Count; i++)
+			{
+				Enemies[i].Draw(spriteBatch);
 			}
-			for (int i = 0; i < Trees.Count; i++) {
-				Trees [i].Draw (spriteBatch);
+			for (int i = 0; i < Trees.Count; i++)
+			{
+				Trees[i].Draw(spriteBatch);
 			}
-			for (int i = 0; i < Objects.Count; i++) {
-				Objects [i].Draw (spriteBatch);
+			for (int i = 0; i < Objects.Count; i++)
+			{
+				Objects[i].Draw(spriteBatch);
 			}
 			spriteBatch.End();
 

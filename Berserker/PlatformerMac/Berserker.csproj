@@ -65,7 +65,6 @@
   <ItemGroup>
     <Compile Include="Main.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Platformer.cs" />
     <Compile Include="Controls.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Sprite.cs" />
@@ -73,6 +72,7 @@
     <Compile Include="Tree.cs" />
     <Compile Include="Attack.cs" />
     <Compile Include="Object.cs" />
+    <Compile Include="Game1.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
@@ -89,5 +89,18 @@
     <BundleResource Include="Content\tree.png" />
     <BundleResource Include="Content\shroom.png" />
     <BundleResource Include="Content\tower.png" />
+    <BundleResource Include="Content\enemy_temp.png" />
+    <BundleResource Include="Content\lanceDown.png" />
+    <BundleResource Include="Content\lanceLeft.png" />
+    <BundleResource Include="Content\lanceRight.png" />
+    <BundleResource Include="Content\lanceUp.png" />
+    <BundleResource Include="Content\slashDown.png" />
+    <BundleResource Include="Content\slashLeft.png" />
+    <BundleResource Include="Content\slashRight.png" />
+    <BundleResource Include="Content\slashUp.png" />
+    <BundleResource Include="Content\spearDown.png" />
+    <BundleResource Include="Content\spearLeft.png" />
+    <BundleResource Include="Content\spearRight.png" />
+    <BundleResource Include="Content\spearUp.png" />
   </ItemGroup>
 </Project>

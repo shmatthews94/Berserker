@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Storage;
 
 
-namespace PlatformerMac
+namespace Berserker
 {
 	public class Object : Sprite
 	{
