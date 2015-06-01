@@ -56,7 +56,7 @@ namespace Berserker
 
 		public void LoadContent(ContentManager content)
 		{
-			image = content.Load<Texture2D>("viking character.png");
+			image = content.Load<Texture2D>("enemy_temp.png");
 		}
 
 		public void Draw(SpriteBatch sb)
