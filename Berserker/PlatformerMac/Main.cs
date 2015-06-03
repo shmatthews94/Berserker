@@ -10,7 +10,24 @@ using MonoMac.Foundation;
 
 namespace Berserker
 {
-	static class Program
+#if WINDOWS
+    static class Program
+    {
+        /// <summary>
+        /// The main entry point for the application.
+        /// </summary>
+        static void Main(string[] args)
+        {
+            using (Game1 game = new Game1())
+            {
+                game.Run();
+            }
+        }
+    }
+#endif
+
+#if MAC
+    static class Program
 	{
 		/// <summary>
 		/// The main entry point for the application.
@@ -48,7 +65,7 @@ namespace Berserker
 			return true;
 		}
 	}
-
+#endif
 }
 
 
