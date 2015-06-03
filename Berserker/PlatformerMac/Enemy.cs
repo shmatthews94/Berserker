@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Storage;
 
-namespace PlatformerMac
+namespace Berserker
 {
 	public class Enemy : Sprite
 	{
@@ -24,6 +24,14 @@ namespace PlatformerMac
 		public double gravity = 0.1;
 		public int maxFallSpeed = 10;
 		private int jumpPoint = 0;
+
+		public Rectangle rectangle
+		{
+			get
+			{
+				return new Rectangle(spriteX, spriteY, spriteWidth, spriteHeight);
+			}
+		}
 
 		public Enemy(int x, int y, int width, int height)
 		{
@@ -44,11 +52,11 @@ namespace PlatformerMac
 			y_vel = 1;
 			movedX = 0;
 		}
-			
+
 
 		public void LoadContent(ContentManager content)
 		{
-			image = content.Load<Texture2D>("viking character.png");
+			image = content.Load<Texture2D>("enemy_temp.png");
 		}
 
 		public void Draw(SpriteBatch sb)
@@ -111,6 +119,23 @@ namespace PlatformerMac
 			x_vel = 1;
 			y_vel = 1;
 
+			if (spriteX >= 500)
+				spriteX = 500;
+			else if (spriteX <= 50)
+				spriteX = 50;
+			if (spriteY >= 500)
+				spriteY = 500;
+			else if (spriteY <= 50)
+				spriteY = 50;
+
+			if (spriteX >= 500)
+				spriteX = 500;
+			else if (spriteX <= 50)
+				spriteX = 50;
+			if (spriteY >= 500)
+				spriteY = 500;
+			else if (spriteY <= 50)
+				spriteY = 50;
 			// Gravity
 
 			// Check up/down collisions, then left/right

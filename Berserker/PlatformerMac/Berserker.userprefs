@@ -1,9 +1,28 @@
+<<<<<<< HEAD
 ﻿<Properties MonoDevelop.MonoMac.LastXamMacNagTime="6/3/2015 3:07:54 PM">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Platformer.cs">
     <Files>
       <File FileName="Player.cs" Line="8" Column="38" />
       <File FileName="Platformer.cs" Line="186" Column="16" />
+=======
+﻿<Properties MonoDevelop.MonoMac.LastXamMacNagTime="6/1/2015 2:53:44 AM" StartupItem="Berserker.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Main.cs">
+    <Files>
+      <File FileName="Controls.cs" Line="1" Column="1" />
+      <File FileName="Main.cs" Line="55" Column="1" />
+      <File FileName="MainMenu.cs" Line="1" Column="1" />
+      <File FileName="Player.cs" Line="1" Column="1" />
+      <File FileName="Sprite.cs" Line="1" Column="1" />
+      <File FileName="Platformer.cs" Line="1" Column="1" />
+      <File FileName="Enemy.cs" Line="4" Column="39" />
+      <File FileName="Tree.cs" Line="21" Column="18" />
+      <File FileName="packages.config" Line="1" Column="1" />
+      <File FileName="Attack.cs" Line="1" Column="1" />
+      <File FileName="Object.cs" Line="1" Column="1" />
+      <File FileName="Info.plist" />
+>>>>>>> cbdd17ab6eb2fb6e1dd75c8ec89544b5c999dc22
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

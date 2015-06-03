@@ -14,5 +14,22 @@ C:\Users\AdrianLeo\Documents\GitHub\Berserker\BerserkerWindows\bin\WindowsGL\Deb
 C:\Users\AdrianLeo\Documents\GitHub\Berserker\BerserkerWindows\bin\WindowsGL\Debug\MonoGame.Framework.dll
 C:\Users\AdrianLeo\Documents\GitHub\Berserker\BerserkerWindows\bin\WindowsGL\Debug\OpenTK.dll
 C:\Users\AdrianLeo\Documents\GitHub\Berserker\BerserkerWindows\obj\x86\Debug\Berserker.csprojResolveAssemblyReference.cache
-C:\Users\AdrianLeo\Documents\GitHub\Berserker\BerserkerWindows\bin\WindowsGL\Debug\Content\shadow.png
-C:\Users\AdrianLeo\Documents\GitHub\Berserker\BerserkerWindows\bin\WindowsGL\Debug\Content\ax.png
+C:\Users\AdrianLeo\Documents\GitHub\Berserker\BerserkerWindows\bin\WindowsGL\Debug\Content\prep2.png
+C:\Users\AdrianLeo\Documents\GitHub\Berserker\BerserkerWindows\bin\WindowsGL\Debug\Content\shroom.png
+C:\Users\AdrianLeo\Documents\GitHub\Berserker\BerserkerWindows\bin\WindowsGL\Debug\Content\tower.png
+C:\Users\AdrianLeo\Documents\GitHub\Berserker\BerserkerWindows\bin\WindowsGL\Debug\Content\tree.png
+C:\Users\AdrianLeo\Documents\GitHub\Berserker\BerserkerWindows\bin\WindowsGL\Debug\Content\viking character.png
+C:\Users\AdrianLeo\Documents\GitHub\Berserker\BerserkerWindows\bin\WindowsGL\Debug\Content\viking.png
+C:\Users\AdrianLeo\Documents\GitHub\Berserker\BerserkerWindows\bin\WindowsGL\Debug\Content\lanceDown.png
+C:\Users\AdrianLeo\Documents\GitHub\Berserker\BerserkerWindows\bin\WindowsGL\Debug\Content\lanceLeft.png
+C:\Users\AdrianLeo\Documents\GitHub\Berserker\BerserkerWindows\bin\WindowsGL\Debug\Content\lanceRight.png
+C:\Users\AdrianLeo\Documents\GitHub\Berserker\BerserkerWindows\bin\WindowsGL\Debug\Content\lanceUp.png
+C:\Users\AdrianLeo\Documents\GitHub\Berserker\BerserkerWindows\bin\WindowsGL\Debug\Content\slashDown.png
+C:\Users\AdrianLeo\Documents\GitHub\Berserker\BerserkerWindows\bin\WindowsGL\Debug\Content\slashLeft.png
+C:\Users\AdrianLeo\Documents\GitHub\Berserker\BerserkerWindows\bin\WindowsGL\Debug\Content\slashRight.png
+C:\Users\AdrianLeo\Documents\GitHub\Berserker\BerserkerWindows\bin\WindowsGL\Debug\Content\slashUp.png
+C:\Users\AdrianLeo\Documents\GitHub\Berserker\BerserkerWindows\bin\WindowsGL\Debug\Content\spearDown.png
+C:\Users\AdrianLeo\Documents\GitHub\Berserker\BerserkerWindows\bin\WindowsGL\Debug\Content\spearLeft.png
+C:\Users\AdrianLeo\Documents\GitHub\Berserker\BerserkerWindows\bin\WindowsGL\Debug\Content\spearRight.png
+C:\Users\AdrianLeo\Documents\GitHub\Berserker\BerserkerWindows\bin\WindowsGL\Debug\Content\spearUp.png
+C:\Users\AdrianLeo\Documents\GitHub\Berserker\BerserkerWindows\bin\WindowsGL\Debug\Content\enemy_temp.png

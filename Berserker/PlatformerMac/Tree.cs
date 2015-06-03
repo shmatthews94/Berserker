@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Storage;
 
 
-namespace PlatformerMac
+namespace Berserker
 {
 	public class Tree : Sprite
 	{
@@ -37,7 +37,7 @@ namespace PlatformerMac
 
 		public void Update(Controls controls, GameTime gameTime)
 		{
-			
+
 		}
 
 	}

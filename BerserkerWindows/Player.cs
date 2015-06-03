@@ -1,290 +1,297 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Storage;
 
 namespace Berserker
 {
-    public class Player : AnimatingSprite
+	public class Player : Sprite
     {
-        #region Fields
-        public int HP;
-        public Vector2 Velocity;
+		private bool moving;
+		private bool grounded;
+		private double speed;
+		private double x_accel;
+		private double y_accel;
+		private double friction;
+		public double x_vel;
+		public double y_vel;
+		public int movedX;
+		public int movedY;
+		private bool pushing;
+		public double gravity = 0.1;
+		public int maxFallSpeed = 10;
+		private int jumpPoint = 0;
 
-        public string Direction;
-        bool IsAttacking;
+        public Rectangle attack;
+        public Rectangle spearAttack;
 
-        AnimatingSprite attack;
-        #endregion
+        public String facing = "down";
+        public Texture2D attackTex;
+        public Texture2D attackL;
+        public Texture2D attackR;
+        public Texture2D attackU;
+        public Texture2D attackD;
+        public Texture2D sAttackL;
+        public Texture2D sAttackR;
+        public Texture2D sAttackU;
+        public Texture2D sAttackD;
 
-        #region Movement Animations
-        Animation idle;
-        Animation attackDownAnim;
-
-        Animation walkDown;
-        Animation walkLeft;
-        Animation walkRight;
-        Animation walkUp;
-
-        Animation facingDown;
-        Animation facingLeft;
-        Animation facingRight;
-        Animation facingUp;
-        #endregion
-
-        #region Attack Animations
-        Animation normalDown;
-        Animation normalLeft;
-        Animation normalRight;
-        Animation normalUp;
-
-        Animation smashDown;
-        Animation smashLeft;
-        Animation smashRight;
-        Animation smashUp;
-
-        Animation spearDown;
-        Animation spearLeft;
-        Animation spearRight;
-        Animation spearUp;
-
-        Animation shieldWall;
-        #endregion
-
-        public void Initialize(Vector2 pos, Texture2D tex)
+        bool normalAttacking = false;
+        bool spearAttacking = false;
+        
+        public Player(int x, int y, int width, int height)
         {
-            Position = pos;
-            Dimensions = new Point(32, 32);
-            Texture = tex;
-
-            HP = 5;
-            Velocity = new Vector2(2.0f, 2.0f);
-            Direction = "down";
-            IsAttacking = false;
-
-            initializePlayerAnimations();
-            initializeAttackAnimations();
-
-            PlayAnimation(idle);
-            currentAnimation.Position = Position;
+            this.spriteX = x;
+            this.spriteY = y;
+            this.spriteWidth = width;
+            this.spriteHeight = height;
+			grounded = false;
+			moving = false;
+			pushing = false;
+			 
+			// Movement
+			speed = 5;
+			friction = .15;
+			x_accel = 0;
+			y_accel = 0;
+			x_vel = 0;
+			y_vel = 0;
+			movedX = 0;
         }
 
-        private void initializeAttackAnimations()
+        public void LoadContent(ContentManager content)
         {
-            attack = new AnimatingSprite();
-            attack.currentAnimation = null;
-
-            normalDown = new Animation(Texture, new Point(8, 24), new Point(32, 16),
-                new Point(0, 12), new Point(3, 12), new TimeSpan(1000000), false);
-            normalLeft = new Animation(Texture, new Point(16, 12), new Point(16, 32),
-                new Point(8, 6), new Point(11, 6), new TimeSpan(1000000), false);
-            normalRight = new Animation(Texture, new Point(16, 12), new Point(16, 32),
-                new Point(0, 7), new Point(3, 7), new TimeSpan(1000000), false);
-            normalUp = new Animation(Texture, new Point(8, 24), new Point(32, 16),
-                new Point(4, 15), new Point(7, 15), new TimeSpan(1000000), false);
-
-            smashDown = new Animation(Texture, new Point(8, 12), new Point(32, 32),
-                new Point(0, 8), new Point(3, 8), new TimeSpan(1000000), false);
-            smashLeft = new Animation(Texture, new Point(8, 12), new Point(32, 32),
-                new Point(4, 8), new Point(7, 8), new TimeSpan(1000000), false);
-            smashRight = new Animation(Texture, new Point(8, 12), new Point(32, 32),
-                new Point(0, 9), new Point(3, 9), new TimeSpan(1000000), false);
-            smashUp = new Animation(Texture, new Point(8, 12), new Point(32, 32),
-                new Point(4, 9), new Point(7, 9), new TimeSpan(1000000), false);
-
-            spearDown = new Animation(Texture, new Point(8, 12), new Point(32, 32),
-                new Point(0, 10), new Point(3, 10), new TimeSpan(1000000), false);
-            spearLeft = new Animation(Texture, new Point(8, 12), new Point(32, 32),
-                new Point(4, 10), new Point(7, 10), new TimeSpan(1000000), false);
-            spearRight = new Animation(Texture, new Point(8, 12), new Point(32, 32),
-                new Point(0, 11), new Point(3, 11), new TimeSpan(1000000), false);
-            spearUp = new Animation(Texture, new Point(8, 12), new Point(32, 32),
-                new Point(4, 11), new Point(7, 11), new TimeSpan(1000000), false);
-
-            shieldWall = new Animation(Texture, new Point(8, 12), new Point(32, 32),
-                new Point(0, 12), new Point(0, 12), new TimeSpan(1000000), false);
-
-            attack.AddAnimation(normalDown);
-            attack.AddAnimation(normalLeft);
-            attack.AddAnimation(normalRight);
-            attack.AddAnimation(normalUp);
-
-            attack.AddAnimation(smashDown);
-            attack.AddAnimation(smashLeft);
-            attack.AddAnimation(smashRight);
-            attack.AddAnimation(smashUp);
-
-            attack.AddAnimation(spearDown);
-            attack.AddAnimation(spearLeft);
-            attack.AddAnimation(spearRight);
-            attack.AddAnimation(spearUp);
-
-            attack.AddAnimation(shieldWall);
+            image = content.Load<Texture2D>("viking character.png");
+            attackL = content.Load<Texture2D>("slashLeft");
+            attackR = content.Load<Texture2D>("slashRight");
+            attackU = content.Load<Texture2D>("slashUp");
+            attackD = content.Load<Texture2D>("slashDown");
+            sAttackL = content.Load<Texture2D>("lanceLeft");
+            sAttackR = content.Load<Texture2D>("lanceRight");
+            sAttackU = content.Load<Texture2D>("lanceUp");
+            sAttackD = content.Load<Texture2D>("lanceDown");
         }
 
-        private void initializePlayerAnimations()
+        public void Draw(SpriteBatch sb)
         {
-            idle = new Animation(Texture, new Point(8, 12), new Point(32, 32),
-                new Point(0, 0), new Point(7, 0), new TimeSpan(1000000), true);
-            attackDownAnim = new Animation(Texture, new Point(8, 12), new Point(32, 32),
-                new Point(0, 1), new Point(7, 1), new TimeSpan(1000000), false);
-            walkDown = new Animation(Texture, new Point(8, 12), new Point(32, 32),
-                new Point(0, 2), new Point(7, 2), new TimeSpan(1000000), true);
-            walkLeft = new Animation(Texture, new Point(8, 12), new Point(32, 32),
-                new Point(0, 3), new Point(7, 3), new TimeSpan(1000000), true);
-            walkRight = new Animation(Texture, new Point(8, 12), new Point(32, 32),
-                new Point(0, 4), new Point(7, 4), new TimeSpan(1000000), true);
-            walkUp = new Animation(Texture, new Point(8, 12), new Point(32, 32),
-                new Point(0, 5), new Point(7, 5), new TimeSpan(1000000), true);
+            sb.Draw(image, new Rectangle(spriteX, spriteY, spriteWidth, spriteHeight), Color.White);
 
-            facingDown = new Animation(Texture, new Point(8, 12), new Point(32, 32),
-                new Point(0, 2), new Point(0, 2), new TimeSpan(1000000), true);
-            facingLeft = new Animation(Texture, new Point(8, 12), new Point(32, 32),
-                new Point(0, 3), new Point(0, 3), new TimeSpan(1000000), true);
-            facingRight = new Animation(Texture, new Point(8, 12), new Point(32, 32),
-                new Point(0, 4), new Point(0, 4), new TimeSpan(1000000), true);
-            facingUp = new Animation(Texture, new Point(8, 12), new Point(32, 32),
-                new Point(0, 5), new Point(0, 5), new TimeSpan(1000000), true);
-
-            AddAnimation(idle);
-            AddAnimation(attackDownAnim);
-            AddAnimation(walkDown);
-            AddAnimation(walkLeft);
-            AddAnimation(walkRight);
-            AddAnimation(walkUp);
-        }
-
-        public void Update(GameTime gameTime, Input input)
-        {
-            if (attack.IsPlaybackComplete() && IsAttacking)
+            if (normalAttacking)
             {
-                IsAttacking = false;
-                attack.ResetAnimation();
-                attack.StopAnimation();
+                if (facing == "left")
+                    sb.Draw(attackL, attack, Color.White);
+
+                if (facing == "right")
+                    sb.Draw(attackR, attack, Color.White);
+
+                if (facing == "up")
+                    sb.Draw(attackU, attack, Color.White);
+
+                if (facing == "down")
+                    sb.Draw(attackD, attack, Color.White);
+
+                normalAttacking = false;
+
             }
-            handleInput(input);
-            UpdateAttackAnimation(gameTime);
-            UpdateAnimation(gameTime);
-        }
 
-        private void UpdateAttackAnimation(GameTime gameTime)
-        {
-            if (IsAttacking)
+            if (spearAttacking)
             {
-                if (Direction == "down")
-                    attack.currentAnimation.Position = new Vector2(Position.X, Position.Y + Height());
-                if (Direction == "right")
-                    attack.currentAnimation.Position = new Vector2(Position.X + Width(), Position.Y);
-                if (Direction == "left")
-                    attack.currentAnimation.Position = new Vector2(Position.X - attack.Width(), Position.Y);
-                if (Direction == "up")
-                    attack.currentAnimation.Position = new Vector2(Position.X, Position.Y - attack.Height());
-                attack.currentAnimation.Update(gameTime);
+                if (facing == "left")
+                    sb.Draw(sAttackL, spearAttack, Color.White);
+
+                if (facing == "right")
+                    sb.Draw(sAttackR, spearAttack, Color.White);
+
+                if (facing == "up")
+                    sb.Draw(sAttackU, spearAttack, Color.White);
+
+                if (facing == "down")
+                    sb.Draw(sAttackD, spearAttack, Color.White);
+
+                spearAttacking = false;
             }
         }
 
-        private void handleInput(Input input)
-        {
-            if (input.isPressed(Keys.A))
-            {
-                IsAttacking = true;
+		public void Update(Controls controls, GameTime gameTime, List<Tree> Trees, List<Object> Objects)
+		{
+			Move (controls, Trees, Objects);
+		}
 
-                if (Direction == "down")
+        public void SpearAttack(Controls controls, List<Enemy> Baddies)
+        {
+            if (facing == "left")
+            {
+                spearAttack = new Rectangle(this.spriteX - 115, this.spriteY, 115, 50);
+            }
+
+            if (facing == "right")
+            {
+                spearAttack = new Rectangle(this.spriteX + 50, this.spriteY, 115, 50);
+            }
+
+            if (facing == "up")
+            {
+                spearAttack = new Rectangle(this.spriteX, this.spriteY - 115, 50, 115);
+            }
+
+            if (facing == "down")
+            {
+                spearAttack = new Rectangle(this.spriteX, this.spriteY + 50, 50, 115);
+            }
+
+            if (controls.onPress(Keys.A, Buttons.A))
+            {
+                spearAttacking = true;
+                for (int i = 0; i < Baddies.Count; i++)
                 {
-                    attack.PlayAnimation(normalDown);
-                    PlayAnimation(facingDown);
-                }
-                else if (Direction == "left")
-                {
-                    attack.PlayAnimation(normalLeft);
-                    PlayAnimation(facingLeft);
-                }
-                else if (Direction == "right")
-                {
-                    attack.PlayAnimation(normalRight);
-                    PlayAnimation(facingRight);
-                }
-                else if (Direction == "up")
-                {
-                    attack.PlayAnimation(normalUp);
-                    PlayAnimation(facingUp);
+                    if (spearAttack.Intersects(Baddies[i].rectangle))
+                        Baddies.Remove(Baddies[i]);
                 }
             }
-            if (!IsAttacking)
-                if (input.isPressed(Keys.S))
-                {
-                    IsAttacking = true;
 
-                    if (Direction == "down")
-                    {
-                        attack.PlayAnimation(smashDown);
-                        PlayAnimation(facingDown);
-                    }
-                    else if (Direction == "left")
-                    {
-                        attack.PlayAnimation(smashLeft);
-                        PlayAnimation(facingLeft);
-                    }
-                    else if (Direction == "right")
-                    {
-                        attack.PlayAnimation(smashRight);
-                        PlayAnimation(facingRight);
-                    }
-                    else if (Direction == "up")
-                    {
-                        attack.PlayAnimation(smashUp);
-                        PlayAnimation(facingUp);
-                    }
-                }
-            if (IsAttacking) return;
-
-            if (input.CurrentKeyboardState.Equals(new KeyboardState()))
-            {
-                if (Direction == "down")
-                    PlayAnimation(idle);
-                else if (Direction == "left")
-                    PlayAnimation(facingLeft);
-                else if (Direction == "right")
-                    PlayAnimation(facingRight);
-                else if (Direction == "up")
-                    PlayAnimation(facingUp);
-            }
-            if (input.isPressed(Keys.Left))
-            {
-                Direction = "left";
-                Position.X -= Velocity.X;
-                PlayAnimation(walkLeft);
-            }
-            if (input.isPressed(Keys.Right))
-            {
-                Direction = "right";
-                Position.X += Velocity.X;
-                PlayAnimation(walkRight);
-            }
-            if (input.isPressed(Keys.Up))
-            {
-                Direction = "up";
-                Position.Y -= Velocity.Y;
-                if (!input.isPressed(Keys.Left) && !input.isPressed(Keys.Right))
-                    PlayAnimation(walkUp);
-            }
-            if (input.isPressed(Keys.Down))
-            {
-                Direction = "down";
-                Position.Y += Velocity.Y;
-                if (!input.isPressed(Keys.Left) && !input.isPressed(Keys.Right))
-                    PlayAnimation(walkDown);
-            }
         }
 
-        public override void Draw(SpriteBatch spriteBatch)
+        public void Attack(Controls controls, List<Enemy> Baddies)
         {
-            currentAnimation.Draw(spriteBatch);
-            if (attack.currentAnimation != null)
-                attack.currentAnimation.Draw(spriteBatch);
+            if (facing == "left")
+            {
+                attack = new Rectangle(this.spriteX - 50, this.spriteY, 50, 50);
+
+            }
+
+            if (facing == "right")
+            {
+                attack = new Rectangle(this.spriteX + 50, this.spriteY, 50, 50);
+            }
+
+            if (facing == "up")
+            {
+                attack = new Rectangle(this.spriteX, this.spriteY - 50, 50, 50);
+            }
+
+            if (facing == "down")
+            {
+                attack = new Rectangle(this.spriteX, this.spriteY + 50, 50, 50);
+            }
+
+            if (controls.onPress(Keys.Space, Buttons.A))
+            {
+                normalAttacking = true;
+                for (int i = 0; i < Baddies.Count; i++)
+                {
+                    if (attack.Intersects(Baddies[i].rectangle))
+                        Baddies.Remove(Baddies[i]);
+                }
+            }
+
         }
+        
+		public void Move(Controls controls, List<Tree> Trees, List<Object> Objects)
+		{
+			// Sideways Acceleration
+            if (controls.onPress(Keys.Right, Buttons.DPadRight))
+            {
+                x_accel += speed;
+                facing = "right";
+            }
+            else if (controls.onRelease(Keys.Right, Buttons.DPadRight))
+                x_accel -= speed;
+            if (controls.onPress(Keys.Left, Buttons.DPadLeft))
+            {
+                x_accel -= speed;
+                facing = "left";
+            }
+            else if (controls.onRelease(Keys.Left, Buttons.DPadLeft))
+                x_accel += speed;
+
+            if (controls.onPress(Keys.Up, Buttons.DPadUp))
+            {
+                y_accel -= speed;
+                facing = "up";
+            }
+            else if (controls.onRelease(Keys.Up, Buttons.DPadUp))
+                y_accel += speed;
+            if (controls.onPress(Keys.Down, Buttons.DPadDown))
+            {
+                y_accel += speed;
+                facing = "down";
+            }
+            else if (controls.onRelease(Keys.Down, Buttons.DPadDown))
+                y_accel -= speed;
+
+			// EDGE DETECTION
+
+			for (int i = 0; i < Trees.Count; i++) {
+				//left side
+				if ((spriteX + spriteWidth == Trees [i].getX ()) && (spriteX < Trees[i].getX()) && (spriteY + spriteHeight > Trees [i].getY ()) && (spriteY < Trees [i].getY () + Trees [i].getHeight ())) {
+					if (x_vel > 0) {
+						spriteX = Trees [i].getX () - spriteWidth;
+						x_vel = 0;
+					}
+				}
+				//right side
+				if ((spriteX > Trees [i].getX ()) && (spriteX == Trees [i].getX () + Trees [i].getWidth ()) && (spriteY + spriteHeight > Trees [i].getY ()) && (spriteY < Trees [i].getY () + Trees [i].getHeight ())) {
+					if (x_vel < 0) {
+						spriteX = Trees [i].getX () + Trees [i].getWidth ();
+						x_vel = 0;
+					}
+				}
+				//top side
+				if ((spriteX + spriteWidth > Trees [i].getX ()) && (spriteX < Trees [i].getX () + Trees [i].getWidth ()) && (spriteY + spriteHeight == Trees [i].getY ()) && (spriteY < Trees [i].getY ())) {
+					if (y_vel > 0) {
+						spriteY = Trees [i].getY () - spriteHeight;
+						y_vel = 0;
+					}
+				}
+				//bottom side
+				if ((spriteX + spriteWidth > Trees [i].getX ()) && (spriteX < Trees [i].getX () + Trees [i].getWidth ()) && (spriteY == Trees [i].getY () + Trees [i].getHeight ()) && (spriteY > Trees [i].getY ())) {
+					if (y_vel < 0) {
+						spriteY = Trees [i].getY () + Trees [i].getHeight ();
+						y_vel = 0;
+					}
+				}
+			}
+
+			// OBJECT DETECTION
+
+			for (int i = 0; i < Objects.Count; i++) {
+				if (spriteX < Objects [i].getX () + Objects [i].getWidth () && spriteX + spriteWidth > Objects [i].getX () && spriteY < Objects [i].getY () + Objects [i].getHeight () && spriteHeight + spriteY > Objects [i].getY ())
+					Objects.Remove (Objects [i]);
+			}
+
+			x_vel = x_vel * (1 - friction) + x_accel * .05;
+			y_vel = y_vel * (1 - friction) + y_accel * .05;
+			movedX = Convert.ToInt32(x_vel);
+			spriteX += movedX;
+			movedY = Convert.ToInt32(y_vel);
+			spriteY += movedY;
+
+			if (spriteX >= 550)
+				spriteX = 550;
+			else if (spriteX <= 0)
+				spriteX = 0;
+			if (spriteY >= 550)
+				spriteY = 550;
+			else if (spriteY <= 0)
+				spriteY = 0;
+
+			if (spriteX >= 550)
+				spriteX = 550;
+			else if (spriteX <= 0)
+				spriteX = 0;
+			if (spriteY >= 550)
+				spriteY = 550;
+			else if (spriteY <= 0)
+				spriteY = 0;
+
+			// Gravity
+
+			// Check up/down collisions, then left/right
+
+		}
+			
     }
 }
