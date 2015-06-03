@@ -8,22 +8,16 @@ using Microsoft.Xna.Framework.Storage;
 
 namespace Berserker
 {
-	public class Player : Sprite
+    public class Player : Sprite
     {
-		private bool moving;
-		private bool grounded;
-		private double speed;
-		private double x_accel;
-		private double y_accel;
-		private double friction;
-		public double x_vel;
-		public double y_vel;
-		public int movedX;
-		public int movedY;
-		private bool pushing;
-		public double gravity = 0.1;
-		public int maxFallSpeed = 10;
-		private int jumpPoint = 0;
+        private double speed;
+        private double x_accel;
+        private double y_accel;
+        private double friction;
+        public double x_vel;
+        public double y_vel;
+        public int movedX;
+        public int movedY;
 
         public Rectangle attack;
         public Rectangle spearAttack;
@@ -41,25 +35,22 @@ namespace Berserker
 
         bool normalAttacking = false;
         bool spearAttacking = false;
-        
+
         public Player(int x, int y, int width, int height)
         {
             this.spriteX = x;
             this.spriteY = y;
             this.spriteWidth = width;
             this.spriteHeight = height;
-			grounded = false;
-			moving = false;
-			pushing = false;
-			 
-			// Movement
-			speed = 5;
-			friction = .15;
-			x_accel = 0;
-			y_accel = 0;
-			x_vel = 0;
-			y_vel = 0;
-			movedX = 0;
+
+            // Movement
+            speed = 5;
+            friction = .15;
+            x_accel = 0;
+            y_accel = 0;
+            x_vel = 0;
+            y_vel = 0;
+            movedX = 0;
         }
 
         public void LoadContent(ContentManager content)
@@ -115,10 +106,10 @@ namespace Berserker
             }
         }
 
-		public void Update(Controls controls, GameTime gameTime, List<Tree> Trees, List<Object> Objects)
-		{
-			Move (controls, Trees, Objects);
-		}
+        public void Update(Controls controls, GameTime gameTime, List<Tree> Trees, List<Object> Objects)
+        {
+            Move(controls, Trees, Objects);
+        }
 
         public void SpearAttack(Controls controls, List<Enemy> Baddies)
         {
@@ -148,7 +139,10 @@ namespace Berserker
                 for (int i = 0; i < Baddies.Count; i++)
                 {
                     if (spearAttack.Intersects(Baddies[i].rectangle))
+                    {
                         Baddies.Remove(Baddies[i]);
+                        i--;
+                    }
                 }
             }
 
@@ -183,15 +177,18 @@ namespace Berserker
                 for (int i = 0; i < Baddies.Count; i++)
                 {
                     if (attack.Intersects(Baddies[i].rectangle))
+                    {
                         Baddies.Remove(Baddies[i]);
+                        i--;
+                    }
                 }
             }
 
         }
-        
-		public void Move(Controls controls, List<Tree> Trees, List<Object> Objects)
-		{
-			// Sideways Acceleration
+
+        public void Move(Controls controls, List<Tree> Trees, List<Object> Objects)
+        {
+            // Sideways Acceleration
             if (controls.onPress(Keys.Right, Buttons.DPadRight))
             {
                 x_accel += speed;
@@ -222,76 +219,86 @@ namespace Berserker
             else if (controls.onRelease(Keys.Down, Buttons.DPadDown))
                 y_accel -= speed;
 
-			// EDGE DETECTION
+            // EDGE DETECTION
 
-			for (int i = 0; i < Trees.Count; i++) {
-				//left side
-				if ((spriteX + spriteWidth == Trees [i].getX ()) && (spriteX < Trees[i].getX()) && (spriteY + spriteHeight > Trees [i].getY ()) && (spriteY < Trees [i].getY () + Trees [i].getHeight ())) {
-					if (x_vel > 0) {
-						spriteX = Trees [i].getX () - spriteWidth;
-						x_vel = 0;
-					}
-				}
-				//right side
-				if ((spriteX > Trees [i].getX ()) && (spriteX == Trees [i].getX () + Trees [i].getWidth ()) && (spriteY + spriteHeight > Trees [i].getY ()) && (spriteY < Trees [i].getY () + Trees [i].getHeight ())) {
-					if (x_vel < 0) {
-						spriteX = Trees [i].getX () + Trees [i].getWidth ();
-						x_vel = 0;
-					}
-				}
-				//top side
-				if ((spriteX + spriteWidth > Trees [i].getX ()) && (spriteX < Trees [i].getX () + Trees [i].getWidth ()) && (spriteY + spriteHeight == Trees [i].getY ()) && (spriteY < Trees [i].getY ())) {
-					if (y_vel > 0) {
-						spriteY = Trees [i].getY () - spriteHeight;
-						y_vel = 0;
-					}
-				}
-				//bottom side
-				if ((spriteX + spriteWidth > Trees [i].getX ()) && (spriteX < Trees [i].getX () + Trees [i].getWidth ()) && (spriteY == Trees [i].getY () + Trees [i].getHeight ()) && (spriteY > Trees [i].getY ())) {
-					if (y_vel < 0) {
-						spriteY = Trees [i].getY () + Trees [i].getHeight ();
-						y_vel = 0;
-					}
-				}
-			}
+            for (int i = 0; i < Trees.Count; i++)
+            {
+                //left side
+                if ((spriteX + spriteWidth == Trees[i].getX()) && (spriteX < Trees[i].getX()) && (spriteY + spriteHeight > Trees[i].getY()) && (spriteY < Trees[i].getY() + Trees[i].getHeight()))
+                {
+                    if (x_vel > 0)
+                    {
+                        spriteX = Trees[i].getX() - spriteWidth;
+                        x_vel = 0;
+                    }
+                }
+                //right side
+                if ((spriteX > Trees[i].getX()) && (spriteX == Trees[i].getX() + Trees[i].getWidth()) && (spriteY + spriteHeight > Trees[i].getY()) && (spriteY < Trees[i].getY() + Trees[i].getHeight()))
+                {
+                    if (x_vel < 0)
+                    {
+                        spriteX = Trees[i].getX() + Trees[i].getWidth();
+                        x_vel = 0;
+                    }
+                }
+                //top side
+                if ((spriteX + spriteWidth > Trees[i].getX()) && (spriteX < Trees[i].getX() + Trees[i].getWidth()) && (spriteY + spriteHeight == Trees[i].getY()) && (spriteY < Trees[i].getY()))
+                {
+                    if (y_vel > 0)
+                    {
+                        spriteY = Trees[i].getY() - spriteHeight;
+                        y_vel = 0;
+                    }
+                }
+                //bottom side
+                if ((spriteX + spriteWidth > Trees[i].getX()) && (spriteX < Trees[i].getX() + Trees[i].getWidth()) && (spriteY == Trees[i].getY() + Trees[i].getHeight()) && (spriteY > Trees[i].getY()))
+                {
+                    if (y_vel < 0)
+                    {
+                        spriteY = Trees[i].getY() + Trees[i].getHeight();
+                        y_vel = 0;
+                    }
+                }
+            }
 
-			// OBJECT DETECTION
+            // OBJECT DETECTION
 
-			for (int i = 0; i < Objects.Count; i++) {
-				if (spriteX < Objects [i].getX () + Objects [i].getWidth () && spriteX + spriteWidth > Objects [i].getX () && spriteY < Objects [i].getY () + Objects [i].getHeight () && spriteHeight + spriteY > Objects [i].getY ())
-					Objects.Remove (Objects [i]);
-			}
+            for (int i = 0; i < Objects.Count; i++)
+            {
+                if (spriteX < Objects[i].getX() + Objects[i].getWidth() && spriteX + spriteWidth > Objects[i].getX() && spriteY < Objects[i].getY() + Objects[i].getHeight() && spriteHeight + spriteY > Objects[i].getY())
+                    Objects.Remove(Objects[i]);
+            }
 
-			x_vel = x_vel * (1 - friction) + x_accel * .05;
-			y_vel = y_vel * (1 - friction) + y_accel * .05;
-			movedX = Convert.ToInt32(x_vel);
-			spriteX += movedX;
-			movedY = Convert.ToInt32(y_vel);
-			spriteY += movedY;
+            x_vel = x_vel * (1 - friction) + x_accel * .05;
+            y_vel = y_vel * (1 - friction) + y_accel * .05;
+            movedX = Convert.ToInt32(x_vel);
+            spriteX += movedX;
+            movedY = Convert.ToInt32(y_vel);
+            spriteY += movedY;
 
-			if (spriteX >= 550)
-				spriteX = 550;
-			else if (spriteX <= 0)
-				spriteX = 0;
-			if (spriteY >= 550)
-				spriteY = 550;
-			else if (spriteY <= 0)
-				spriteY = 0;
+            if (spriteX >= 550)
+                spriteX = 550;
+            else if (spriteX <= 0)
+                spriteX = 0;
+            if (spriteY >= 550)
+                spriteY = 550;
+            else if (spriteY <= 0)
+                spriteY = 0;
 
-			if (spriteX >= 550)
-				spriteX = 550;
-			else if (spriteX <= 0)
-				spriteX = 0;
-			if (spriteY >= 550)
-				spriteY = 550;
-			else if (spriteY <= 0)
-				spriteY = 0;
+            if (spriteX >= 550)
+                spriteX = 550;
+            else if (spriteX <= 0)
+                spriteX = 0;
+            if (spriteY >= 550)
+                spriteY = 550;
+            else if (spriteY <= 0)
+                spriteY = 0;
 
-			// Gravity
+            // Gravity
 
-			// Check up/down collisions, then left/right
+            // Check up/down collisions, then left/right
 
-		}
-			
+        }
+
     }
 }

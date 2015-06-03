@@ -10,20 +10,13 @@ namespace Berserker
 {
 	public class Enemy : Sprite
 	{
-		private bool moving;
-		private bool grounded;
 		private int speed;
-		private int x_accel;
-		private int y_accel;
 		private double friction;
 		public double x_vel;
 		public double y_vel;
 		public int movedX;
 		public int movedY;
 		private bool pushing;
-		public double gravity = 0.1;
-		public int maxFallSpeed = 10;
-		private int jumpPoint = 0;
 
 		public Rectangle rectangle
 		{
@@ -128,14 +121,6 @@ namespace Berserker
 			else if (spriteY <= 50)
 				spriteY = 50;
 
-			if (spriteX >= 500)
-				spriteX = 500;
-			else if (spriteX <= 50)
-				spriteX = 50;
-			if (spriteY >= 500)
-				spriteY = 500;
-			else if (spriteY <= 50)
-				spriteY = 50;
 			// Gravity
 
 			// Check up/down collisions, then left/right

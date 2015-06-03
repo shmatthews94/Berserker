@@ -11,15 +11,15 @@ namespace Berserker
 {
 	public class Controls
 	{
-		public KeyboardState kb;
-		public KeyboardState kbo;
-		public GamePadState gp;
-		public GamePadState gpo;
+		public KeyboardState CurrentKeyboardState;
+		public KeyboardState PreviousKeyboardState;
+		public GamePadState CurrentGamePadState;
+		public GamePadState PreviousGamePadState;
 
 		public Controls()
 		{
-			this.kb = Keyboard.GetState();
-			this.kbo = Keyboard.GetState();
+			this.CurrentKeyboardState = Keyboard.GetState();
+			this.PreviousKeyboardState = Keyboard.GetState();
 //			this.gp = GamePad.GetState(PlayerIndex.One);
 //			this.gpo = GamePad.GetState(PlayerIndex.One);
 			//Console.WriteLine (Sdl.SDL_JoystickName (0));
@@ -28,16 +28,16 @@ namespace Berserker
 
 		public void Update()
 		{
-			kbo = kb;
+			PreviousKeyboardState = CurrentKeyboardState;
 			//gpo = gp;
-			kb = Keyboard.GetState();
+			CurrentKeyboardState = Keyboard.GetState();
 			//this.gp = GamePad.GetState(PlayerIndex.One);
 		}
 
 		public bool isPressed(Keys key, Buttons button)
 		{
 			//Console.WriteLine (button);
-			return kb.IsKeyDown(key);// || gp.IsButtonDown(button);
+			return CurrentKeyboardState.IsKeyDown(key);// || gp.IsButtonDown(button);
 		}
 
 		public bool onPress(Keys key, Buttons button)
@@ -45,21 +45,21 @@ namespace Berserker
 //			if ((gp.IsButtonDown (button) && gpo.IsButtonUp (button))) {
 //				Console.WriteLine (button);
 //			}
-			return (kb.IsKeyDown(key) && kbo.IsKeyUp(key));// ||
+			return (CurrentKeyboardState.IsKeyDown(key) && PreviousKeyboardState.IsKeyUp(key));// ||
 				//(gp.IsButtonDown(button) && gpo.IsButtonUp(button));
 		}
 
 		public bool onRelease(Keys key, Buttons button)
 		{
 			//Console.WriteLine (button);
-			return (kb.IsKeyUp(key) && kbo.IsKeyDown(key));// ||
+			return (CurrentKeyboardState.IsKeyUp(key) && PreviousKeyboardState.IsKeyDown(key));// ||
 				//(gp.IsButtonUp(button) && gpo.IsButtonDown(button));
 		}
 
 		public bool isHeld(Keys key, Buttons button)
 		{
 			//Console.WriteLine (button);
-			return (kb.IsKeyDown(key) && kbo.IsKeyDown(key));// ||
+			return (CurrentKeyboardState.IsKeyDown(key) && PreviousKeyboardState.IsKeyDown(key));// ||
 				//(gp.IsButtonDown(button) && gpo.IsButtonDown(button));
 		}
 	

@@ -19,8 +19,6 @@ namespace Berserker
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         Player player1;
-        Enemy enemy1;
-        Tree tree1, tree2, tree3, tree4;
         Controls controls;
         int spawncounter;
         int objectcounter;
