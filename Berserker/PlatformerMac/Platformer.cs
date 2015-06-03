@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Storage;
 using Microsoft.Xna.Framework.Input;
-
+using System.Collections.Specialized;
 #endregion
 
 namespace PlatformerMac
@@ -24,7 +24,7 @@ namespace PlatformerMac
 		Controls controls;
 		int spawncounter;
 		int objectcounter;
-		public static List<Enemy> Enemies = new List<Enemy>();
+		public static List<KeyValuePair<Enemy, int>> Enemies = new List<KeyValuePair<Enemy, int>>();
 		public static List<Tree> Trees = new List<Tree>();
 		public static List<Object> Objects = new List<Object>();
 		public Platformer()
@@ -151,25 +151,40 @@ namespace PlatformerMac
 
 			Console.WriteLine ();
 
+
+
 			if (spawncounter == 150) {
 				Enemy newenemy = new Enemy (110, 110, 50, 50);
 				newenemy.LoadContent(this.Content);
-				Enemies.Add(newenemy);
+				KeyValuePair<Enemy, int> NestedEnemyData = new KeyValuePair<Enemy, int>(newenemy, 0);
+
+				Enemies.Add(NestedEnemyData);
 			}
 			if (spawncounter == 300) {
 				Enemy newenemy = new Enemy (490, 110, 50, 50);
 				newenemy.LoadContent(this.Content);
-				Enemies.Add(newenemy);
+
+				KeyValuePair<Enemy, int> NestedEnemyData = new KeyValuePair<Enemy, int>(newenemy, 0);
+
+				Enemies.Add(NestedEnemyData);
 			}
 			if (spawncounter == 450) {
 				Enemy newenemy = new Enemy (110, 490, 50, 50);
 				newenemy.LoadContent(this.Content);
-				Enemies.Add(newenemy);
+
+				KeyValuePair<Enemy, int> NestedEnemyData = new KeyValuePair<Enemy, int>(newenemy, 0);
+
+				Enemies.Add(NestedEnemyData);
+
 			}
 			if (spawncounter == 600) {
 				Enemy newenemy = new Enemy (490, 490, 50, 50);
 				newenemy.LoadContent(this.Content);
-				Enemies.Add(newenemy);
+
+				KeyValuePair<Enemy, int> NestedEnemyData = new KeyValuePair<Enemy, int>(newenemy, 0);
+
+				Enemies.Add(NestedEnemyData);
+
 				spawncounter = 0;
 			}
 			if (objectcounter % 997 == 0) {
@@ -179,8 +194,10 @@ namespace PlatformerMac
 				Objects.Add(object1);
 			}
 			player1.Update(controls, gameTime, Trees, Objects);
+
 			for (int i = 0; i < Enemies.Count; i++) {
-				Enemies[i].Update (controls, gameTime, player1.getX (), player1.getY (), Trees);
+				
+				Enemies[i].Key.Update(controls, gameTime, player1.getX (), player1.getY (), Trees);
 			}
 			player1.Attack (controls, Enemies);
 			spawncounter++;
@@ -200,7 +217,7 @@ namespace PlatformerMac
 			spriteBatch.Begin();
 			player1.Draw(spriteBatch);
 			for (int i = 0; i < Enemies.Count; i++) {
-				Enemies [i].Draw (spriteBatch);
+				Enemies[i].Key.Draw (spriteBatch);
 			}
 			for (int i = 0; i < Trees.Count; i++) {
 				Trees [i].Draw (spriteBatch);

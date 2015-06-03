@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Storage;
-
+using System.Collections.Specialized;
 namespace PlatformerMac
 {
 	public class Player : Sprite
@@ -60,14 +60,24 @@ namespace PlatformerMac
 			Move (controls, Trees, Objects);
 		}
 
-		public void Attack(Controls controls, List<Enemy> Baddies)
+		public void Attack(Controls controls, List<KeyValuePair<Enemy, int>> Baddies)
 		{
+			int hits;
 			if(controls.onPress(Keys.Space, Buttons.A))
 				for (int i = 0; i < Baddies.Count; i++) {
-					double xdist = Math.Pow(this.spriteX - Baddies[i].getX(), 2);
-					double ydist = Math.Pow(this.spriteY - Baddies[i].getY(), 2);
+					double xdist = Math.Pow(this.spriteX - Baddies[i].Key.getX(), 2);
+					double ydist = Math.Pow(this.spriteY - Baddies[i].Key.getY(), 2);
 					if (Math.Pow((xdist + ydist), .5) < 50)
-						Baddies.Remove (Baddies [i]);
+					{
+						hits = Baddies[i].Value;
+						if(hits == 3){
+							Baddies.RemoveAt(i);
+						}else{
+							hits += 1;
+							KeyValuePair<Enemy, int> replace = new KeyValuePair<Enemy, int>(Baddies[i].Key, hits);
+							Baddies[i] = replace;
+						}
+					}
 				}
 		}
 
