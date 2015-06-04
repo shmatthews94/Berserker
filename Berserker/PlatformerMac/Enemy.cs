@@ -32,15 +32,15 @@ namespace Berserker
 			this.spriteY = y;
 			this.spriteWidth = width;
 			this.spriteHeight = height;
-			grounded = false;
-			moving = false;
+			///grounded = false;
+			///moving = false;
 			pushing = false;
 
 			// Movement
 			speed = 1;
 			friction = .15;
-			x_accel = 0;
-			y_accel = 0;
+			///x_accel = 0;
+			///y_accel = 0;
 			x_vel = 1;
 			y_vel = 1;
 			movedX = 0;

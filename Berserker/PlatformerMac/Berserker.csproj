@@ -70,7 +70,6 @@
     <Compile Include="Sprite.cs" />
     <Compile Include="Enemy.cs" />
     <Compile Include="Tree.cs" />
-    <Compile Include="Attack.cs" />
     <Compile Include="Object.cs" />
     <Compile Include="Game1.cs" />
   </ItemGroup>

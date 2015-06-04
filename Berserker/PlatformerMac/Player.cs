@@ -43,8 +43,8 @@ namespace Berserker
             this.spriteY = y;
             this.spriteWidth = width;
             this.spriteHeight = height;
-            grounded = false;
-            moving = false;
+            ///grounded = false;
+            ///moving = false;
             pushing = false;
 
             // Movement
@@ -143,7 +143,7 @@ namespace Berserker
                 spearAttacking = true;
                 for (int i = 0; i < Baddies.Count; i++)
                 {
-                    if (spearAttack.Intersects(Baddies[i].rectangle))
+                    if (spearAttack.Intersects(Baddies[i].Key.rectangle))
                     {
                         Baddies.Remove(Baddies[i]);
                         i--;
