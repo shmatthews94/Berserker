@@ -17,6 +17,7 @@ namespace Berserker
 		public int movedX;
 		public int movedY;
 		private bool pushing;
+		public int health;
 
 		public Rectangle rectangle
 		{
@@ -35,7 +36,7 @@ namespace Berserker
 			///grounded = false;
 			///moving = false;
 			pushing = false;
-
+			health = 3;
 			// Movement
 			speed = 1;
 			friction = .15;
@@ -46,6 +47,17 @@ namespace Berserker
 			movedX = 0;
 		}
 
+		public int getHealth() {
+			return this.health;
+		}
+
+		public void setHealth(int x) {
+			this.health = x;
+		}
+
+		public void decrementHealth() {
+			this.health = this.health - 1;
+		}
 
 		public void LoadContent(ContentManager content)
 		{

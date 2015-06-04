@@ -18,6 +18,8 @@ namespace Berserker
         public double y_vel;
         public int movedX;
         public int movedY;
+		public int moveX;
+		public int moveY;
         private bool pushing;
 
         public Rectangle attack;
@@ -116,7 +118,7 @@ namespace Berserker
         }
 
 
-        public void SpearAttack(Controls controls, List<KeyValuePair<Enemy, int>> Baddies)
+		public void SpearAttack(Controls controls, List<Enemy> Baddies)
         {
             if (facing == "left")
             {
@@ -143,7 +145,7 @@ namespace Berserker
                 spearAttacking = true;
                 for (int i = 0; i < Baddies.Count; i++)
                 {
-                    if (spearAttack.Intersects(Baddies[i].Key.rectangle))
+                    if (spearAttack.Intersects(Baddies[i].rectangle))
                     {
                         Baddies.Remove(Baddies[i]);
                         i--;
@@ -153,53 +155,57 @@ namespace Berserker
 
         }
 
-        public void Attack(Controls controls, List<KeyValuePair<Enemy, int>> Baddies)
-        {
-            if (facing == "left")
-            {
-                attack = new Rectangle(this.spriteX - 50, this.spriteY, 50, 50);
+		public void Attack(Controls controls, List<Enemy> Baddies)
+		{
+			moveX = 0;
+			moveY = 0;
+			if (facing == "left")
+			{
+				attack = new Rectangle(this.spriteX - 50, this.spriteY, 50, 50);
+				moveX = -50;
+				moveY = 0;
+			}
 
-            }
+			if (facing == "right")
+			{
+				attack = new Rectangle(this.spriteX + 50, this.spriteY, 50, 50);
+				moveX = 50;
+				moveY = 0;
+			}
 
-            if (facing == "right")
-            {
-                attack = new Rectangle(this.spriteX + 50, this.spriteY, 50, 50);
-            }
+			if (facing == "up")
+			{
+				attack = new Rectangle(this.spriteX, this.spriteY - 50, 50, 50);
+				moveX = 0;
+				moveY = -50;
+			}
 
-            if (facing == "up")
-            {
-                attack = new Rectangle(this.spriteX, this.spriteY - 50, 50, 50);
-            }
+			if (facing == "down")
+			{
+				attack = new Rectangle(this.spriteX, this.spriteY + 50, 50, 50);
+				moveX = 0;
+				moveY = 50;
+			}
 
-            if (facing == "down")
-            {
-                attack = new Rectangle(this.spriteX, this.spriteY + 50, 50, 50);
-            }
+			if (controls.onPress(Keys.Space, Buttons.A))
+			{
+				normalAttacking = true;
+				for (int i = 0; i < Baddies.Count; i++)
+				{
+					if (attack.Intersects(Baddies[i].rectangle))
+					{
+						Baddies [i].decrementHealth ();
+						if(Baddies[i].health == 0){
+							Baddies.RemoveAt(i);
+						}else{
+							Baddies [i].setX (Baddies[i].getX () + moveX);
+							Baddies [i].setY (Baddies[i].getY () + moveY);
+						}
+					}
+				}
+			}
 
-            if (controls.onPress(Keys.Space, Buttons.A))
-            {
-                normalAttacking = true;
-                for (int i = 0; i < Baddies.Count; i++)
-                {
-                    int hits;
-                    if (attack.Intersects(Baddies[i].Key.rectangle))
-                    {
-                        hits = Baddies[i].Value;
-                        if (hits == 3)
-                        {
-                            Baddies.RemoveAt(i);
-                        }
-                        else
-                        {
-                            hits += 1;
-                            KeyValuePair<Enemy, int> replace = new KeyValuePair<Enemy, int>(Baddies[i].Key, hits);
-                            Baddies[i] = replace;
-                        }
-                    }
-                }
-            }
-
-        }
+		}
 
         public void Move(Controls controls, List<Tree> Trees, List<Object> Objects)
         {

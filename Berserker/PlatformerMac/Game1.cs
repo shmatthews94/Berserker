@@ -24,7 +24,7 @@ namespace Berserker
 		Controls controls;
 		int spawncounter;
 		int objectcounter;
-		public static List<KeyValuePair<Enemy, int>> Enemies = new List<KeyValuePair<Enemy, int>>();
+		public static List<Enemy> Enemies = new List<Enemy>();
 		public static List<Tree> Trees = new List<Tree>();
 		public static List<Object> Objects = new List<Object>();
 
@@ -159,38 +159,26 @@ namespace Berserker
 			{
 				Enemy newenemy = new Enemy(110, 110, 50, 50);
 				newenemy.LoadContent(this.Content);
-				KeyValuePair<Enemy, int> NestedEnemyData = new KeyValuePair<Enemy, int>(newenemy, 0);
-
-				Enemies.Add(NestedEnemyData);
+				Enemies.Add (newenemy);
 			}
 			if (spawncounter == 300)
 			{
 				Enemy newenemy = new Enemy(490, 110, 50, 50);
 				newenemy.LoadContent(this.Content);
-
-				KeyValuePair<Enemy, int> NestedEnemyData = new KeyValuePair<Enemy, int>(newenemy, 0);
-
-				Enemies.Add(NestedEnemyData);
+				Enemies.Add (newenemy);
 			}
 			if (spawncounter == 450)
 			{
 				Enemy newenemy = new Enemy(110, 490, 50, 50);
 				newenemy.LoadContent(this.Content);
-
-				KeyValuePair<Enemy, int> NestedEnemyData = new KeyValuePair<Enemy, int>(newenemy, 0);
-
-				Enemies.Add(NestedEnemyData);
+				Enemies.Add (newenemy);
 
 			}
 			if (spawncounter == 600)
 			{
 				Enemy newenemy = new Enemy(490, 490, 50, 50);
 				newenemy.LoadContent(this.Content);
-
-				KeyValuePair<Enemy, int> NestedEnemyData = new KeyValuePair<Enemy, int>(newenemy, 0);
-
-				Enemies.Add(NestedEnemyData);
-
+				Enemies.Add (newenemy);
 				spawncounter = 0;
 			}
 			if (objectcounter % 997 == 0)
@@ -204,7 +192,7 @@ namespace Berserker
 
 			for (int i = 0; i < Enemies.Count; i++)
 			{
-				Enemies[i].Key.Update(controls, gameTime, player1.getX(), player1.getY(), Trees);
+				Enemies[i].Update(controls, gameTime, player1.getX(), player1.getY(), Trees);
 			}
 			player1.Attack(controls, Enemies);
 			player1.SpearAttack(controls, Enemies);
@@ -229,7 +217,7 @@ namespace Berserker
 
 			for (int i = 0; i < Enemies.Count; i++)
 			{
-				Enemies[i].Key.Draw(spriteBatch);
+				Enemies[i].Draw(spriteBatch);
 			}
 			for (int i = 0; i < Trees.Count; i++)
 			{
