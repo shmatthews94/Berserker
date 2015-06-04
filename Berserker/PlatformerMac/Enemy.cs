@@ -49,7 +49,7 @@ namespace Berserker
 
 		public void LoadContent(ContentManager content)
 		{
-			image = content.Load<Texture2D>("enemy_temp.png");
+			image = content.Load<Texture2D>("enemy.png");
 		}
 
 		public void Draw(SpriteBatch sb)
