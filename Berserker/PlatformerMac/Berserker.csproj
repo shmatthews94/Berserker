@@ -102,5 +102,6 @@
     <BundleResource Include="Content\spearRight.png" />
     <BundleResource Include="Content\spearUp.png" />
     <BundleResource Include="Content\enemy.png" />
+    <BundleResource Include="Content\pinetree.png" />
   </ItemGroup>
 </Project>

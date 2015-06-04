@@ -23,7 +23,7 @@ namespace Berserker
 		public void LoadContent(ContentManager content)
 		{
 			if (type == 1) {
-				image = content.Load<Texture2D> ("tree.png");
+				image = content.Load<Texture2D> ("pinetree.png");
 			}
 			if (type == 2) {
 				image = content.Load<Texture2D> ("tower.png");
