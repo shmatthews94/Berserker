@@ -1,0 +1,15 @@
+﻿<Properties StartupItem="Berserker.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Main.cs">
+    <Files>
+      <File FileName="Controls.cs" Line="4" Column="31" />
+      <File FileName="Enemy.cs" Line="1" Column="1" />
+      <File FileName="Game1.cs" Line="12" Column="20" />
+      <File FileName="Main.cs" Line="6" Column="22" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
