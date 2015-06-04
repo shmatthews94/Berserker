@@ -37,7 +37,7 @@ namespace Berserker
 			graphics.PreferredBackBufferHeight = 600;   // set this value to the desired height of your window
 			graphics.ApplyChanges();
 			Content.RootDirectory = "Content";
-			this.TargetElapsedTime = TimeSpan.FromSeconds(1.0f / 75.0f);
+			this.TargetElapsedTime = TimeSpan.FromSeconds(1.0f / 40.0f);
 		}
 
 		/// <summary>
@@ -51,6 +51,15 @@ namespace Berserker
 			// TODO: Add your initialization logic here
 
 			player1 = new Player(275, 275, 50, 50);
+			Trees.Add (new Tree (150, 150, 50, 50, 1));
+			Trees.Add (new Tree (100, 150, 50, 50, 1));
+			Trees.Add (new Tree (200, 250, 50, 50, 1));
+			Trees.Add (new Tree (200, 300, 50, 50, 1));
+			Trees.Add (new Tree (350, 250, 50, 50, 1));
+			Trees.Add (new Tree (350, 300, 50, 50, 1));
+			Trees.Add (new Tree (400, 400, 50, 50, 1));
+			Trees.Add (new Tree (450, 400, 50, 50, 1));
+
 			Trees.Add(new Tree(0, 0, 50, 50, 1));
 			Trees.Add(new Tree(0, 50, 50, 50, 1));
 			Trees.Add(new Tree(0, 100, 50, 50, 1));

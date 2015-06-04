@@ -78,38 +78,11 @@ namespace Berserker
 		public void Move(int x, int y, List<Tree> Trees)
 		{
 
+		
 			// Sideways Acceleration
 
-			for (int i = 0; i < Trees.Count; i++) {
-				//left side
-				if ((spriteX + spriteWidth == Trees [i].getX ()) && (spriteX < Trees[i].getX()) && (spriteY + spriteHeight > Trees [i].getY ()) && (spriteY < Trees [i].getY () + Trees [i].getHeight ())) {
-					if (x_vel > 0) {
-						spriteX = Trees [i].getX () - spriteWidth;
-						x_vel = 0;
-					}
-				}
-				//right side
-				if ((spriteX > Trees [i].getX ()) && (spriteX == Trees [i].getX () + Trees [i].getWidth ()) && (spriteY + spriteHeight > Trees [i].getY ()) && (spriteY < Trees [i].getY () + Trees [i].getHeight ())) {
-					if (x_vel < 0) {
-						spriteX = Trees [i].getX () + Trees [i].getWidth ();
-						x_vel = 0;
-					}
-				}
-				//top side
-				if ((spriteX + spriteWidth > Trees [i].getX ()) && (spriteX < Trees [i].getX () + Trees [i].getWidth ()) && (spriteY + spriteHeight == Trees [i].getY ()) && (spriteY < Trees [i].getY ())) {
-					if (y_vel > 0) {
-						spriteY = Trees [i].getY () - spriteHeight;
-						y_vel = 0;
-					}
-				}
-				//bottom side
-				if ((spriteX + spriteWidth > Trees [i].getX ()) && (spriteX < Trees [i].getX () + Trees [i].getWidth ()) && (spriteY == Trees [i].getY () + Trees [i].getHeight ()) && (spriteY > Trees [i].getY ())) {
-					if (y_vel < 0) {
-						spriteY = Trees [i].getY () + Trees [i].getHeight ();
-						y_vel = 0;
-					}
-				}
-			}
+			x_vel = 1;
+			y_vel = 1;
 			double playerFriction = pushing ? (friction * 3) : friction;
 			x_vel = x_vel * (1 - playerFriction);
 			y_vel = y_vel * (1 - playerFriction);
@@ -117,12 +90,47 @@ namespace Berserker
 				x_vel *= -1;
 			if (y < this.spriteY)
 				y_vel *= -1;
+
+			for (int i = 0; i < Trees.Count; i++) {
+				Rectangle player = new Rectangle (this.spriteX, this.spriteY, this.spriteWidth, this.spriteHeight);
+				Rectangle tree = new Rectangle (Trees [i].getX (), Trees [i].getY (), Trees [i].getWidth (), Trees [i].getHeight ());
+				if (player.Intersects (tree)) {
+					Rectangle intersection = Rectangle.Intersect (player, tree);
+					if (intersection.Height > intersection.Width) {
+
+						if (this.spriteX >= Trees [i].getX ()) {
+							if (this.x_vel < 0) {
+								this.x_vel = 0;
+								this.spriteX = Trees [i].getX () + Trees[i].getWidth();
+							}
+						}
+						else {
+							if (this.x_vel > 0) {
+								this.x_vel = 0;
+								this.spriteX = Trees [i].getX () - this.spriteWidth;
+							}
+						}
+					} else {
+						if (this.spriteY >= Trees [i].getY ()) {
+							if (this.y_vel < 0) {
+								this.y_vel = 0;
+								this.spriteY = Trees [i].getY () + Trees [i].getHeight();
+							}
+						}
+						else {
+							if (this.y_vel > 0) {
+								this.y_vel = 0;
+								this.spriteY = Trees [i].getY () - this.spriteHeight;
+							}
+						}
+					}
+				}
+			}
+
 			movedX = Convert.ToInt32(x_vel);
 			spriteX += movedX;
 			movedY = Convert.ToInt32(y_vel);
 			spriteY += movedY;
-			x_vel = 1;
-			y_vel = 1;
 
 			if (spriteX >= 500)
 				spriteX = 500;
@@ -136,6 +144,7 @@ namespace Berserker
 			// Gravity
 
 			// Check up/down collisions, then left/right
+
 
 		}
 

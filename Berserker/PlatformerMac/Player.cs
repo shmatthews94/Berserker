@@ -241,7 +241,7 @@ namespace Berserker
                 y_accel -= speed;
 
             // EDGE DETECTION
-
+			/*
             for (int i = 0; i < Trees.Count; i++)
             {
                 //left side
@@ -281,7 +281,7 @@ namespace Berserker
                     }
                 }
             }
-
+			*/
             // OBJECT DETECTION
 
             for (int i = 0; i < Objects.Count; i++)
@@ -318,7 +318,41 @@ namespace Berserker
             // Gravity
 
             // Check up/down collisions, then left/right
+			for (int i = 0; i < Trees.Count; i++) {
+				Rectangle player = new Rectangle (this.spriteX, this.spriteY, this.spriteWidth, this.spriteHeight);
+				Rectangle tree = new Rectangle (Trees [i].getX (), Trees [i].getY (), Trees [i].getWidth (), Trees [i].getHeight ());
+				if (player.Intersects (tree)) {
+					Rectangle intersection = Rectangle.Intersect (player, tree);
+					if (intersection.Height > intersection.Width) {
 
+						if (this.spriteX >= Trees [i].getX ()) {
+							if (this.x_vel < 0) {
+								this.x_vel = 0;
+								this.spriteX = Trees [i].getX () + Trees[i].getWidth();
+							}
+						}
+						if (this.spriteX < Trees [i].getX ()) {
+							if (this.x_vel > 0) {
+								this.x_vel = 0;
+								this.spriteX = Trees [i].getX () - this.spriteWidth;
+							}
+						}
+					} else {
+						if (this.spriteY >= Trees [i].getY ()) {
+							if (this.y_vel < 0) {
+								this.y_vel = 0;
+								this.spriteY = Trees [i].getY () + Trees [i].getHeight();
+							}
+						}
+						if (this.spriteY < Trees [i].getY ()) {
+							if (this.y_vel > 0) {
+								this.y_vel = 0;
+								this.spriteY = Trees [i].getY () - this.spriteHeight;
+							}
+						}
+					}
+				}
+			}
         }
 
     }
