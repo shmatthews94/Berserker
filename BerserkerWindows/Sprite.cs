@@ -41,6 +41,13 @@ namespace Berserker
 		{
 			spriteY = y;
 		}
+        public Rectangle Hitbox
+        {
+            get
+            {
+                return new Rectangle(spriteX, spriteY, spriteWidth, spriteHeight);
+            }
+        }
 	}
 }
 
