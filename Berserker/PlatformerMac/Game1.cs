@@ -22,6 +22,7 @@ namespace Berserker
 		Enemy enemy1;
 		Tree tree1, tree2, tree3, tree4;
 		Controls controls;
+		public Texture2D healthbar;
 		int spawncounter;
 		int objectcounter;
 		public static List<Enemy> Enemies = new List<Enemy>();
@@ -132,6 +133,7 @@ namespace Berserker
 			{
 				Trees[i].LoadContent(this.Content);
 			}
+			healthbar = Content.Load<Texture2D>("healthbar");
 
 			// TODO: use this.Content to load your game content here
 		}
@@ -202,6 +204,7 @@ namespace Berserker
 			for (int i = 0; i < Enemies.Count; i++)
 			{
 				Enemies[i].Update(controls, gameTime, player1.getX(), player1.getY(), Trees);
+				Enemies [i].Attack (controls, player1, objectcounter);
 			}
 			player1.Attack(controls, Enemies);
 			player1.SpearAttack(controls, Enemies);
@@ -236,6 +239,8 @@ namespace Berserker
 			{
 				Objects[i].Draw(spriteBatch);
 			}
+			spriteBatch.Draw (healthbar, new Rectangle (0, 0, 150, 50), new Rectangle (0, 0, 500, 50), Color.DarkGreen);
+			spriteBatch.Draw (healthbar, new Rectangle (0, 0, player1.getHealth()*30, 50), new Rectangle (0, 0, 500, 50), Color.Red);
 			spriteBatch.End();
 
 			base.Draw(gameTime);

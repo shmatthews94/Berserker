@@ -14,6 +14,7 @@ namespace Berserker
         private int speed;
         public int moveX;
         public int moveY;
+		public int health;
 
         public Rectangle attack;
         public Rectangle spearAttack;
@@ -40,8 +41,17 @@ namespace Berserker
             this.spriteHeight = height;
 
             // Movement
-            speed = 4;
+            speed = 5;
+			health = 5;
         }
+
+		public void decrementHealth() {
+			this.health--;
+		}
+
+		public int getHealth() {
+			return this.health;
+		}
 
         public void LoadContent(ContentManager content)
         {

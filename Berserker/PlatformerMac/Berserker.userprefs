@@ -1,17 +1,16 @@
-﻿<Properties MonoDevelop.MonoMac.LastXamMacNagTime="6/4/2015 8:16:45 PM">
+﻿<Properties MonoDevelop.MonoMac.LastXamMacNagTime="6/5/2015 4:40:16 PM" StartupItem="Berserker.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Game1.cs">
     <Files>
       <File FileName="Controls.cs" Line="1" Column="1" />
-      <File FileName="Main.cs" Line="42" Column="20" />
+      <File FileName="Main.cs" Line="1" Column="1" />
       <File FileName="MainMenu.cs" Line="1" Column="1" />
-      <File FileName="Player.cs" Line="161" Column="3" />
-      <File FileName="Sprite.cs" Line="47" Column="1" />
-      <File FileName="Game1.cs" Line="197" Column="23" />
-      <File FileName="Enemy.cs" Line="74" Column="3" />
+      <File FileName="Player.cs" Line="1" Column="1" />
+      <File FileName="Sprite.cs" Line="1" Column="1" />
+      <File FileName="Game1.cs" Line="242" Column="4" />
+      <File FileName="Enemy.cs" Line="1" Column="1" />
       <File FileName="Tree.cs" Line="1" Column="1" />
       <File FileName="packages.config" Line="1" Column="1" />
-      <File FileName="Attack.cs" Line="1" Column="1" />
       <File FileName="Object.cs" Line="1" Column="1" />
       <File FileName="Info.plist" />
     </Files>
