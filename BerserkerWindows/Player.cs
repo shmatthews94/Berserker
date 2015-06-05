@@ -40,7 +40,7 @@ namespace Berserker
             this.spriteHeight = height;
 
             // Movement
-            speed = 4;
+            speed = 5;
         }
 
         public void LoadContent(ContentManager content)
