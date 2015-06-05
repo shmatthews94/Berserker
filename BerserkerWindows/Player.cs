@@ -12,6 +12,8 @@ namespace Berserker
     public class Player : Sprite
     {
         private int speed;
+        public int moveX;
+        public int moveY;
 
         public Rectangle attack;
         public Rectangle spearAttack;
@@ -38,7 +40,7 @@ namespace Berserker
             this.spriteHeight = height;
 
             // Movement
-            speed = 5;
+            speed = 4;
         }
 
         public void LoadContent(ContentManager content)
@@ -139,24 +141,34 @@ namespace Berserker
 
         public void Attack(Controls controls, List<Enemy> Baddies)
         {
+            moveX = 0;
+            moveY = 0;
             if (facing == "left")
             {
                 attack = new Rectangle(this.spriteX - 50, this.spriteY, 50, 50);
+                moveX = -50;
+                moveY = 0;
             }
 
             if (facing == "right")
             {
                 attack = new Rectangle(this.spriteX + 50, this.spriteY, 50, 50);
+                moveX = 50;
+                moveY = 0;
             }
 
             if (facing == "up")
             {
                 attack = new Rectangle(this.spriteX, this.spriteY - 50, 50, 50);
+                moveX = 0;
+                moveY = -50;
             }
 
             if (facing == "down")
             {
                 attack = new Rectangle(this.spriteX, this.spriteY + 50, 50, 50);
+                moveX = 0;
+                moveY = 50;
             }
 
             if (controls.onPress(Keys.Space, Buttons.A))
@@ -173,8 +185,8 @@ namespace Berserker
                         }
                         else
                         {
-                            Baddies[i].setX(Baddies[i].getX());
-                            Baddies[i].setY(Baddies[i].getY());
+                            Baddies[i].setX(Baddies[i].getX() + moveX);
+                            Baddies[i].setY(Baddies[i].getY() + moveY);
                         }
                     }
                 }
@@ -184,20 +196,22 @@ namespace Berserker
 
         public void Move(Controls controls, List<Tree> Trees, List<Object> Objects)
         {
+            // Sideways Acceleration
+            #region Movement and Tree Collision
             int prevSpriteX = spriteX;
             int prevSpriteY = spriteY;
 
-            if (controls.isPressed(Keys.Right, Buttons.DPadRight))
-            {
-                facing = "right";
-                spriteX += speed;
-            }
+
             if (controls.isPressed(Keys.Left, Buttons.DPadLeft))
             {
                 facing = "left";
                 spriteX -= speed;
             }
-
+            if (controls.isPressed(Keys.Right, Buttons.DPadRight))
+            {
+                facing = "right";
+                spriteX += speed;
+            }
             Trees = Trees.OrderBy(t => t.getX()).ToList();
             foreach (Tree t in Trees)
             {
@@ -209,7 +223,6 @@ namespace Berserker
                     }
                 }
             }
-
 
             if (controls.isPressed(Keys.Up, Buttons.DPadUp))
             {
@@ -233,6 +246,8 @@ namespace Berserker
                     }
                 }
             }
+            #endregion
+
 
             // OBJECT DETECTION
 
@@ -242,6 +257,7 @@ namespace Berserker
                     Objects.Remove(Objects[i]);
             }
 
+            #region Clamp Position to Screen
             if (spriteX >= 500)
                 spriteX = 500;
             else if (spriteX <= 50)
@@ -250,30 +266,14 @@ namespace Berserker
                 spriteY = 500;
             else if (spriteY <= 50)
                 spriteY = 50;
-
-            if (spriteX >= 500)
-                spriteX = 500;
-            else if (spriteX <= 50)
-                spriteX = 50;
-            if (spriteY >= 500)
-                spriteY = 500;
-            else if (spriteY <= 50)
-                spriteY = 50;
-
-            // Gravity
-
-            // Check up/down collisions, then left/right
-
-
-
+            #endregion
         }
-
         private bool checkCollisions(Tree t)
         {
             if (Hitbox.Intersects(t.Hitbox))
                 return true;
             return false;
         }
-
     }
 }
+
