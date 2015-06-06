@@ -13,6 +13,13 @@ namespace Berserker
 	{
 		private int speed;
 		public int health;
+		public String facing;
+		public bool normalAttacking = false;
+		public Rectangle attack;
+		public Texture2D attackL;
+		public Texture2D attackR;
+		public Texture2D attackU;
+		public Texture2D attackD;
 
 		public Rectangle rectangle
 		{
@@ -45,14 +52,65 @@ namespace Berserker
 			this.health = this.health - 1;
 		}
 
+		public void Attack(Controls controls, Player player, int counter)
+		{
+			if (counter % 50 == 0) {
+				if (facing == "left")
+				{
+					attack = new Rectangle(this.spriteX - 50, this.spriteY, 50, 50);
+				}
+
+				if (facing == "right")
+				{
+					attack = new Rectangle(this.spriteX + 50, this.spriteY, 50, 50);
+				}
+
+				if (facing == "up")
+				{
+					attack = new Rectangle(this.spriteX, this.spriteY - 50, 50, 50);
+				}
+
+				if (facing == "down")
+				{
+					attack = new Rectangle(this.spriteX, this.spriteY + 50, 50, 50);
+				}
+				normalAttacking = true;
+				if (attack.Intersects(new Rectangle(player.getX(), player.getY(), player.getWidth(), player.getHeight())))
+				{
+					player.decrementHealth ();
+				}
+			}
+		}
+
 		public void LoadContent(ContentManager content)
 		{
 			image = content.Load<Texture2D>("enemy.png");
+			attackL = content.Load<Texture2D>("slashLeft");
+			attackR = content.Load<Texture2D>("slashRight");
+			attackU = content.Load<Texture2D>("slashUp");
+			attackD = content.Load<Texture2D>("slashDown");
 		}
 
 		public void Draw(SpriteBatch sb)
 		{
 			sb.Draw(image, new Rectangle(spriteX, spriteY, spriteWidth, spriteHeight), Color.White);
+			if (normalAttacking)
+			{
+				if (facing == "left")
+					sb.Draw(attackL, attack, Color.White);
+
+				if (facing == "right")
+					sb.Draw(attackR, attack, Color.White);
+
+				if (facing == "up")
+					sb.Draw(attackU, attack, Color.White);
+
+				if (facing == "down")
+					sb.Draw(attackD, attack, Color.White);
+
+				normalAttacking = false;
+
+			}
 		}
 
 		public void Update(Controls controls, GameTime gameTime, int x, int y, List<Tree> Trees)
@@ -76,6 +134,18 @@ namespace Berserker
             {
                 spriteX += speed;
             }
+			if (Math.Abs (this.spriteX - x) > Math.Abs (this.spriteY - y)) {
+				if (x < this.spriteX)
+					facing = "left";
+				else
+					facing = "right";
+			}
+			if (Math.Abs (this.spriteY - y) >= Math.Abs (this.spriteX - x)) {
+				if (y < this.spriteY)
+					facing = "up";
+				else
+					facing = "down";
+			}
 
             Trees = Trees.OrderBy(t => t.getX()).ToList();
             foreach (Tree t in Trees)

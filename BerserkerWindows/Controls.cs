@@ -11,58 +11,58 @@ namespace Berserker
 {
 	public class Controls
 	{
-		public KeyboardState CurrentKeyboardState;
-		public KeyboardState PreviousKeyboardState;
-		public GamePadState CurrentGamePadState;
-		public GamePadState PreviousGamePadState;
+		public KeyboardState kb;
+		public KeyboardState kbo;
+		public GamePadState gp;
+		public GamePadState gpo;
 
 		public Controls()
 		{
-			this.CurrentKeyboardState = Keyboard.GetState();
-			this.PreviousKeyboardState = Keyboard.GetState();
-//			this.gp = GamePad.GetState(PlayerIndex.One);
-//			this.gpo = GamePad.GetState(PlayerIndex.One);
+			this.kb = Keyboard.GetState();
+			this.kbo = Keyboard.GetState();
+			//			this.gp = GamePad.GetState(PlayerIndex.One);
+			//			this.gpo = GamePad.GetState(PlayerIndex.One);
 			//Console.WriteLine (Sdl.SDL_JoystickName (0));
 
 		}
 
 		public void Update()
 		{
-			PreviousKeyboardState = CurrentKeyboardState;
+			kbo = kb;
 			//gpo = gp;
-			CurrentKeyboardState = Keyboard.GetState();
+			kb = Keyboard.GetState();
 			//this.gp = GamePad.GetState(PlayerIndex.One);
 		}
 
 		public bool isPressed(Keys key, Buttons button)
 		{
 			//Console.WriteLine (button);
-			return CurrentKeyboardState.IsKeyDown(key);// || gp.IsButtonDown(button);
+			return kb.IsKeyDown(key);// || gp.IsButtonDown(button);
 		}
 
 		public bool onPress(Keys key, Buttons button)
 		{
-//			if ((gp.IsButtonDown (button) && gpo.IsButtonUp (button))) {
-//				Console.WriteLine (button);
-//			}
-			return (CurrentKeyboardState.IsKeyDown(key) && PreviousKeyboardState.IsKeyUp(key));// ||
-				//(gp.IsButtonDown(button) && gpo.IsButtonUp(button));
+			//			if ((gp.IsButtonDown (button) && gpo.IsButtonUp (button))) {
+			//				Console.WriteLine (button);
+			//			}
+			return (kb.IsKeyDown(key) && kbo.IsKeyUp(key));// ||
+			//(gp.IsButtonDown(button) && gpo.IsButtonUp(button));
 		}
 
 		public bool onRelease(Keys key, Buttons button)
 		{
 			//Console.WriteLine (button);
-			return (CurrentKeyboardState.IsKeyUp(key) && PreviousKeyboardState.IsKeyDown(key));// ||
-				//(gp.IsButtonUp(button) && gpo.IsButtonDown(button));
+			return (kb.IsKeyUp(key) && kbo.IsKeyDown(key));// ||
+			//(gp.IsButtonUp(button) && gpo.IsButtonDown(button));
 		}
 
 		public bool isHeld(Keys key, Buttons button)
 		{
 			//Console.WriteLine (button);
-			return (CurrentKeyboardState.IsKeyDown(key) && PreviousKeyboardState.IsKeyDown(key));// ||
-				//(gp.IsButtonDown(button) && gpo.IsButtonDown(button));
+			return (kb.IsKeyDown(key) && kbo.IsKeyDown(key));// ||
+			//(gp.IsButtonDown(button) && gpo.IsButtonDown(button));
 		}
-	
+
 	}
 }
 
