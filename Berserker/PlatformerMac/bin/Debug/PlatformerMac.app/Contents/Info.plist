@@ -13,7 +13,7 @@
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
 	<key>BuildMachineOSBuild</key>
-	<string>14D136</string>
+	<string>14C109</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
@@ -37,7 +37,7 @@
 	<key>DTPlatformVersion</key>
 	<string>GM</string>
 	<key>DTSDKBuild</key>
-	<string>14D136</string>
+	<string>14C109</string>
 	<key>DTSDKName</key>
 	<string>macosx10.10</string>
 	<key>DTXcode</key>
@@ -45,6 +45,6 @@
 	<key>DTXcodeBuild</key>
 	<string>6D2105</string>
 	<key>NSHumanReadableCopyright</key>
-	<string>Copyright © eliseweiland</string>
+	<string>Copyright © shanematthews</string>
 </dict>
 </plist>

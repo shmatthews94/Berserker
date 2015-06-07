@@ -22,9 +22,10 @@ namespace Berserker
 		Enemy enemy1;
 		Tree tree1, tree2, tree3, tree4;
 		Controls controls;
+		public Texture2D healthbar;
 		int spawncounter;
 		int objectcounter;
-		public static List<KeyValuePair<Enemy, int>> Enemies = new List<KeyValuePair<Enemy, int>>();
+		public static List<Enemy> Enemies = new List<Enemy>();
 		public static List<Tree> Trees = new List<Tree>();
 		public static List<Object> Objects = new List<Object>();
 
@@ -37,7 +38,7 @@ namespace Berserker
 			graphics.PreferredBackBufferHeight = 600;   // set this value to the desired height of your window
 			graphics.ApplyChanges();
 			Content.RootDirectory = "Content";
-			this.TargetElapsedTime = TimeSpan.FromSeconds(1.0f / 75.0f);
+			this.TargetElapsedTime = TimeSpan.FromSeconds(1.0f / 40.0f);
 		}
 
 		/// <summary>
@@ -51,6 +52,15 @@ namespace Berserker
 			// TODO: Add your initialization logic here
 
 			player1 = new Player(275, 275, 50, 50);
+			Trees.Add (new Tree (150, 150, 50, 50, 1));
+			Trees.Add (new Tree (100, 150, 50, 50, 1));
+			Trees.Add (new Tree (200, 250, 50, 50, 1));
+			Trees.Add (new Tree (200, 300, 50, 50, 1));
+			Trees.Add (new Tree (350, 250, 50, 50, 1));
+			Trees.Add (new Tree (350, 300, 50, 50, 1));
+			Trees.Add (new Tree (400, 400, 50, 50, 1));
+			Trees.Add (new Tree (450, 400, 50, 50, 1));
+
 			Trees.Add(new Tree(0, 0, 50, 50, 1));
 			Trees.Add(new Tree(0, 50, 50, 50, 1));
 			Trees.Add(new Tree(0, 100, 50, 50, 1));
@@ -123,6 +133,7 @@ namespace Berserker
 			{
 				Trees[i].LoadContent(this.Content);
 			}
+			healthbar = Content.Load<Texture2D>("healthbar");
 
 			// TODO: use this.Content to load your game content here
 		}
@@ -159,38 +170,26 @@ namespace Berserker
 			{
 				Enemy newenemy = new Enemy(110, 110, 50, 50);
 				newenemy.LoadContent(this.Content);
-				KeyValuePair<Enemy, int> NestedEnemyData = new KeyValuePair<Enemy, int>(newenemy, 0);
-
-				Enemies.Add(NestedEnemyData);
+				Enemies.Add (newenemy);
 			}
 			if (spawncounter == 300)
 			{
 				Enemy newenemy = new Enemy(490, 110, 50, 50);
 				newenemy.LoadContent(this.Content);
-
-				KeyValuePair<Enemy, int> NestedEnemyData = new KeyValuePair<Enemy, int>(newenemy, 0);
-
-				Enemies.Add(NestedEnemyData);
+				Enemies.Add (newenemy);
 			}
 			if (spawncounter == 450)
 			{
 				Enemy newenemy = new Enemy(110, 490, 50, 50);
 				newenemy.LoadContent(this.Content);
-
-				KeyValuePair<Enemy, int> NestedEnemyData = new KeyValuePair<Enemy, int>(newenemy, 0);
-
-				Enemies.Add(NestedEnemyData);
+				Enemies.Add (newenemy);
 
 			}
 			if (spawncounter == 600)
 			{
 				Enemy newenemy = new Enemy(490, 490, 50, 50);
 				newenemy.LoadContent(this.Content);
-
-				KeyValuePair<Enemy, int> NestedEnemyData = new KeyValuePair<Enemy, int>(newenemy, 0);
-
-				Enemies.Add(NestedEnemyData);
-
+				Enemies.Add (newenemy);
 				spawncounter = 0;
 			}
 			if (objectcounter % 997 == 0)
@@ -204,7 +203,8 @@ namespace Berserker
 
 			for (int i = 0; i < Enemies.Count; i++)
 			{
-				Enemies[i].Key.Update(controls, gameTime, player1.getX(), player1.getY(), Trees);
+				Enemies[i].Update(controls, gameTime, player1.getX(), player1.getY(), Trees);
+				Enemies [i].Attack (controls, player1, objectcounter);
 			}
 			player1.Attack(controls, Enemies);
 			player1.SpearAttack(controls, Enemies);
@@ -229,7 +229,7 @@ namespace Berserker
 
 			for (int i = 0; i < Enemies.Count; i++)
 			{
-				Enemies[i].Key.Draw(spriteBatch);
+				Enemies[i].Draw(spriteBatch);
 			}
 			for (int i = 0; i < Trees.Count; i++)
 			{
@@ -239,6 +239,8 @@ namespace Berserker
 			{
 				Objects[i].Draw(spriteBatch);
 			}
+			spriteBatch.Draw (healthbar, new Rectangle (0, 0, 150, 50), new Rectangle (0, 0, 500, 50), Color.DarkGreen);
+			spriteBatch.Draw (healthbar, new Rectangle (0, 0, player1.getHealth()*30, 50), new Rectangle (0, 0, 500, 50), Color.Red);
 			spriteBatch.End();
 
 			base.Draw(gameTime);

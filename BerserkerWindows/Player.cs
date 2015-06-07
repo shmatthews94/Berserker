@@ -1,23 +1,20 @@
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Storage;
-
+using System.Collections.Specialized;
 namespace Berserker
 {
     public class Player : Sprite
     {
-        private double speed;
-        private double x_accel;
-        private double y_accel;
-        private double friction;
-        public double x_vel;
-        public double y_vel;
-        public int movedX;
-        public int movedY;
+        private int speed;
+        public int moveX;
+        public int moveY;
+		public int health;
 
         public Rectangle attack;
         public Rectangle spearAttack;
@@ -45,13 +42,16 @@ namespace Berserker
 
             // Movement
             speed = 5;
-            friction = .15;
-            x_accel = 0;
-            y_accel = 0;
-            x_vel = 0;
-            y_vel = 0;
-            movedX = 0;
+			health = 5;
         }
+
+		public void decrementHealth() {
+			this.health--;
+		}
+
+		public int getHealth() {
+			return this.health;
+		}
 
         public void LoadContent(ContentManager content)
         {
@@ -111,6 +111,7 @@ namespace Berserker
             Move(controls, Trees, Objects);
         }
 
+
         public void SpearAttack(Controls controls, List<Enemy> Baddies)
         {
             if (facing == "left")
@@ -150,25 +151,34 @@ namespace Berserker
 
         public void Attack(Controls controls, List<Enemy> Baddies)
         {
+            moveX = 0;
+            moveY = 0;
             if (facing == "left")
             {
                 attack = new Rectangle(this.spriteX - 50, this.spriteY, 50, 50);
-
+                moveX = -50;
+                moveY = 0;
             }
 
             if (facing == "right")
             {
                 attack = new Rectangle(this.spriteX + 50, this.spriteY, 50, 50);
+                moveX = 50;
+                moveY = 0;
             }
 
             if (facing == "up")
             {
                 attack = new Rectangle(this.spriteX, this.spriteY - 50, 50, 50);
+                moveX = 0;
+                moveY = -50;
             }
 
             if (facing == "down")
             {
                 attack = new Rectangle(this.spriteX, this.spriteY + 50, 50, 50);
+                moveX = 0;
+                moveY = 50;
             }
 
             if (controls.onPress(Keys.Space, Buttons.A))
@@ -178,8 +188,16 @@ namespace Berserker
                 {
                     if (attack.Intersects(Baddies[i].rectangle))
                     {
-                        Baddies.Remove(Baddies[i]);
-                        i--;
+                        Baddies[i].decrementHealth();
+                        if (Baddies[i].health == 0)
+                        {
+                            Baddies.RemoveAt(i);
+                        }
+                        else
+                        {
+                            Baddies[i].setX(Baddies[i].getX() + moveX);
+                            Baddies[i].setY(Baddies[i].getY() + moveY);
+                        }
                     }
                 }
             }
@@ -189,77 +207,57 @@ namespace Berserker
         public void Move(Controls controls, List<Tree> Trees, List<Object> Objects)
         {
             // Sideways Acceleration
-            if (controls.onPress(Keys.Right, Buttons.DPadRight))
+            #region Movement and Tree Collision
+            int prevSpriteX = spriteX;
+            int prevSpriteY = spriteY;
+
+
+            if (controls.isPressed(Keys.Left, Buttons.DPadLeft))
             {
-                x_accel += speed;
-                facing = "right";
-            }
-            else if (controls.onRelease(Keys.Right, Buttons.DPadRight))
-                x_accel -= speed;
-            if (controls.onPress(Keys.Left, Buttons.DPadLeft))
-            {
-                x_accel -= speed;
                 facing = "left";
+                spriteX -= speed;
             }
-            else if (controls.onRelease(Keys.Left, Buttons.DPadLeft))
-                x_accel += speed;
-
-            if (controls.onPress(Keys.Up, Buttons.DPadUp))
+            if (controls.isPressed(Keys.Right, Buttons.DPadRight))
             {
-                y_accel -= speed;
+                facing = "right";
+                spriteX += speed;
+            }
+            Trees = Trees.OrderBy(t => t.getX()).ToList();
+            foreach (Tree t in Trees)
+            {
+                if (Math.Abs(spriteX - t.getX()) <= Math.Max(spriteWidth, t.getWidth()))
+                {
+                    if (checkCollisions(t))
+                    {
+                        spriteX = prevSpriteX;
+                    }
+                }
+            }
+
+            if (controls.isPressed(Keys.Up, Buttons.DPadUp))
+            {
                 facing = "up";
+                spriteY -= speed;
             }
-            else if (controls.onRelease(Keys.Up, Buttons.DPadUp))
-                y_accel += speed;
-            if (controls.onPress(Keys.Down, Buttons.DPadDown))
+            if (controls.isPressed(Keys.Down, Buttons.DPadDown))
             {
-                y_accel += speed;
                 facing = "down";
+                spriteY += speed;
             }
-            else if (controls.onRelease(Keys.Down, Buttons.DPadDown))
-                y_accel -= speed;
 
-            // EDGE DETECTION
-
-            for (int i = 0; i < Trees.Count; i++)
+            Trees = Trees.OrderBy(t => t.getY()).ToList();
+            foreach (Tree t in Trees)
             {
-                //left side
-                if ((spriteX + spriteWidth == Trees[i].getX()) && (spriteX < Trees[i].getX()) && (spriteY + spriteHeight > Trees[i].getY()) && (spriteY < Trees[i].getY() + Trees[i].getHeight()))
+                if (Math.Abs(spriteY - t.getY()) <= Math.Max(spriteWidth, t.getWidth()))
                 {
-                    if (x_vel > 0)
+                    if (checkCollisions(t))
                     {
-                        spriteX = Trees[i].getX() - spriteWidth;
-                        x_vel = 0;
-                    }
-                }
-                //right side
-                if ((spriteX > Trees[i].getX()) && (spriteX == Trees[i].getX() + Trees[i].getWidth()) && (spriteY + spriteHeight > Trees[i].getY()) && (spriteY < Trees[i].getY() + Trees[i].getHeight()))
-                {
-                    if (x_vel < 0)
-                    {
-                        spriteX = Trees[i].getX() + Trees[i].getWidth();
-                        x_vel = 0;
-                    }
-                }
-                //top side
-                if ((spriteX + spriteWidth > Trees[i].getX()) && (spriteX < Trees[i].getX() + Trees[i].getWidth()) && (spriteY + spriteHeight == Trees[i].getY()) && (spriteY < Trees[i].getY()))
-                {
-                    if (y_vel > 0)
-                    {
-                        spriteY = Trees[i].getY() - spriteHeight;
-                        y_vel = 0;
-                    }
-                }
-                //bottom side
-                if ((spriteX + spriteWidth > Trees[i].getX()) && (spriteX < Trees[i].getX() + Trees[i].getWidth()) && (spriteY == Trees[i].getY() + Trees[i].getHeight()) && (spriteY > Trees[i].getY()))
-                {
-                    if (y_vel < 0)
-                    {
-                        spriteY = Trees[i].getY() + Trees[i].getHeight();
-                        y_vel = 0;
+                        spriteY = prevSpriteY;
                     }
                 }
             }
+            #endregion
+
 
             // OBJECT DETECTION
 
@@ -269,36 +267,23 @@ namespace Berserker
                     Objects.Remove(Objects[i]);
             }
 
-            x_vel = x_vel * (1 - friction) + x_accel * .05;
-            y_vel = y_vel * (1 - friction) + y_accel * .05;
-            movedX = Convert.ToInt32(x_vel);
-            spriteX += movedX;
-            movedY = Convert.ToInt32(y_vel);
-            spriteY += movedY;
-
-            if (spriteX >= 550)
-                spriteX = 550;
-            else if (spriteX <= 0)
-                spriteX = 0;
-            if (spriteY >= 550)
-                spriteY = 550;
-            else if (spriteY <= 0)
-                spriteY = 0;
-
-            if (spriteX >= 550)
-                spriteX = 550;
-            else if (spriteX <= 0)
-                spriteX = 0;
-            if (spriteY >= 550)
-                spriteY = 550;
-            else if (spriteY <= 0)
-                spriteY = 0;
-
-            // Gravity
-
-            // Check up/down collisions, then left/right
-
+            #region Clamp Position to Screen
+            if (spriteX >= 500)
+                spriteX = 500;
+            else if (spriteX <= 50)
+                spriteX = 50;
+            if (spriteY >= 500)
+                spriteY = 500;
+            else if (spriteY <= 50)
+                spriteY = 50;
+            #endregion
         }
-
+        private bool checkCollisions(Tree t)
+        {
+            if (Hitbox.Intersects(t.Hitbox))
+                return true;
+            return false;
+        }
     }
 }
+
