@@ -98,10 +98,7 @@ namespace Berserker
 			healthbar = Load<Texture2D>("healthbar");
 			Console.WriteLine("Init");
 
-			font = ScreenManager.Game.Content.Load<SpriteFont>("Fonts/MenuFont");
-
-
-
+			 font = ScreenManager.Game.Content.Load<SpriteFont>("Fonts/MenuFont");
 		}
 
 		/// <summary>
