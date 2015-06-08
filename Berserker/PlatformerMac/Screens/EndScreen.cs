@@ -169,6 +169,7 @@ namespace Berserker
 			spriteBatch.Draw (background, new Rectangle(0, 0, 600, 600), new Color (255, 255, 255, TransitionAlpha));
 			ScreenManager.SpriteBatch.DrawString (font, "YOUR SCORE: ", new Vector2 (160, 200), Color.Red);
 			ScreenManager.SpriteBatch.DrawString (font, playerscore.ToString(), new Vector2 (260, 250), Color.Red);
+			ScreenManager.SpriteBatch.DrawString (font, "PRESS SPACE TO DIE AGAIN", new Vector2 (50, 550), Color.Red);
 			// If loading gameplay screen resource in the 
 			// background show "Loading..." text
 
