@@ -1,32 +1,14 @@
-<<<<<<< HEAD
-﻿<Properties MonoDevelop.MonoMac.LastXamMacNagTime="6/7/2015 11:38:30 PM">
+﻿<Properties MonoDevelop.MonoMac.LastXamMacNagTime="6/8/2015 5:59:07 AM">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Game1.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Player.cs">
     <Files>
-      <File FileName="Player.cs" Line="47" Column="16" />
-      <File FileName="Game1.cs" Line="220" Column="3" />
-      <File FileName="Enemy.cs" Line="52" Column="42" />
-      <File FileName="Main.cs" Line="68" Column="3" />
-      <File FileName="Tree.cs" Line="26" Column="43" />
-      <File FileName="Sprite.cs" Line="1" Column="1" />
-      <File FileName="Controls.cs" Line="1" Column="1" />
-=======
-﻿<Properties MonoDevelop.MonoMac.LastXamMacNagTime="6/5/2015 4:40:16 PM" StartupItem="Berserker.csproj">
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Game1.cs">
-    <Files>
-      <File FileName="Controls.cs" Line="1" Column="1" />
-      <File FileName="Main.cs" Line="1" Column="1" />
-      <File FileName="MainMenu.cs" Line="1" Column="1" />
-      <File FileName="Player.cs" Line="1" Column="1" />
-      <File FileName="Sprite.cs" Line="1" Column="1" />
-      <File FileName="Game1.cs" Line="242" Column="4" />
+      <File FileName="Player.cs" Line="86" Column="1" />
+      <File FileName="Game1.cs" Line="255" Column="6" />
       <File FileName="Enemy.cs" Line="1" Column="1" />
+      <File FileName="Main.cs" Line="1" Column="1" />
       <File FileName="Tree.cs" Line="1" Column="1" />
-      <File FileName="packages.config" Line="1" Column="1" />
-      <File FileName="Object.cs" Line="1" Column="1" />
-      <File FileName="Info.plist" />
->>>>>>> bea091bab23f493a966ff2e4205ba130dac5e1f4
+      <File FileName="Sprite.cs" Line="50" Column="24" />
+      <File FileName="Controls.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

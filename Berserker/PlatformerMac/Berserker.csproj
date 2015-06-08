@@ -102,5 +102,6 @@
     <BundleResource Include="Content\shroom.png" />
     <BundleResource Include="Content\tower.png" />
     <BundleResource Include="Content\enemy.png" />
+    <BundleResource Include="Content\rage.png" />
   </ItemGroup>
 </Project>

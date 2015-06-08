@@ -14,7 +14,17 @@ namespace Berserker
         private int speed;
         public int moveX;
         public int moveY;
-		public int health;
+        public int health;
+
+        int prevSpriteX;
+        int prevSpriteY;
+
+        public bool rageMode = false;
+        public Texture2D rageBar;
+        public int rage = 0;
+        public double counter;
+
+        TimeSpan attackDuration;
 
         public Rectangle attack;
         public Rectangle spearAttack;
@@ -33,6 +43,8 @@ namespace Berserker
         bool normalAttacking = false;
         bool spearAttacking = false;
 
+        TimeSpan spearCoolDown;
+
         public Player(int x, int y, int width, int height)
         {
             this.spriteX = x;
@@ -41,17 +53,22 @@ namespace Berserker
             this.spriteHeight = height;
 
             // Movement
-            speed = 5;
-			health = 5;
+            speed = 3;
+            health = 5;
+            attackDuration = TimeSpan.Zero;
+            spearCoolDown = new TimeSpan(50000000);
         }
 
-		public void decrementHealth() {
-			this.health--;
-		}
+        public void decrementHealth()
+        {
+            if (rageMode == false)
+                this.health--;
+        }
 
-		public int getHealth() {
-			return this.health;
-		}
+        public int getHealth()
+        {
+            return this.health;
+        }
 
         public void LoadContent(ContentManager content)
         {
@@ -60,10 +77,13 @@ namespace Berserker
             attackR = content.Load<Texture2D>("slashRight");
             attackU = content.Load<Texture2D>("slashUp");
             attackD = content.Load<Texture2D>("slashDown");
+
             sAttackL = content.Load<Texture2D>("lance_left");
             sAttackR = content.Load<Texture2D>("lance_right");
             sAttackU = content.Load<Texture2D>("lance_up");
             sAttackD = content.Load<Texture2D>("lance_down");
+
+            rageBar = content.Load<Texture2D>("rage");
         }
 
         public void Draw(SpriteBatch sb)
@@ -83,9 +103,11 @@ namespace Berserker
 
                 if (facing == "down")
                     sb.Draw(attackD, attack, Color.White);
-
-                normalAttacking = false;
-
+                if (attackDuration >= new TimeSpan(1000000))
+                {
+                    normalAttacking = false;
+                    attackDuration = TimeSpan.Zero;
+                }
             }
 
             if (spearAttacking)
@@ -102,13 +124,49 @@ namespace Berserker
                 if (facing == "down")
                     sb.Draw(sAttackD, spearAttack, Color.White);
 
-                spearAttacking = false;
+                if (attackDuration >= new TimeSpan(1000000))
+                {
+                    spearAttacking = false;
+                    attackDuration = TimeSpan.Zero;
+                }
             }
         }
 
-        public void Update(Controls controls, GameTime gameTime, List<Tree> Trees, List<Object> Objects)
+        public void Update(Controls controls, GameTime gameTime, List<Tree> Trees, List<Enemy> Enemies, List<Object> Objects)
         {
-            Move(controls, Trees, Objects);
+            Move(controls, Trees, Enemies, Objects);
+            if (!spearAttacking)
+            {
+                Attack(controls, Trees, Enemies);
+            }
+            if (!normalAttacking)
+            {
+                SpearAttack(controls, Enemies);
+            }
+
+            if (normalAttacking || spearAttacking)
+            {
+                attackDuration += gameTime.ElapsedGameTime;
+            }
+
+            if (rage >= 260)
+            {
+                rage = 260;
+                rageMode = true;
+            }
+
+            if (rageMode == true)
+            {
+                counter += gameTime.ElapsedGameTime.TotalMilliseconds;
+                if (counter >= 9000)
+                {
+                    rageMode = false;
+                    counter = 0;
+                    rage = 0;
+                }
+            }
+
+            spearCoolDown += gameTime.ElapsedGameTime;
         }
 
 
@@ -133,84 +191,85 @@ namespace Berserker
             {
                 spearAttack = new Rectangle(this.spriteX, this.spriteY + 50, 50, 115);
             }
-
-            if (controls.onPress(Keys.A, Buttons.A))
+            if (!spearAttacking && spearCoolDown >= new TimeSpan(50000000))
             {
-                spearAttacking = true;
-                for (int i = 0; i < Baddies.Count; i++)
+                if (controls.onPress(Keys.A, Buttons.A))
                 {
-                    if (spearAttack.Intersects(Baddies[i].rectangle))
+                    spearCoolDown = TimeSpan.Zero;
+                    spearAttacking = true;
+                    for (int i = 0; i < Baddies.Count; i++)
                     {
-                        Baddies.Remove(Baddies[i]);
-                        i--;
+                        if (spearAttack.Intersects(Baddies[i].rectangle))
+                        {
+                            Baddies.Remove(Baddies[i]);
+                            i--;
+                        }
                     }
                 }
             }
 
         }
 
-        public void Attack(Controls controls, List<Enemy> Baddies)
+        public void Attack(Controls controls, List<Tree> Trees, List<Enemy> Baddies)
         {
-            moveX = 0;
-            moveY = 0;
             if (facing == "left")
             {
                 attack = new Rectangle(this.spriteX - 50, this.spriteY, 50, 50);
-                moveX = -50;
-                moveY = 0;
             }
 
             if (facing == "right")
             {
                 attack = new Rectangle(this.spriteX + 50, this.spriteY, 50, 50);
-                moveX = 50;
-                moveY = 0;
             }
 
             if (facing == "up")
             {
                 attack = new Rectangle(this.spriteX, this.spriteY - 50, 50, 50);
-                moveX = 0;
-                moveY = -50;
             }
 
             if (facing == "down")
             {
                 attack = new Rectangle(this.spriteX, this.spriteY + 50, 50, 50);
-                moveX = 0;
-                moveY = 50;
             }
-
-            if (controls.onPress(Keys.Space, Buttons.A))
+            if (!normalAttacking)
             {
-                normalAttacking = true;
-                for (int i = 0; i < Baddies.Count; i++)
+                if (controls.onPress(Keys.Space, Buttons.A))
                 {
-                    if (attack.Intersects(Baddies[i].rectangle))
+                    normalAttacking = true;
+                    for (int i = 0; i < Baddies.Count; i++)
                     {
-                        Baddies[i].decrementHealth();
-                        if (Baddies[i].health == 0)
+                        if (attack.Intersects(Baddies[i].rectangle))
                         {
-                            Baddies.RemoveAt(i);
-                        }
-                        else
-                        {
-                            Baddies[i].setX(Baddies[i].getX() + moveX);
-                            Baddies[i].setY(Baddies[i].getY() + moveY);
+                            Baddies[i].decrementHealth();
+                            if (Baddies[i].health == 0)
+                            {
+                                Baddies.RemoveAt(i);
+                            }
+                            else
+                            {
+                                Baddies[i].pushBack(this, Trees, facing);
+                            }
                         }
                     }
                 }
             }
-
         }
 
-        public void Move(Controls controls, List<Tree> Trees, List<Object> Objects)
+        public void Move(Controls controls, List<Tree> Trees, List<Enemy> Enemies, List<Object> Objects)
         {
             // Sideways Acceleration
             #region Movement and Tree Collision
-            int prevSpriteX = spriteX;
-            int prevSpriteY = spriteY;
+            prevSpriteX = spriteX;
+            prevSpriteY = spriteY;
 
+            if (rageMode == true)
+            {
+                speed = 6;
+            }
+            else
+            {
+                speed = 4;
+            }
 
             if (controls.isPressed(Keys.Left, Buttons.DPadLeft))
             {
@@ -222,17 +281,8 @@ namespace Berserker
                 facing = "right";
                 spriteX += speed;
             }
-            Trees = Trees.OrderBy(t => t.getX()).ToList();
-            foreach (Tree t in Trees)
-            {
-                if (Math.Abs(spriteX - t.getX()) <= Math.Max(spriteWidth, t.getWidth()))
-                {
-                    if (checkCollisions(t))
-                    {
-                        spriteX = prevSpriteX;
-                    }
-                }
-            }
+            resolveCollisionsX(Trees, Enemies);
+
 
             if (controls.isPressed(Keys.Up, Buttons.DPadUp))
             {
@@ -245,17 +295,7 @@ namespace Berserker
                 spriteY += speed;
             }
 
-            Trees = Trees.OrderBy(t => t.getY()).ToList();
-            foreach (Tree t in Trees)
-            {
-                if (Math.Abs(spriteY - t.getY()) <= Math.Max(spriteWidth, t.getWidth()))
-                {
-                    if (checkCollisions(t))
-                    {
-                        spriteY = prevSpriteY;
-                    }
-                }
-            }
+            resolveCollisionsY(Trees, Enemies);
             #endregion
 
 
@@ -264,7 +304,10 @@ namespace Berserker
             for (int i = 0; i < Objects.Count; i++)
             {
                 if (spriteX < Objects[i].getX() + Objects[i].getWidth() && spriteX + spriteWidth > Objects[i].getX() && spriteY < Objects[i].getY() + Objects[i].getHeight() && spriteHeight + spriteY > Objects[i].getY())
+                {
                     Objects.Remove(Objects[i]);
+                    rage += 100;
+                }
             }
 
             #region Clamp Position to Screen
@@ -278,11 +321,119 @@ namespace Berserker
                 spriteY = 50;
             #endregion
         }
-        private bool checkCollisions(Tree t)
+
+        private void resolveCollisionsY(List<Tree> Trees, List<Enemy> Enemies)
         {
-            if (Hitbox.Intersects(t.Hitbox))
+            Trees = Trees.OrderBy(t => t.getY()).ToList();
+            foreach (Tree t in Trees)
+            {
+                if (Math.Abs(spriteY - t.getY()) <= Math.Max(spriteWidth, t.getWidth()))
+                {
+                    if (checkCollisions(t))
+                    {
+                        if (prevSpriteY < spriteY)
+                        {
+                            spriteY = t.getY() - spriteHeight;
+                        }
+                        else if (prevSpriteY > spriteY)
+                        {
+                            spriteY = t.getY() + t.getHeight();
+                        }
+                    }
+                }
+            }
+            Enemies = Enemies.OrderBy(e => e.getY()).ToList();
+            foreach (Enemy e in Enemies)
+            {
+                if (Math.Abs(spriteY - e.getY()) <= Math.Max(spriteWidth, e.getWidth()))
+                {
+                    if (checkCollisions(e))
+                    {
+                        if (prevSpriteY < spriteY)
+                        {
+                            spriteY = e.getY() - spriteHeight;
+                        }
+                        else if (prevSpriteY > spriteY)
+                        {
+                            spriteY = e.getY() + e.getHeight();
+                        }
+                    }
+                }
+            }
+        }
+
+        private void resolveCollisionsX(List<Tree> Trees, List<Enemy> Enemies)
+        {
+            Trees = Trees.OrderBy(t => t.getX()).ToList();
+            foreach (Tree t in Trees)
+            {
+                if (Math.Abs(spriteX - t.getX()) <= Math.Max(spriteWidth, t.getWidth()))
+                {
+                    if (checkCollisions(t))
+                    {
+                        if (prevSpriteX < spriteX)
+                        {
+                            spriteX = t.getX() - spriteWidth;
+                        }
+                        else if (prevSpriteX > spriteX)
+                        {
+                            spriteX = t.getX() + t.getWidth();
+                        }
+                    }
+                }
+            }
+            Enemies = Enemies.OrderBy(e => e.getX()).ToList();
+            foreach (Enemy e in Enemies)
+            {
+                if (Math.Abs(spriteX - e.getX()) <= Math.Max(spriteWidth, e.getWidth()))
+                {
+                    if (checkCollisions(e))
+                    {
+                        if (prevSpriteX < spriteX)
+                        {
+                            spriteX = e.getX() - spriteWidth;
+                        }
+                        else if (prevSpriteX > spriteX)
+                        {
+                            spriteX = e.getX() + e.getWidth();
+                        }
+                    }
+                }
+            }
+        }
+
+        private bool checkCollisions(Sprite s)
+        {
+            if (Hitbox.Intersects(s.Hitbox))
                 return true;
             return false;
+        }
+
+        internal void pushBack(List<Enemy> Enemies, List<Tree> Trees, string facing)
+        {
+            if (!rageMode)
+            {
+                switch (facing)
+                {
+                    case "up":
+                        spriteY -= 50;
+                        resolveCollisionsY(Trees, Enemies);
+                        break;
+                    case "down":
+                        spriteY += 50;
+
+                        resolveCollisionsY(Trees, Enemies);
+                        break;
+                    case "left":
+                        spriteX -= 50;
+                        resolveCollisionsX(Trees, Enemies);
+                        break;
+                    case "right":
+                        spriteX += 50;
+                        resolveCollisionsX(Trees, Enemies);
+                        break;
+                }
+            }
         }
     }
 }
