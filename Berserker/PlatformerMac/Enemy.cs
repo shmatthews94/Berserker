@@ -21,12 +21,29 @@ namespace Berserker
 		public Texture2D attackU;
 		public Texture2D attackD;
 
+		int prevSpriteX;
+		int prevSpriteY;
+
+		TimeSpan elapsedWanderTime;
+		TimeSpan targetWanderTime;
+
+		public TimeSpan elapsedAttackTime;
+
+		Random rand = new Random();
+		int wanderDir;
+
 		public Rectangle rectangle
 		{
 			get
 			{
 				return new Rectangle(spriteX, spriteY, spriteWidth, spriteHeight);
 			}
+		}
+
+		public int movePattern
+		{
+			get;
+			set;
 		}
 
 		public Enemy(int x, int y, int width, int height)
@@ -38,23 +55,31 @@ namespace Berserker
 			health = 3;
 			// Movement
 			speed = 1;
+			movePattern = 0;
+			elapsedWanderTime = TimeSpan.Zero;
+			elapsedAttackTime = TimeSpan.Zero;
+			targetWanderTime = new TimeSpan(10000);
 		}
 
-		public int getHealth() {
+		public int getHealth()
+		{
 			return this.health;
 		}
 
-		public void setHealth(int x) {
+		public void setHealth(int x)
+		{
 			this.health = x;
 		}
 
-		public void decrementHealth() {
+		public void decrementHealth()
+		{
 			this.health = this.health - 1;
 		}
 
-		public void Attack(Controls controls, Player player, int counter)
+		public void Attack(Controls controls, Player player, List<Enemy> Enemies, List<Tree> Trees)
 		{
-			if (counter % 50 == 0) {
+			if (Math.Abs(player.getX() - spriteX) + Math.Abs(player.getY() - spriteY) <= 100)
+			{
 				if (facing == "left")
 				{
 					attack = new Rectangle(this.spriteX - 50, this.spriteY, 50, 50);
@@ -77,18 +102,19 @@ namespace Berserker
 				normalAttacking = true;
 				if (attack.Intersects(new Rectangle(player.getX(), player.getY(), player.getWidth(), player.getHeight())))
 				{
-					player.decrementHealth ();
+					player.decrementHealth();
+					player.pushBack(Enemies, Trees, facing);
 				}
 			}
 		}
 
-		public void LoadContent(ContentManager content)
+		public void LoadContent(Game game)
 		{
-			image = content.Load<Texture2D>("enemy.png");
-			attackL = content.Load<Texture2D>("slashLeft");
-			attackR = content.Load<Texture2D>("slashRight");
-			attackU = content.Load<Texture2D>("slashUp");
-			attackD = content.Load<Texture2D>("slashDown");
+			image = game.Content.Load<Texture2D>("enemy.png");
+			attackL = game.Content.Load<Texture2D>("slashLeft");
+			attackR = game.Content.Load<Texture2D>("slashRight");
+			attackU = game.Content.Load<Texture2D>("slashUp");
+			attackD = game.Content.Load<Texture2D>("slashDown");
 		}
 
 		public void Draw(SpriteBatch sb)
@@ -113,76 +139,64 @@ namespace Berserker
 			}
 		}
 
-		public void Update(Controls controls, GameTime gameTime, int x, int y, List<Tree> Trees)
+		public void Update(Controls controls, GameTime gameTime, int x, int y, Player p, List<Enemy> Enemies, List<Tree> Trees)
 		{
-			Move (x, y, Trees);
+			Move(gameTime, x, y, p, Trees);
+
+			elapsedAttackTime += gameTime.ElapsedGameTime;
+			if (elapsedAttackTime >= new TimeSpan(10000000))
+			{
+				Attack(controls, p, Enemies, Trees);
+				elapsedAttackTime = TimeSpan.Zero;
+			}
 		}
 
-		public void Move(int x, int y, List<Tree> Trees)
+		public void Move(GameTime gameTime, int x, int y, Player p, List<Tree> Trees)
 		{
+			prevSpriteX = spriteX;
+			prevSpriteY = spriteY;
 
+			// Sideways Acceleration
+			#region Movement and Tree Collision
 
-            // Sideways Acceleration
-            #region Movement and Tree Collision
-            int prevSpriteX = spriteX;
-            int prevSpriteY = spriteY;
-            if (prevSpriteX > x)
-            {
-                spriteX -= speed;
-            }
-            if (prevSpriteX < x)
-            {
-                spriteX += speed;
-            }
-			if (Math.Abs (this.spriteX - x) > Math.Abs (this.spriteY - y)) {
+			switch (movePattern)
+			{
+			case 0:
+				wander(gameTime, p, Trees);
+				if (playerNearby(x, y))
+				{
+					movePattern = 1;
+				}
+				break;
+
+			case 1:
+				pursue(x, y, p, Trees);
+				break;
+
+			case 2:
+				flee(x, y, p, Trees);
+				break;
+			}
+
+			#endregion
+
+			if (Math.Abs(this.spriteX - x) > Math.Abs(this.spriteY - y))
+			{
 				if (x < this.spriteX)
 					facing = "left";
 				else
 					facing = "right";
 			}
-			if (Math.Abs (this.spriteY - y) >= Math.Abs (this.spriteX - x)) {
+			if (Math.Abs(this.spriteY - y) >= Math.Abs(this.spriteX - x))
+			{
 				if (y < this.spriteY)
 					facing = "up";
 				else
 					facing = "down";
 			}
 
-            Trees = Trees.OrderBy(t => t.getX()).ToList();
-            foreach (Tree t in Trees)
-            {
-                if (Math.Abs(spriteX - t.getX()) <= Math.Max(spriteWidth, t.getWidth()))
-                {
-                    if (checkCollisions(t))
-                    {
-                        spriteX = prevSpriteX;
-                    }
-                }
-            }
-
-            if (prevSpriteY > y)
-            {
-                spriteY -= speed;
-            }
-            if (prevSpriteY < y)
-            {
-                spriteY += speed;
-            }
-
-            Trees = Trees.OrderBy(t => t.getY()).ToList();
-            foreach (Tree t in Trees)
-            {
-                if (Math.Abs(spriteY - t.getY()) <= Math.Max(spriteWidth, t.getWidth()))
-                {
-                    if (checkCollisions(t))
-                    {
-                        spriteY = prevSpriteY;
-                    }
-                }
-            }
-            #endregion
-
-            #region Clamp position to screen
-            if (spriteX >= 500)
+			#region Clamp position to screen
+			if (spriteX >= 500)
 				spriteX = 500;
 			else if (spriteX <= 50)
 				spriteX = 50;
@@ -190,16 +204,200 @@ namespace Berserker
 				spriteY = 500;
 			else if (spriteY <= 50)
 				spriteY = 50;
-            #endregion
+			#endregion
 
-            // Gravity
+			// Gravity
 		}
 
-        private bool checkCollisions(Tree t)
-        {
-            if (Hitbox.Intersects(t.Hitbox))
-                return true;
-            return false;
-        }
+		private bool playerNearby(int x, int y)
+		{
+			if (Math.Abs(spriteX - x) + Math.Abs(spriteY - y) <= 150)
+				return true;
+			return false;
+		}
+
+		private void flee(int x, int y, Player p, List<Tree> Trees)
+		{
+			throw new NotImplementedException();
+		}
+
+		private void pursue(int x, int y, Player p, List<Tree> Trees)
+		{
+			if (prevSpriteX > x)
+			{
+				spriteX -= speed;
+			}
+			if (prevSpriteX < x)
+			{
+				spriteX += speed;
+			}
+
+			resolveCollisionsX(p, Trees);
+
+			if (prevSpriteY > y)
+			{
+				spriteY -= speed;
+			}
+			if (prevSpriteY < y)
+			{
+				spriteY += speed;
+			}
+
+			resolveCollisionsY(p, Trees);
+		}
+
+		private void wander(GameTime gameTime, Player p, List<Tree> Trees)
+		{
+			elapsedWanderTime += gameTime.ElapsedGameTime;
+			if (elapsedWanderTime >= targetWanderTime)
+			{
+				wanderDir = rand.Next(1, 10);
+				targetWanderTime = new TimeSpan(rand.Next(5000000, 20000000));
+				elapsedWanderTime = TimeSpan.Zero;
+			}
+			switch (wanderDir)
+			{
+			case 1:
+				spriteX -= speed;
+				resolveCollisionsX(p, Trees);
+				spriteY += speed;
+				resolveCollisionsY(p, Trees);
+				break;
+			case 2:
+				spriteY += speed;
+				resolveCollisionsY(p, Trees);
+				break;
+			case 3:
+				spriteX += speed;
+				resolveCollisionsX(p, Trees);
+				spriteY += speed;
+				resolveCollisionsY(p, Trees);
+				break;
+			case 4:
+				spriteX -= speed;
+				resolveCollisionsX(p, Trees);
+				break;
+			case 5:
+				break;
+			case 6:
+				spriteX += speed;
+				resolveCollisionsX(p, Trees);
+				break;
+			case 7:
+				spriteX -= speed;
+				resolveCollisionsX(p, Trees);
+				spriteY -= speed;
+				resolveCollisionsY(p, Trees);
+				break;
+			case 8:
+				spriteY -= speed;
+				resolveCollisionsY(p, Trees);
+				break;
+			case 9:
+				spriteX += speed;
+				resolveCollisionsX(p, Trees);
+				spriteY -= speed;
+				resolveCollisionsY(p, Trees);
+				break;
+			}
+		}
+
+		private void resolveCollisionsX(Player p, List<Tree> Trees)
+		{
+			Trees = Trees.OrderBy(t => t.getX()).ToList();
+			foreach (Tree t in Trees)
+			{
+				if (Math.Abs(spriteX - t.getX()) <= Math.Max(spriteWidth, t.getWidth()))
+				{
+					if (checkCollisions(t))
+					{
+						if (prevSpriteX < spriteX)
+						{
+							spriteX = t.getX() - spriteWidth;
+						}
+						else if (prevSpriteX > spriteX)
+						{
+							spriteX = t.getX() + t.getWidth();
+						}
+					}
+				}
+			}
+			if (checkCollisions(p))
+			{
+				if (prevSpriteX < spriteX)
+				{
+					spriteX = p.getX() - spriteWidth;
+				}
+				else if (prevSpriteX > spriteX)
+				{
+					spriteX = p.getX() + p.getWidth();
+				}
+			}
+		}
+
+		private void resolveCollisionsY(Player p, List<Tree> Trees)
+		{
+			Trees = Trees.OrderBy(t => t.getY()).ToList();
+			foreach (Tree t in Trees)
+			{
+				if (Math.Abs(spriteY - t.getY()) <= Math.Max(spriteWidth, t.getWidth()))
+				{
+					if (checkCollisions(t))
+					{
+						if (prevSpriteY < spriteY)
+						{
+							spriteY = t.getY() - spriteHeight;
+						}
+						else if (prevSpriteY > spriteY)
+						{
+							spriteY = t.getY() + t.getHeight();
+						}
+					}
+				}
+			}
+			if (checkCollisions(p))
+			{
+				if (prevSpriteY < spriteY)
+				{
+					spriteY = p.getY() - spriteHeight;
+				}
+				else if (prevSpriteY > spriteY)
+				{
+					spriteY = p.getY() + p.getHeight();
+				}
+			}
+		}
+
+		private bool checkCollisions(Sprite s)
+		{
+			if (Hitbox.Intersects(s.Hitbox))
+				return true;
+			return false;
+		}
+
+		internal void pushBack(Player p, List<Tree> Trees, string facing)
+		{
+			elapsedAttackTime = TimeSpan.Zero;
+			switch (facing)
+			{
+			case "up":
+				spriteY -= 50;
+				resolveCollisionsY(p, Trees);
+				break;
+			case "down":
+				spriteY += 50;
+
+				resolveCollisionsY(p, Trees);
+				break;
+			case "left":
+				spriteX -= 50;
+				resolveCollisionsX(p, Trees);
+				break;
+			case "right":
+				spriteX += 50;
+				resolveCollisionsX(p, Trees);
+				break;
+			}
+		}
 	}
 }

@@ -61,9 +61,11 @@
     <Reference Include="OpenTK">
       <HintPath>..\packages\MonoGame.Framework.MacOS.3.4.0.459\lib\net45\OpenTK.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Xna.Framework.GamerServices">
+      <HintPath>..\..\..\Desktop\Microsoft.Xna.Framework.GamerServices.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Main.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controls.cs" />
     <Compile Include="Player.cs" />
@@ -71,28 +73,80 @@
     <Compile Include="Enemy.cs" />
     <Compile Include="Tree.cs" />
     <Compile Include="Object.cs" />
-    <Compile Include="Game1.cs" />
+    <Compile Include="ScreenManager\GameScreen.cs" />
+    <Compile Include="ScreenManager\InputState.cs" />
+    <Compile Include="ScreenManager\MenuEntry.cs" />
+    <Compile Include="ScreenManager\MenuScreen.cs" />
+    <Compile Include="ScreenManager\MouseGestureType.cs" />
+    <Compile Include="ScreenManager\PlayerIndexEventArgs.cs" />
+    <Compile Include="ScreenManager\ScreenManager.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Screens\GameplayScreen.cs" />
+    <Compile Include="Screens\InstructionsScreen.cs" />
+    <Compile Include="Screens\MainMenuScreen.cs" />
+    <Compile Include="Screens\PauseScreen.cs" />
+    <Compile Include="BerserkerGame.cs" />
+    <Compile Include="Screens\Game1.cs" />
+    <Compile Include="Screens\EndScreen.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
     <None Include="Content\Content.mgcb" />
     <None Include="packages.config" />
+    <None Include="Content\Fonts\HUDFont.xnb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\Sounds\BoulderHit.wav" />
+    <None Include="Content\Sounds\BoulderHit.xnb" />
+    <None Include="Content\Sounds\CatapultExplosion.wav" />
+    <None Include="Content\Sounds\CatapultExplosion.xnb" />
+    <None Include="Content\Sounds\CatapultFire.wav" />
+    <None Include="Content\Sounds\CatapultFire.xnb" />
+    <None Include="Content\Sounds\Lose.wav" />
+    <None Include="Content\Sounds\Lose.xnb" />
+    <None Include="Content\Sounds\RopeStretch.wav" />
+    <None Include="Content\Sounds\RopeStretch.xnb" />
+    <None Include="Content\Sounds\Win.wav" />
+    <None Include="Content\Sounds\Win.xnb" />
+    <None Include="Content\Textures\Ammo\rock_ammo.xnb" />
+    <None Include="Content\Textures\Backgrounds\blank.xnb" />
+    <None Include="Content\Textures\Backgrounds\cloud1.xnb" />
+    <None Include="Content\Textures\Backgrounds\cloud2.xnb" />
+    <None Include="Content\Textures\Backgrounds\defeat.xnb" />
+    <None Include="Content\Textures\Backgrounds\gameplay_screen.xnb" />
+    <None Include="Content\Textures\Backgrounds\mountain.xnb" />
+    <None Include="Content\Textures\Backgrounds\sky.xnb" />
+    <None Include="Content\Textures\Backgrounds\title_screen.xnb" />
+    <None Include="Content\Textures\Backgrounds\victory.xnb" />
+    <None Include="Content\Textures\Catapults\AnimationsDef.xml" />
+    <None Include="Content\Textures\Catapults\Blue\blueDestroyed\blueCatapult_destroyed.xnb" />
+    <None Include="Content\Textures\Catapults\Blue\blueFire\blueCatapult_fire.xnb" />
+    <None Include="Content\Textures\Catapults\Blue\blueIdle\blueIdle.xnb" />
+    <None Include="Content\Textures\Catapults\Blue\bluePullback\blueCatapult_Pullback.xnb" />
+    <None Include="Content\Textures\Catapults\Fire_Miss\fire_miss.xnb" />
+    <None Include="Content\Textures\Catapults\Hit_Smoke\smoke.xnb" />
+    <None Include="Content\Textures\Catapults\Red\redDestroyed\redCatapult_destroyed.xnb" />
+    <None Include="Content\Textures\Catapults\Red\redFire\redCatapult_fire.xnb" />
+    <None Include="Content\Textures\Catapults\Red\redIdle\redIdle.xnb" />
+    <None Include="Content\Textures\Catapults\Red\redPullback\redCatapult_Pullback.xnb" />
+    <None Include="Content\Textures\HUD\Arrow.xnb" />
+    <None Include="Content\Textures\HUD\ammoType.xnb" />
+    <None Include="Content\Textures\HUD\hudBackground.xnb" />
+    <None Include="Content\Textures\HUD\windArrow.xnb" />
+    <None Include="Content\Fonts\Peric.ttf" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <Content Include="Content\prep2.png" />
+    <Content Include="Content\Fonts\MenuFont.xnb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Content\viking.png" />
     <BundleResource Include="Content\viking character.png" />
     <BundleResource Include="Content\tree.png" />
-    <BundleResource Include="Content\shroom.png" />
-    <BundleResource Include="Content\tower.png" />
     <BundleResource Include="Content\enemy_temp.png" />
-    <BundleResource Include="Content\lanceDown.png" />
-    <BundleResource Include="Content\lanceLeft.png" />
-    <BundleResource Include="Content\lanceRight.png" />
-    <BundleResource Include="Content\lanceUp.png" />
     <BundleResource Include="Content\slashDown.png" />
     <BundleResource Include="Content\slashLeft.png" />
     <BundleResource Include="Content\slashRight.png" />
@@ -103,5 +157,22 @@
     <BundleResource Include="Content\spearUp.png" />
     <BundleResource Include="Content\enemy.png" />
     <BundleResource Include="Content\pinetree.png" />
+    <BundleResource Include="Content\Textures\Backgrounds\MainMenu.png" />
+    <BundleResource Include="Content\Rage.png" />
+    <BundleResource Include="Content\Textures\Backgrounds\EndScreen.png" />
+    <BundleResource Include="Content\Textures\Backgrounds\instructions.png" />
+    <BundleResource Include="Content\shroom.png" />
+    <BundleResource Include="Content\lance_up.png" />
+    <BundleResource Include="Content\lance_right.png" />
+    <BundleResource Include="Content\lance_left.png" />
+    <BundleResource Include="Content\lance_down.png" />
+    <BundleResource Include="Content\tower.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ScreenManager\" />
+    <Folder Include="Screens\" />
+    <Folder Include="Content\Fonts\" />
+    <Folder Include="Content\Sounds\" />
+    <Folder Include="Content\Textures\" />
   </ItemGroup>
 </Project>
