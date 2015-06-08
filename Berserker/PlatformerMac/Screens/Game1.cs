@@ -44,6 +44,7 @@ namespace Berserker
 			spawncounter2 = 240;
 			spawncounter3 = 360;
 			spawncounter4 = 480;
+			Enemies.Clear ();
 			/*
 			graphics = new GraphicsDeviceManager(this);
 			graphics.PreferredBackBufferWidth = 600;  // set this value to the desired width of your window
