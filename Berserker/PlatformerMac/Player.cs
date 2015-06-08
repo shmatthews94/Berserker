@@ -60,10 +60,10 @@ namespace Berserker
             attackR = content.Load<Texture2D>("slashRight");
             attackU = content.Load<Texture2D>("slashUp");
             attackD = content.Load<Texture2D>("slashDown");
-            sAttackL = content.Load<Texture2D>("lanceLeft");
-            sAttackR = content.Load<Texture2D>("lanceRight");
-            sAttackU = content.Load<Texture2D>("lanceUp");
-            sAttackD = content.Load<Texture2D>("lanceDown");
+            sAttackL = content.Load<Texture2D>("lance_left");
+            sAttackR = content.Load<Texture2D>("lance_right");
+            sAttackU = content.Load<Texture2D>("lance_up");
+            sAttackD = content.Load<Texture2D>("lance_down");
         }
 
         public void Draw(SpriteBatch sb)

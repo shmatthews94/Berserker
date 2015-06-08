@@ -86,13 +86,6 @@
     <BundleResource Include="Content\viking.png" />
     <BundleResource Include="Content\viking character.png" />
     <BundleResource Include="Content\tree.png" />
-    <BundleResource Include="Content\shroom.png" />
-    <BundleResource Include="Content\tower.png" />
-    <BundleResource Include="Content\enemy_temp.png" />
-    <BundleResource Include="Content\lanceDown.png" />
-    <BundleResource Include="Content\lanceLeft.png" />
-    <BundleResource Include="Content\lanceRight.png" />
-    <BundleResource Include="Content\lanceUp.png" />
     <BundleResource Include="Content\slashDown.png" />
     <BundleResource Include="Content\slashLeft.png" />
     <BundleResource Include="Content\slashRight.png" />
@@ -101,7 +94,13 @@
     <BundleResource Include="Content\spearLeft.png" />
     <BundleResource Include="Content\spearRight.png" />
     <BundleResource Include="Content\spearUp.png" />
-    <BundleResource Include="Content\enemy.png" />
     <BundleResource Include="Content\pinetree.png" />
+    <BundleResource Include="Content\lance_down.png" />
+    <BundleResource Include="Content\lance_left.png" />
+    <BundleResource Include="Content\lance_right.png" />
+    <BundleResource Include="Content\lance_up.png" />
+    <BundleResource Include="Content\shroom.png" />
+    <BundleResource Include="Content\tower.png" />
+    <BundleResource Include="Content\enemy.png" />
   </ItemGroup>
 </Project>
