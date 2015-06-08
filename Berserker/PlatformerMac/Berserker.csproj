@@ -73,7 +73,6 @@
     <Compile Include="Enemy.cs" />
     <Compile Include="Tree.cs" />
     <Compile Include="Object.cs" />
-<<<<<<< HEAD
     <Compile Include="ScreenManager\GameScreen.cs" />
     <Compile Include="ScreenManager\InputState.cs" />
     <Compile Include="ScreenManager\MenuEntry.cs" />
@@ -89,10 +88,7 @@
     <Compile Include="BerserkerGame.cs" />
     <Compile Include="Screens\Game1.cs" />
     <Compile Include="Screens\EndScreen.cs" />
-=======
-    <Compile Include="Game1.cs" />
     <Compile Include="BorderTree.cs" />
->>>>>>> 4da44638673fba4111112a4cebe6eb6175f19396
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
@@ -151,10 +147,7 @@
     <BundleResource Include="Content\viking.png" />
     <BundleResource Include="Content\viking character.png" />
     <BundleResource Include="Content\tree.png" />
-<<<<<<< HEAD
     <BundleResource Include="Content\enemy_temp.png" />
-=======
->>>>>>> 4da44638673fba4111112a4cebe6eb6175f19396
     <BundleResource Include="Content\slashDown.png" />
     <BundleResource Include="Content\slashLeft.png" />
     <BundleResource Include="Content\slashRight.png" />
@@ -164,7 +157,6 @@
     <BundleResource Include="Content\spearRight.png" />
     <BundleResource Include="Content\spearUp.png" />
     <BundleResource Include="Content\pinetree.png" />
-<<<<<<< HEAD
     <BundleResource Include="Content\Textures\Backgrounds\MainMenu.png" />
     <BundleResource Include="Content\Rage.png" />
     <BundleResource Include="Content\Textures\Backgrounds\EndScreen.png" />
@@ -182,19 +174,11 @@
     <Folder Include="Content\Fonts\" />
     <Folder Include="Content\Sounds\" />
     <Folder Include="Content\Textures\" />
-=======
-    <BundleResource Include="Content\lance_down.png" />
-    <BundleResource Include="Content\lance_left.png" />
-    <BundleResource Include="Content\lance_right.png" />
-    <BundleResource Include="Content\lance_up.png" />
-    <BundleResource Include="Content\shroom.png" />
-    <BundleResource Include="Content\tower.png" />
     <BundleResource Include="Content\enemy.png" />
     <BundleResource Include="Content\rage.png" />
     <BundleResource Include="Content\border left1.png" />
     <BundleResource Include="Content\border right1.png" />
     <BundleResource Include="Content\border top1.png" />
     <BundleResource Include="Content\border bottom1.png" />
->>>>>>> 4da44638673fba4111112a4cebe6eb6175f19396
   </ItemGroup>
 </Project>

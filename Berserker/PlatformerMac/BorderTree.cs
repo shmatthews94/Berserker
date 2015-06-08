@@ -21,19 +21,19 @@ namespace Berserker
 				this.spriteHeight = height;
 				this.type = t;
 			}
-			public void LoadContent(ContentManager content)
+			public void LoadContent(Game game)
 			{
 				if (type == 1) {
-					image = content.Load<Texture2D> ("border left1.png");
+					image = game.Content.Load<Texture2D> ("border left1.png");
 				}
 				if (type == 2) {
-					image = content.Load<Texture2D> ("border right1.png");
+					image = game.Content.Load<Texture2D> ("border right1.png");
 				}
 				if (type == 3) {
-					image = content.Load<Texture2D> ("border top1.png");
+					image = game.Content.Load<Texture2D> ("border top1.png");
 				}
 				if (type == 4) {
-					image = content.Load<Texture2D> ("border bottom1.png");
+					image = game.Content.Load<Texture2D> ("border bottom1.png");
 				}
 
 
