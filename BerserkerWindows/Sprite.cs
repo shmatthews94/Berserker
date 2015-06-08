@@ -41,6 +41,14 @@ namespace Berserker
 		{
 			spriteY = y;
 		}
+		public void setHeight(int height)
+		{
+			spriteHeight = height;
+		}
+		public void setWidth(int width)
+		{
+			spriteWidth = width;
+		}
         public Rectangle Hitbox
         {
             get

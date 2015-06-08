@@ -1,22 +1,34 @@
-﻿using System;
+#region File Description
+//-----------------------------------------------------------------------------
+// Program.cs
+//
+// Microsoft XNA Community Game Platform
+// Copyright (C) Microsoft Corporation. All rights reserved.
+//-----------------------------------------------------------------------------
+#endregion
+
+#region Using Statements
+using System;
+
+#if IPHONE
+using MonoTouch.Foundation;
+using MonoTouch.UIKit;
+#endif
+
+#endregion
 
 namespace Berserker
 {
-#if WINDOWS || LINUX
-    /// <summary>
-    /// The main class.
-    /// </summary>
-    public static class Program
+    static class Program
     {
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
-        [STAThread]
         static void Main()
         {
-            using (var game = new Game1())
+            using (var game = new BerserkerGame())
                 game.Run();
         }
     }
-#endif
 }
+

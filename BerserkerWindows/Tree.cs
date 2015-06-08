@@ -20,19 +20,19 @@ namespace Berserker
 			this.spriteHeight = height;
 			this.type = t;
 		}
-		public void LoadContent(ContentManager content)
+		public void LoadContent(Game game)
 		{
 			if (type == 1) {
-				image = content.Load<Texture2D> ("pinetree.png");
+				image = game.Content.Load<Texture2D> ("pinetree.png");
 			}
 			if (type == 2) {
-				image = content.Load<Texture2D> ("tower.png");
+				image = game.Content.Load<Texture2D> ("tower.png");
 			}
 		}
 
 		public void Draw(SpriteBatch sb)
 		{
-			sb.Draw(image, new Rectangle(spriteX, spriteY, spriteWidth, spriteHeight), Color.White);
+ 			sb.Draw(image, new Rectangle(spriteX, spriteY, spriteWidth, spriteHeight), Color.White);
 		}
 
 		public void Update(Controls controls, GameTime gameTime)

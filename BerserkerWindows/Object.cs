@@ -6,6 +6,8 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Storage;
 
+using Berserker;
+using GameStateManagement;
 
 namespace Berserker
 {
@@ -18,9 +20,9 @@ namespace Berserker
 			this.spriteWidth = width;
 			this.spriteHeight = height;
 		}
-		public void LoadContent(ContentManager content)
+		public void LoadContent(Game game)
 		{
-			image = content.Load<Texture2D>("shroom.png");
+			image = game.Content.Load<Texture2D>("shroom.png");
 		}
 
 		public void Draw(SpriteBatch sb)
