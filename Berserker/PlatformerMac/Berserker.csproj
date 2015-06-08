@@ -72,6 +72,7 @@
     <Compile Include="Tree.cs" />
     <Compile Include="Object.cs" />
     <Compile Include="Game1.cs" />
+    <Compile Include="BorderTree.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
@@ -103,5 +104,9 @@
     <BundleResource Include="Content\tower.png" />
     <BundleResource Include="Content\enemy.png" />
     <BundleResource Include="Content\rage.png" />
+    <BundleResource Include="Content\border left1.png" />
+    <BundleResource Include="Content\border right1.png" />
+    <BundleResource Include="Content\border top1.png" />
+    <BundleResource Include="Content\border bottom1.png" />
   </ItemGroup>
 </Project>

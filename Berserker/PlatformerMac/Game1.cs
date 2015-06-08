@@ -27,8 +27,8 @@ namespace Berserker
         int objectcounter;
         public static List<Enemy> Enemies = new List<Enemy>();
         public static List<Tree> Trees = new List<Tree>();
+		public static List<BorderTree> BorderTrees = new List<BorderTree>();
         public static List<Object> Objects = new List<Object>();
-
         TimeSpan elapsedTime = TimeSpan.Zero;
 
         public Game1()
@@ -61,57 +61,16 @@ namespace Berserker
             Trees.Add(new Tree(400, 400, 50, 50, 1));
             Trees.Add(new Tree(450, 400, 50, 50, 1));
 
-            Trees.Add(new Tree(0, 0, 50, 50, 1));
-            Trees.Add(new Tree(0, 50, 50, 50, 1));
-            Trees.Add(new Tree(0, 100, 50, 50, 1));
-            Trees.Add(new Tree(0, 150, 50, 50, 1));
-            Trees.Add(new Tree(0, 200, 50, 50, 1));
-            Trees.Add(new Tree(0, 250, 50, 50, 1));
-            Trees.Add(new Tree(0, 300, 50, 50, 1));
-            Trees.Add(new Tree(0, 350, 50, 50, 1));
-            Trees.Add(new Tree(0, 400, 50, 50, 1));
-            Trees.Add(new Tree(0, 450, 50, 50, 1));
-            Trees.Add(new Tree(0, 500, 50, 50, 1));
-            Trees.Add(new Tree(0, 550, 50, 50, 1));
-            Trees.Add(new Tree(0, 0, 50, 50, 1));
-            Trees.Add(new Tree(50, 0, 50, 50, 1));
-            Trees.Add(new Tree(100, 0, 50, 50, 1));
-            Trees.Add(new Tree(150, 0, 50, 50, 1));
-            Trees.Add(new Tree(200, 0, 50, 50, 1));
-            Trees.Add(new Tree(250, 0, 50, 50, 1));
-            Trees.Add(new Tree(300, 0, 50, 50, 1));
-            Trees.Add(new Tree(350, 0, 50, 50, 1));
-            Trees.Add(new Tree(400, 0, 50, 50, 1));
-            Trees.Add(new Tree(450, 0, 50, 50, 1));
-            Trees.Add(new Tree(500, 0, 50, 50, 1));
-            Trees.Add(new Tree(550, 0, 50, 50, 1));
-            Trees.Add(new Tree(550, 50, 50, 50, 1));
-            Trees.Add(new Tree(550, 100, 50, 50, 1));
-            Trees.Add(new Tree(550, 150, 50, 50, 1));
-            Trees.Add(new Tree(550, 200, 50, 50, 1));
-            Trees.Add(new Tree(550, 250, 50, 50, 1));
-            Trees.Add(new Tree(550, 300, 50, 50, 1));
-            Trees.Add(new Tree(550, 350, 50, 50, 1));
-            Trees.Add(new Tree(550, 400, 50, 50, 1));
-            Trees.Add(new Tree(550, 450, 50, 50, 1));
-            Trees.Add(new Tree(550, 500, 50, 50, 1));
-            Trees.Add(new Tree(550, 550, 50, 50, 1));
-            Trees.Add(new Tree(0, 550, 50, 50, 1));
-            Trees.Add(new Tree(50, 550, 50, 50, 1));
-            Trees.Add(new Tree(100, 550, 50, 50, 1));
-            Trees.Add(new Tree(150, 550, 50, 50, 1));
-            Trees.Add(new Tree(200, 550, 50, 50, 1));
-            Trees.Add(new Tree(250, 550, 50, 50, 1));
-            Trees.Add(new Tree(300, 550, 50, 50, 1));
-            Trees.Add(new Tree(350, 550, 50, 50, 1));
-            Trees.Add(new Tree(400, 550, 50, 50, 1));
-            Trees.Add(new Tree(450, 550, 50, 50, 1));
-            Trees.Add(new Tree(500, 550, 50, 50, 1));
-            Trees.Add(new Tree(550, 550, 50, 50, 1));
+      
             Trees.Add(new Tree(50, 50, 50, 50, 2));
             Trees.Add(new Tree(500, 500, 50, 50, 2));
             Trees.Add(new Tree(50, 500, 50, 50, 2));
             Trees.Add(new Tree(500, 50, 50, 50, 2));
+
+			BorderTrees.Add(new BorderTree(0, 0, 74, 600, 1));
+			BorderTrees.Add(new BorderTree(511, 0, 89, 600, 2));
+			BorderTrees.Add(new BorderTree(74, 0, 437, 65, 3));
+			BorderTrees.Add(new BorderTree(74, 519, 437, 81, 4));
             base.Initialize();
             Console.WriteLine("Init");
 
@@ -133,6 +92,10 @@ namespace Berserker
             {
                 Trees[i].LoadContent(this.Content);
             }
+			for(int j = 0; j < BorderTrees.Count; j++)
+			{
+				BorderTrees[j].LoadContent(this.Content);
+			}
             healthbar = Content.Load<Texture2D>("healthbar");
             player1.rageBar = Content.Load<Texture2D>("rage");
 
@@ -220,7 +183,7 @@ namespace Berserker
         {
             if (player1.rageMode == false)
             {
-				GraphicsDevice.Clear(Color.LightGray);
+				GraphicsDevice.Clear(new Color(227, 219, 219));
             }
             else if (player1.rageMode)
             {
@@ -240,6 +203,10 @@ namespace Berserker
             {
                 Trees[i].Draw(spriteBatch);
             }
+			for (int i = 0; i < BorderTrees.Count; i++)
+			{
+				BorderTrees[i].Draw(spriteBatch);
+			}
             for (int i = 0; i < Objects.Count; i++)
             {
                 Objects[i].Draw(spriteBatch);
