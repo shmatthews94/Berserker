@@ -1,4 +1,10 @@
+<<<<<<< HEAD
 /Users/shanematthews/Berserker/Berserker/packages/MonoGame.Framework.MacOS.3.4.0.459/lib/net45/MonoGame.Framework.dll
 /Users/shanematthews/Berserker/Berserker/packages/MonoGame.Framework.MacOS.3.4.0.459/lib/net45/Tao.Sdl.dll
 /Users/shanematthews/Berserker/Berserker/packages/MonoGame.Framework.MacOS.3.4.0.459/lib/net45/OpenTK.dll
 /Users/shanematthews/Desktop/Microsoft.Xna.Framework.GamerServices.dll
+=======
+/Users/eliseweiland/Berserker/Berserker/packages/MonoGame.Framework.MacOS.3.4.0.459/lib/net45/MonoGame.Framework.dll
+/Users/eliseweiland/Berserker/Berserker/packages/MonoGame.Framework.MacOS.3.4.0.459/lib/net45/Tao.Sdl.dll
+/Users/eliseweiland/Berserker/Berserker/packages/MonoGame.Framework.MacOS.3.4.0.459/lib/net45/OpenTK.dll
+>>>>>>> 4da44638673fba4111112a4cebe6eb6175f19396
