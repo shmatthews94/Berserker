@@ -153,7 +153,7 @@ namespace Berserker
 
 			Console.WriteLine();
 
-			if (spawncounter % 79 == 0) {
+			if (spawncounter % 61 == 0) {
 				spawncounter1 -= 1;
 				spawncounter2 -= 2;
 				spawncounter3 -= 3;
@@ -181,19 +181,19 @@ namespace Berserker
 			}
 			if (spawncounter == spawncounter2)
 			{
-				Enemy newenemy = new Enemy(500, 50, 50, 50);
+				Enemy newenemy = new Enemy(500, 50, 50, 50, speed2);
 				newenemy.LoadContent(ScreenManager.Game);
 				Enemies.Add (newenemy);
 			}
 			if (spawncounter == spawncounter3)
 			{
-				Enemy newenemy = new Enemy(50, 500, 50, 50);
+				Enemy newenemy = new Enemy(50, 500, 50, 50, speed2);
 				newenemy.LoadContent(ScreenManager.Game);
 				Enemies.Add (newenemy);
 
 			}
 			if (spawncounter == spawncounter4) {
-				Enemy newenemy = new Enemy (500, 500, 50, 50);
+				Enemy newenemy = new Enemy (500, 500, 50, 50, speed2);
 				newenemy.LoadContent (ScreenManager.Game);
 				Enemies.Add (newenemy);
 				spawncounter = 0;
