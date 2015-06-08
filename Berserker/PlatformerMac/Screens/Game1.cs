@@ -23,7 +23,7 @@ namespace Berserker
 		SpriteBatch spriteBatch;
 		Player player1;
 		public Texture2D healthbar;
-		int spawncounter;
+		int spawncounter, spawncounter1, spawncounter2, spawncounter3, spawncounter4;
 		int objectcounter;
 		public static List<Enemy> Enemies = new List<Enemy>();
 		public static List<Tree> Trees = new List<Tree>();
@@ -40,6 +40,10 @@ namespace Berserker
 		public Game1()
 		{
 			player1 = new Player (275, 275, 50, 50);
+			spawncounter1 = 120;
+			spawncounter2 = 240;
+			spawncounter3 = 360;
+			spawncounter4 = 480;
 			/*
 			graphics = new GraphicsDeviceManager(this);
 			graphics.PreferredBackBufferWidth = 600;  // set this value to the desired width of your window
@@ -148,27 +152,46 @@ namespace Berserker
 
 			Console.WriteLine();
 
+			if (spawncounter % 79 == 0) {
+				spawncounter1 -= 1;
+				spawncounter2 -= 2;
+				spawncounter3 -= 3;
+				spawncounter4 -= 4;
+			}
 
-			if (spawncounter == 120)
+			if (Keyboard.GetState().IsKeyDown(Keys.Escape))
+				ExitScreen();
+
+			// TODO: Add your update logic here
+			//Up, down, left, right affect the coordinates of the sprite
+
+			Console.WriteLine();
+
+			double speed0 = 1 + (objectcounter / 250.0f);
+			double speed1 = Math.Ceiling (speed0);
+			int speed2 = Convert.ToInt32 (speed1);
+			Console.WriteLine (speed2.ToString());
+
+			if (spawncounter == spawncounter1)
 			{
-				Enemy newenemy = new Enemy(50, 50, 50, 50);
+				Enemy newenemy = new Enemy(50, 50, 50, 50, speed2);
 				newenemy.LoadContent(ScreenManager.Game);
 				Enemies.Add (newenemy);
 			}
-			if (spawncounter == 240)
+			if (spawncounter == spawncounter2)
 			{
 				Enemy newenemy = new Enemy(500, 50, 50, 50);
 				newenemy.LoadContent(ScreenManager.Game);
 				Enemies.Add (newenemy);
 			}
-			if (spawncounter == 360)
+			if (spawncounter == spawncounter3)
 			{
 				Enemy newenemy = new Enemy(50, 500, 50, 50);
 				newenemy.LoadContent(ScreenManager.Game);
 				Enemies.Add (newenemy);
 
 			}
-			if (spawncounter == 480) {
+			if (spawncounter == spawncounter4) {
 				Enemy newenemy = new Enemy (500, 500, 50, 50);
 				newenemy.LoadContent (ScreenManager.Game);
 				Enemies.Add (newenemy);

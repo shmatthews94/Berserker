@@ -62,6 +62,21 @@ namespace Berserker
 			targetWanderTime = new TimeSpan(10000);
 		}
 
+		public Enemy(int x, int y, int width, int height, int s)
+		{
+			this.spriteX = x;
+			this.spriteY = y;
+			this.spriteWidth = width;
+			this.spriteHeight = height;
+			health = 3;
+			// Movement
+			this.speed = s;
+			movePattern = 0;
+			elapsedWanderTime = TimeSpan.Zero;
+			elapsedAttackTime = TimeSpan.Zero;
+			targetWanderTime = new TimeSpan(10000);
+		}
+
 		public int getHealth()
 		{
 			return this.health;
