@@ -89,6 +89,7 @@
     <Compile Include="Screens\Game1.cs" />
     <Compile Include="Screens\EndScreen.cs" />
     <Compile Include="BorderTree.cs" />
+    <Compile Include="AudioManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
@@ -140,6 +141,9 @@
   <ItemGroup>
     <Content Include="Content\prep2.png" />
     <Content Include="Content\Fonts\MenuFont.xnb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Sounds\soundtrack.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

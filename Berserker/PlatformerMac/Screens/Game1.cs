@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Storage;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 using System.Collections.Specialized;
 using Berserker;
 using GameStateManagement;
@@ -19,8 +20,6 @@ namespace Berserker
 	/// </summary>
 	class Game1 : GameScreen
 	{
-		GraphicsDeviceManager graphics;
-		SpriteBatch spriteBatch;
 		Player player1;
 		public Texture2D healthbar;
 		int spawncounter, spawncounter1, spawncounter2, spawncounter3, spawncounter4;
@@ -29,12 +28,8 @@ namespace Berserker
 		public static List<Tree> Trees = new List<Tree>();
 		public static List<Object> Objects = new List<Object>();
 		public static List<BorderTree> BorderTrees = new List<BorderTree>();
-		Texture2D tree;
-		Texture2D viking;
-		Texture2D enemy;
 		Controls controls = new Controls();
 		Tree Castle1, Castle2, Castle3, Castle4;
-		TimeSpan elapsedTime = TimeSpan.Zero;
 		SpriteFont font;
 
 		public Game1()
@@ -43,8 +38,9 @@ namespace Berserker
 			spawncounter1 = 120;
 			spawncounter2 = 240;
 			spawncounter3 = 360;
-			spawncounter4 = 480;
-			Enemies.Clear ();
+			spawncounter4 = 480;  // Put the name of your song here instead of "song_title"
+			AudioManager.PlaySound("Soundtrack");
+			Enemies.Clear();
 			/*
 			graphics = new GraphicsDeviceManager(this);
 			graphics.PreferredBackBufferWidth = 600;  // set this value to the desired width of your window

@@ -60,7 +60,7 @@ namespace Berserker
 			// screenManager.AddScreen(new BackgroundScreen(), null);
 			screenManager.AddScreen(new MainMenuScreen(), null);
 
-			//AudioManager.Initialize(this);
+			AudioManager.Initialize(this);
 		}
 
 		/// <summary>
@@ -78,7 +78,7 @@ namespace Berserker
 		#region Loading
 		protected override void LoadContent()
 		{
-			//AudioManager.LoadSounds();
+			AudioManager.LoadSounds();
 			base.LoadContent();
 		}
 		#endregion
