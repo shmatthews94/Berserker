@@ -25,6 +25,7 @@ namespace Berserker
 		public int rage = 50;
 		public double counter;
 		public int counter2;
+		public Boolean playsound;
 
 		TimeSpan attackDuration;
 
@@ -60,12 +61,14 @@ namespace Berserker
 			health = 5;
 			attackDuration = TimeSpan.Zero;
 			spearCoolDown = new TimeSpan(50000000);
+			playsound = true;
 		}
 
 		public void decrementHealth()
 		{
 			if (rageMode == false)
 				this.health--;
+			AudioManager.PlaySound ("Hurt");
 		}
 
 		public int getHealth()
@@ -159,7 +162,7 @@ namespace Berserker
 			{
 				attackDuration += gameTime.ElapsedGameTime;
 			}
-
+				
 			if (rage >= 260)
 			{
 				rage = 260;
@@ -167,9 +170,14 @@ namespace Berserker
 			}
 
 			if (rageMode == true) {
+				if(playsound == true) {
+					AudioManager.PlaySound ("rage1");
+					playsound = false;
+				}
 				counter += gameTime.ElapsedGameTime.TotalMilliseconds;
 				if (counter >= 9000) {
 					rageMode = false;
+					playsound = true;
 					counter = 0;
 					rage = 0;
 				}
@@ -250,6 +258,7 @@ namespace Berserker
 			{
 				if (controls.onPress(Keys.Space, Buttons.A))
 				{
+					AudioManager.PlaySound ("Attack");
 					normalAttacking = true;
 					for (int i = 0; i < Baddies.Count; i++)
 					{

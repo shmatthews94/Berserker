@@ -64,7 +64,10 @@ namespace Berserker
         {
             string soundLocation = "Sounds/";
             audioManager.soundNames = new string[,] { 
-                            {"soundtrack", "Soundtrack"}
+                            {"soundtrack", "Soundtrack"},
+							{"RageMode1", "rage1"},
+							{"attack", "Attack"},
+							{"hurt", "Hurt"}
 			};
 
             audioManager.soundBank = new Dictionary<string, SoundEffectInstance>();

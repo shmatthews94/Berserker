@@ -265,6 +265,7 @@ namespace Berserker
 			if (player1.rageMode == false)
 			{
 				ScreenManager.GraphicsDevice.Clear(new Color(227, 219, 219));
+
 			}
 			else if (player1.rageMode)
 			{

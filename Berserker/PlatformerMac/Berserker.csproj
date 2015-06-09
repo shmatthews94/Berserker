@@ -90,6 +90,7 @@
     <Compile Include="Screens\EndScreen.cs" />
     <Compile Include="BorderTree.cs" />
     <Compile Include="AudioManager.cs" />
+    <Compile Include="Screens\WaveScreen.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
@@ -111,7 +112,6 @@
     <None Include="Content\Sounds\Win.wav" />
     <None Include="Content\Sounds\Win.xnb" />
     <None Include="Content\Textures\Ammo\rock_ammo.xnb" />
-    <None Include="Content\Textures\Backgrounds\blank.xnb" />
     <None Include="Content\Textures\Backgrounds\cloud1.xnb" />
     <None Include="Content\Textures\Backgrounds\cloud2.xnb" />
     <None Include="Content\Textures\Backgrounds\defeat.xnb" />
@@ -143,8 +143,20 @@
     <Content Include="Content\Fonts\MenuFont.xnb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Sounds\soundtrack.wav">
+    <Content Include="Content\Sounds\RageMode1.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Textures\Backgrounds\blank.xnb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Sounds\soundtrack.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Sounds\attack.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Sounds\hurt.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <ItemGroup>
