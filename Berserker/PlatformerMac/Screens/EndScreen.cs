@@ -51,6 +51,7 @@ namespace Berserker
 			TransitionOnTime = TimeSpan.FromSeconds (0);
 			TransitionOffTime = TimeSpan.FromSeconds (0.5);
 			this.playerscore = score;
+			AudioManager.PlaySound ("Valhalla");
 		}
 		#endregion
 
