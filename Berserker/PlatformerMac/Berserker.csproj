@@ -190,6 +190,8 @@
     <BundleResource Include="Content\lance_left.png" />
     <BundleResource Include="Content\lance_down.png" />
     <BundleResource Include="Content\tower.png" />
+    <BundleResource Include="Content\background.png" />
+    <BundleResource Include="Content\ragebackground.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ScreenManager\" />
