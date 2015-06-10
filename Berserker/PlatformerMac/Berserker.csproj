@@ -91,6 +91,7 @@
     <Compile Include="BorderTree.cs" />
     <Compile Include="AudioManager.cs" />
     <Compile Include="Screens\WaveScreen.cs" />
+    <Compile Include="Background.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />

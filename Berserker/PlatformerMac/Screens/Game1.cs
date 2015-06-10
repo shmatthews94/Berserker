@@ -41,6 +41,7 @@ namespace Berserker
 		public static List<List<Tree>> TreeWaves = new List<List<Tree>> ();
 		Controls controls = new Controls();
 		Tree Castle1, Castle2, Castle3, Castle4;
+		Background RegBackground, RageBackground;
 		SpriteFont font;
 
 		public Game1(int wave)
@@ -52,13 +53,13 @@ namespace Berserker
 			AudioManager.PlaySound("Soundtrack");
 			Enemies.Clear();
 			/*
-			graphics = new GraphicsDeviceManager(this);
-			graphics.PreferredBackBufferWidth = 600;  // set this value to the desired width of your window
-			graphics.PreferredBackBufferHeight = 600;   // set this value to the desired height of your window
-			graphics.ApplyChanges();
+            graphics = new GraphicsDeviceManager(this);
+            graphics.PreferredBackBufferWidth = 600;  // set this value to the desired width of your window
+            graphics.PreferredBackBufferHeight = 600;   // set this value to the desired height of your window
+            graphics.ApplyChanges();
 
-			this.TargetElapsedTime = TimeSpan.FromSeconds(1.0f / 40.0f);
-			*/
+            this.TargetElapsedTime = TimeSpan.FromSeconds(1.0f / 40.0f);
+            */
 			// ScreenManager.Game.Content.RootDirectory = "Content";
 		}
 
@@ -73,16 +74,16 @@ namespace Berserker
 			AudioManager.PlaySound("Soundtrack");
 			Enemies.Clear();
 			/*
-			graphics = new GraphicsDeviceManager(this);
-			graphics.PreferredBackBufferWidth = 600;  // set this value to the desired width of your window
-			graphics.PreferredBackBufferHeight = 600;   // set this value to the desired height of your window
-			graphics.ApplyChanges();
+            graphics = new GraphicsDeviceManager(this);
+            graphics.PreferredBackBufferWidth = 600;  // set this value to the desired width of your window
+            graphics.PreferredBackBufferHeight = 600;   // set this value to the desired height of your window
+            graphics.ApplyChanges();
 
-			this.TargetElapsedTime = TimeSpan.FromSeconds(1.0f / 40.0f);
-			*/
+            this.TargetElapsedTime = TimeSpan.FromSeconds(1.0f / 40.0f);
+            */
 			// ScreenManager.Game.Content.RootDirectory = "Content";
 		}
-		
+
 
 		/// <summary>
 		/// Allows the game to perform any initialization it needs to before starting to run.
@@ -94,7 +95,8 @@ namespace Berserker
 		{
 			// TODO: Add your initialization logic here
 
-	
+			RegBackground = new Background(-100, -100, 800, 800, 1);
+			RageBackground = new Background(-100, -100, 800, 800, 2);
 			Trees.Add (new Tree (150, 150, 50, 50, 1));
 			Trees.Add (new Tree (100, 150, 50, 50, 1));
 			Trees.Add (new Tree (200, 250, 50, 50, 1));
@@ -111,6 +113,9 @@ namespace Berserker
 			BorderTrees.Add(new BorderTree(511, 0, 89, 600, 2));
 			BorderTrees.Add(new BorderTree(74, 0, 437, 65, 3));
 			BorderTrees.Add(new BorderTree(74, 519, 437, 81, 4));
+
+			RegBackground.LoadContent(ScreenManager.Game);
+			RageBackground.LoadContent(ScreenManager.Game);
 
 
 			Wave1.Add (new Enemy (50, 50, 50, 50, 1, 100));
@@ -161,9 +166,9 @@ namespace Berserker
 			base.LoadContent();
 			LoadAssets();
 			base.LoadContent();
-			#if ANDROID || IPHONE			
+			#if ANDROID || IPHONE            
 			LoadAssets();
-			#endif			
+			#endif            
 			// Start the game
 
 			// TODO: use this.Content to load your game content here
@@ -186,7 +191,7 @@ namespace Berserker
 
 			if (Keyboard.GetState().IsKeyDown(Keys.Escape))
 				ExitScreen();
-			
+
 			// TODO: Add your update logic here
 			//Up, down, left, right affect the coordinates of the sprite
 
@@ -200,7 +205,7 @@ namespace Berserker
 					SpawnEnemies.Remove(SpawnEnemies[enemycount]);
 				}
 			}
-				
+
 			if (Enemies.Count == 0 && SpawnEnemies.Count == 0) {
 				ExitScreen ();
 				wave++;
@@ -209,13 +214,13 @@ namespace Berserker
 
 			Console.WriteLine();
 			/*
-			if (spawncounter % 61 == 0) {
-				spawncounter1 -= 1;
-				spawncounter2 -= 2;
-				spawncounter3 -= 3;
-				spawncounter4 -= 4;
-			}
-			*/
+            if (spawncounter % 61 == 0) {
+                spawncounter1 -= 1;
+                spawncounter2 -= 2;
+                spawncounter3 -= 3;
+                spawncounter4 -= 4;
+            }
+            */
 
 			if (Keyboard.GetState().IsKeyDown(Keys.Escape))
 				ExitScreen();
@@ -225,37 +230,37 @@ namespace Berserker
 
 			Console.WriteLine();
 			/*
-			double speed0 = 1 + (objectcounter / 250.0f);
-			double speed1 = Math.Ceiling (speed0);
-			int speed2 = Convert.ToInt32 (speed1);
-			Console.WriteLine (speed2.ToString());
+            double speed0 = 1 + (objectcounter / 250.0f);
+            double speed1 = Math.Ceiling (speed0);
+            int speed2 = Convert.ToInt32 (speed1);
+            Console.WriteLine (speed2.ToString());
 
-			if (spawncounter == spawncounter1)
-			{
-				Enemy newenemy = new Enemy(50, 50, 50, 50, speed2);
-				newenemy.LoadContent(ScreenManager.Game);
-				Enemies.Add (newenemy);
-			}
-			if (spawncounter == spawncounter2)
-			{
-				Enemy newenemy = new Enemy(500, 50, 50, 50, speed2);
-				newenemy.LoadContent(ScreenManager.Game);
-				Enemies.Add (newenemy);
-			}
-			if (spawncounter == spawncounter3)
-			{
-				Enemy newenemy = new Enemy(50, 500, 50, 50, speed2);
-				newenemy.LoadContent(ScreenManager.Game);
-				Enemies.Add (newenemy);
+            if (spawncounter == spawncounter1)
+            {
+                Enemy newenemy = new Enemy(50, 50, 50, 50, speed2);
+                newenemy.LoadContent(ScreenManager.Game);
+                Enemies.Add (newenemy);
+            }
+            if (spawncounter == spawncounter2)
+            {
+                Enemy newenemy = new Enemy(500, 50, 50, 50, speed2);
+                newenemy.LoadContent(ScreenManager.Game);
+                Enemies.Add (newenemy);
+            }
+            if (spawncounter == spawncounter3)
+            {
+                Enemy newenemy = new Enemy(50, 500, 50, 50, speed2);
+                newenemy.LoadContent(ScreenManager.Game);
+                Enemies.Add (newenemy);
 
-			}
-			if (spawncounter == spawncounter4) {
-				Enemy newenemy = new Enemy (500, 500, 50, 50, speed2);
-				newenemy.LoadContent (ScreenManager.Game);
-				Enemies.Add (newenemy);
-				spawncounter = 0;
-			}
-			*/
+            }
+            if (spawncounter == spawncounter4) {
+                Enemy newenemy = new Enemy (500, 500, 50, 50, speed2);
+                newenemy.LoadContent (ScreenManager.Game);
+                Enemies.Add (newenemy);
+                spawncounter = 0;
+            }
+            */
 			if (objectcounter % 997 == 0)
 			{
 				Random rand = new Random();
@@ -278,35 +283,35 @@ namespace Berserker
 		}
 
 
-        /// <summary>
-        /// Allows the game to perform any initialization it needs to before starting to run.
-        /// This is where it can query for any required services and load any non-graphic
-        /// related content.  Calling base.Initialize will enumerate through any components
-        /// and initialize them as well.
-        /// </summary>
-       
+		/// <summary>
+		/// Allows the game to perform any initialization it needs to before starting to run.
+		/// This is where it can query for any required services and load any non-graphic
+		/// related content.  Calling base.Initialize will enumerate through any components
+		/// and initialize them as well.
+		/// </summary>
 
-        /// <summary>
-        /// LoadContent will be called once per game and is the place to load
-        /// all of your content.
-        /// </summary>
-   
 
-        /// <summary>
-        /// UnloadContent will be called once per game and is the place to unload
-        /// all content.
-        /// </summary>
+		/// <summary>
+		/// LoadContent will be called once per game and is the place to load
+		/// all of your content.
+		/// </summary>
 
-        /// <summary>
-        /// Allows the game to run logic such as updating the world,
-        /// checking for collisions, gathering input, and playing audio.
-        /// </summary>
-        /// <param name="gameTime">Provides a snapshot of timing values.</param>
-       
-        /// <summary>
-        /// This is called when the game should draw itself.
-        /// </summary>
-        /// <param name="gameTime">Provides a snapshot of timing values.</param>
+
+		/// <summary>
+		/// UnloadContent will be called once per game and is the place to unload
+		/// all content.
+		/// </summary>
+
+		/// <summary>
+		/// Allows the game to run logic such as updating the world,
+		/// checking for collisions, gathering input, and playing audio.
+		/// </summary>
+		/// <param name="gameTime">Provides a snapshot of timing values.</param>
+
+		/// <summary>
+		/// This is called when the game should draw itself.
+		/// </summary>
+		/// <param name="gameTime">Provides a snapshot of timing values.</param>
 
 		public override void HandleInput (InputState input)
 		{
@@ -323,19 +328,19 @@ namespace Berserker
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
 		public override void Draw(GameTime gameTime)
 		{
-
+			ScreenManager.SpriteBatch.Begin();
 			if (player1.rageMode == false)
 			{
-				ScreenManager.GraphicsDevice.Clear(new Color(227, 219, 219));
+				RegBackground.Draw(ScreenManager.SpriteBatch);
 
 			}
 			else if (player1.rageMode)
 			{
-				ScreenManager.GraphicsDevice.Clear(Color.Red);
+				RageBackground.Draw(ScreenManager.SpriteBatch);
 			}
 
 			// TODO: Add your drawing code here
-			ScreenManager.SpriteBatch.Begin();
+
 
 			player1.Draw (ScreenManager.SpriteBatch);
 
