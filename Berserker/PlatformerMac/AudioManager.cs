@@ -68,7 +68,8 @@ namespace Berserker
 							{"RageMode1", "rage1"},
 							{"attack", "Attack"},
 							{"hurt", "Hurt"},
-							{"valhalla", "Valhalla"}	
+							{"valhalla", "Valhalla"},
+							{"beprepared", "BePrepared"}
 			};
 
             audioManager.soundBank = new Dictionary<string, SoundEffectInstance>();

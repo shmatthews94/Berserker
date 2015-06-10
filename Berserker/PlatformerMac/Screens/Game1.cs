@@ -22,23 +22,54 @@ namespace Berserker
 	{
 		Player player1;
 		public Texture2D healthbar;
-		int spawncounter, spawncounter1, spawncounter2, spawncounter3, spawncounter4;
+		int spawncounter;
 		int objectcounter;
+		public int wave;
+		public int enemycount;
 		public static List<Enemy> Enemies = new List<Enemy>();
+		public static List<Enemy> Wave1 = new List<Enemy>();
+		public static List<Enemy> Wave2 = new List<Enemy>();
+		public static List<Enemy> Wave3 = new List<Enemy>();
+		public static List<Enemy> Wave4 = new List<Enemy>();
+		public static List<Enemy> SpawnEnemies = new List<Enemy>();
 		public static List<Tree> Trees = new List<Tree>();
+		public static List<Tree> Trees1 = new List<Tree>();
+		public static List<Tree> Trees2 = new List<Tree>();
 		public static List<Object> Objects = new List<Object>();
 		public static List<BorderTree> BorderTrees = new List<BorderTree>();
+		public static List<List<Enemy>> EnemyWaves = new List<List<Enemy>> ();
+		public static List<List<Tree>> TreeWaves = new List<List<Tree>> ();
 		Controls controls = new Controls();
 		Tree Castle1, Castle2, Castle3, Castle4;
 		SpriteFont font;
 
-		public Game1()
+		public Game1(int wave)
 		{
+			this.wave = wave;
 			player1 = new Player (275, 275, 50, 50);
-			spawncounter1 = 120;
-			spawncounter2 = 240;
-			spawncounter3 = 360;
-			spawncounter4 = 480;  // Put the name of your song here instead of "song_title"
+			spawncounter = 0;
+			enemycount = 0;
+			AudioManager.PlaySound("Soundtrack");
+			Enemies.Clear();
+			/*
+			graphics = new GraphicsDeviceManager(this);
+			graphics.PreferredBackBufferWidth = 600;  // set this value to the desired width of your window
+			graphics.PreferredBackBufferHeight = 600;   // set this value to the desired height of your window
+			graphics.ApplyChanges();
+
+			this.TargetElapsedTime = TimeSpan.FromSeconds(1.0f / 40.0f);
+			*/
+			// ScreenManager.Game.Content.RootDirectory = "Content";
+		}
+
+		public Game1(int wave, Player player)
+		{
+			this.wave = wave;
+			this.player1 = player;
+			player.setX (275);
+			player.setY (275);
+			spawncounter = 0;
+			enemycount = 0;
 			AudioManager.PlaySound("Soundtrack");
 			Enemies.Clear();
 			/*
@@ -82,6 +113,16 @@ namespace Berserker
 			BorderTrees.Add(new BorderTree(74, 519, 437, 81, 4));
 
 
+			Wave1.Add (new Enemy (50, 50, 50, 50, 1, 100));
+			Wave1.Add (new Enemy (500, 50, 50, 50, 1, 100)); 
+			Wave1.Add (new Enemy (50, 500, 50, 50, 1, 100));
+			Wave1.Add (new Enemy (500, 500, 50, 50, 1, 100));
+			Wave2.Add (new Enemy (50, 50, 50, 50, 5, 100));
+			Wave2.Add (new Enemy (500, 50, 50, 50, 5, 100)); 
+			Wave2.Add (new Enemy (50, 500, 50, 50, 5, 100));
+			Wave2.Add (new Enemy (500, 500, 50, 50, 5, 100));
+			EnemyWaves.Add (Wave1);
+			EnemyWaves.Add (Wave2);
 			player1.LoadContent (ScreenManager.Game);
 
 			for (int i = 0; i < Trees.Count; i++)
@@ -101,7 +142,9 @@ namespace Berserker
 
 			font = ScreenManager.Game.Content.Load<SpriteFont>("Fonts/MenuFont");
 
-
+			for (int i = 0; i < EnemyWaves [wave].Count; i++) {
+				SpawnEnemies.Add (EnemyWaves [wave] [i]);
+			}
 
 		}
 
@@ -143,18 +186,36 @@ namespace Berserker
 
 			if (Keyboard.GetState().IsKeyDown(Keys.Escape))
 				ExitScreen();
-
+			
 			// TODO: Add your update logic here
 			//Up, down, left, right affect the coordinates of the sprite
 
-			Console.WriteLine();
 
+			if (SpawnEnemies.Count > 0) {
+				if (SpawnEnemies [enemycount].getSpawn () == spawncounter) {
+					Enemy newenemy = SpawnEnemies [enemycount];
+					newenemy.LoadContent (ScreenManager.Game);
+					Enemies.Add (newenemy);
+					spawncounter = 0;
+					SpawnEnemies.Remove(SpawnEnemies[enemycount]);
+				}
+			}
+				
+			if (Enemies.Count == 0 && SpawnEnemies.Count == 0) {
+				ExitScreen ();
+				wave++;
+				ScreenManager.AddScreen (new WaveScreen(wave, player1), null);
+			}
+
+			Console.WriteLine();
+			/*
 			if (spawncounter % 61 == 0) {
 				spawncounter1 -= 1;
 				spawncounter2 -= 2;
 				spawncounter3 -= 3;
 				spawncounter4 -= 4;
 			}
+			*/
 
 			if (Keyboard.GetState().IsKeyDown(Keys.Escape))
 				ExitScreen();
@@ -163,7 +224,7 @@ namespace Berserker
 			//Up, down, left, right affect the coordinates of the sprite
 
 			Console.WriteLine();
-
+			/*
 			double speed0 = 1 + (objectcounter / 250.0f);
 			double speed1 = Math.Ceiling (speed0);
 			int speed2 = Convert.ToInt32 (speed1);
@@ -194,6 +255,7 @@ namespace Berserker
 				Enemies.Add (newenemy);
 				spawncounter = 0;
 			}
+			*/
 			if (objectcounter % 997 == 0)
 			{
 				Random rand = new Random();

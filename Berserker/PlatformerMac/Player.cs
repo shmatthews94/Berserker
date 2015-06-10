@@ -281,6 +281,12 @@ namespace Berserker
 			}
 		}
 
+		public void SmashAttack(Controls controls, List<Tree> Trees, List<Enemy> Baddies) {
+			if (rageMode == true) {
+
+			}
+		}
+
 		public void Move(Controls controls, List<Tree> Trees, List<Enemy> Enemies, List<Object> Objects)
 		{
 			// Sideways Acceleration

@@ -39,17 +39,31 @@ namespace Berserker
 		SpriteFont font;
 		bool isLoading;
 		double timer;
+		public int wave;
+		Player player;
 		Game1 gameplayScreen;
 		System.Threading.Thread thread;
 		#endregion
 
 		#region Initialization
-		public WaveScreen()
+		public WaveScreen(int wave)
 		{
 			timer = 1000f; // 10 seconds
-
+			this.wave = wave;
 			EnabledGestures = GestureType.Tap;
-
+			if (wave == 0) {
+				AudioManager.PlaySound ("BePrepared");
+			}
+			TransitionOnTime = TimeSpan.FromSeconds (1);
+			TransitionOffTime = TimeSpan.FromSeconds (1);
+		}
+		public WaveScreen(int wave, Player player)
+		{
+			timer = 1000f; // 10 seconds
+			this.wave = wave;
+			this.player = player;
+			EnabledGestures = GestureType.Tap;
+			AudioManager.PlaySound ("BePrepared");
 			TransitionOnTime = TimeSpan.FromSeconds (1);
 			TransitionOffTime = TimeSpan.FromSeconds (1);
 		}
@@ -82,7 +96,12 @@ namespace Berserker
 				timer = 0;
 				ExitScreen ();
 				ScreenManager.RemoveScreen (this);
-				ScreenManager.AddScreen (new Game1 (), null);
+				if (wave == 0) {
+					ScreenManager.AddScreen (new Game1 (wave), null);
+				} else {
+					ScreenManager.AddScreen (new Game1 (wave, player), null);
+				}
+				
 			} else {
 				timer -= gameTime.ElapsedGameTime.Milliseconds;
 			}
@@ -131,7 +150,7 @@ namespace Berserker
 
 			// Draw Background
 
-			ScreenManager.SpriteBatch.DrawString (font, "WAVE 1", new Vector2 (200, 250), Color.Red);
+			ScreenManager.SpriteBatch.DrawString (font, "WAVE " + (this.wave+1), new Vector2 (200, 250), Color.Red);
 			ScreenManager.SpriteBatch.Draw(background, new Rectangle (0, 0, 600, 600), Color.Black*(TransitionAlpha));
 			Console.WriteLine (TransitionAlpha.ToString());
 			// If loading gameplay screen resource in the 
