@@ -26,6 +26,7 @@ namespace Berserker
         public TimeSpan FrameTime = new TimeSpan(600000);
 
         public bool rageMode = false;
+		public bool stopsounds = true;
         public Texture2D rageBar;
         public int rage = 50;
         public double counter;
@@ -324,6 +325,7 @@ namespace Berserker
 					rageMode = false;
                     counter = 0;
                     rage = 0;
+					stopsounds = true;
                 }
             }
 
@@ -431,7 +433,8 @@ namespace Berserker
 			{
 				//AudioManager.PlaySound("Smash");
 				smashCoolDown = TimeSpan.Zero;
-				Circle smash = new Circle (new Vector2 (this.getX (), this.getY ()), 150);
+				Circle smash = new Circle (new Vector2 (this.getX (), this.getY ()), 300);
+
 				for (int i = 0; i < Baddies.Count; i++)
 				{
 					if (smash.Intersects(Baddies[i].rectangle))
@@ -459,10 +462,16 @@ namespace Berserker
 
             if (rageMode == true)
             {
+				if(stopsounds) {
+					AudioManager.StopSounds();
+					stopsounds = false;
+				}
+				AudioManager.PlaySound("RageWub");
                 speed = 6;
             }
             else
             {
+				AudioManager.PlaySound("Soundtrack");
                 speed = 4;
             }
             if (!IsAttacking)

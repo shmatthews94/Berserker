@@ -70,7 +70,8 @@ namespace Berserker
 							{"hurt", "Hurt"},
 							{"valhalla", "Valhalla"},
 							{"beprepared", "BePrepared"},
-							{"spear", "Spear"}
+							{"spear", "Spear"},
+							{"ragewub", "RageWub"}
 			};
 
             audioManager.soundBank = new Dictionary<string, SoundEffectInstance>();

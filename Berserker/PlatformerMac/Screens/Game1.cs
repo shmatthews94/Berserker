@@ -345,10 +345,10 @@ namespace Berserker
                 spawncounter = 0;
             }
             */
-			if (objectcounter % 997 == 0)
+			if (objectcounter % 997 == 0 && player1.rageMode == false)
 			{
 				Random rand = new Random();
-				Object object1 = new Object((int)rand.Next(100, 450), (int)rand.Next(100, 450), 50, 50);
+				Object object1 = new Object((int)rand.Next(100, 550), (int)rand.Next(100, 550), 50, 50);
 				object1.LoadContent(ScreenManager.Game);
 				Objects.Add(object1);
 			}
