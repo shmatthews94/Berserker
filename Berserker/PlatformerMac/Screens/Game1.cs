@@ -394,6 +394,10 @@ namespace Berserker
 		public override void HandleInput (InputState input)
 		{
 			if (player1.getHealth () == 0) {
+				Enemies.Clear ();
+				SpawnEnemies.Clear ();
+				Wave1.Clear ();
+				Wave2.Clear ();
 				ScreenManager.RemoveScreen (this);
 				ScreenManager.AddScreen (new EndScreen (player1.getScore()), null);
 			}
