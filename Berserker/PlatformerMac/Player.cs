@@ -15,7 +15,7 @@ namespace Berserker
         private int speed;
         public int health;
         public int score;
-		public bool playsound;
+        public bool playsound;
 
         int prevSpriteX;
         int prevSpriteY;
@@ -144,11 +144,19 @@ namespace Berserker
             this.spriteHeight = height;
 
             // Movement
-			playsound = true;
+            playsound = true;
             score = 0;
             speed = 3;
             health = 5;
             attackDuration = TimeSpan.Zero;
+            spearCoolDown = spearCooldownTime;
+            IsAttacking = false;
+        }
+
+        public void Reset()
+        {
+            PlayAnimation(idleDown);
+            facing = "down";
             spearCoolDown = spearCooldownTime;
             IsAttacking = false;
         }
@@ -200,7 +208,7 @@ namespace Berserker
         {
             if (rageMode == false)
                 this.health--;
-				AudioManager.PlaySound ("Hurt");
+            AudioManager.PlaySound("Hurt");
         }
 
         public int getHealth()
@@ -292,12 +300,13 @@ namespace Berserker
 
             if (rage >= 260)
             {
-				if (playsound) {
-					AudioManager.PlaySound ("RageMode1");
-					playsound = false;
-					rage = 260;
-					rageMode = true;
-				}
+                if (playsound)
+                {
+                    AudioManager.PlaySound("RageMode1");
+                    playsound = false;
+                    rage = 260;
+                    rageMode = true;
+                }
             }
 
             if (rageMode == true)
@@ -306,7 +315,7 @@ namespace Berserker
                 if (counter >= 9000)
                 {
                     rageMode = false;
-					playsound = true;
+                    playsound = true;
                     counter = 0;
                     rage = 0;
                 }
@@ -326,95 +335,86 @@ namespace Berserker
         {
             if (spearCoolDown >= spearCooldownTime)
             {
-                if (controls.onPress(Keys.A, Buttons.A))
-                {
-					AudioManager.PlaySound ("Spear");
-                    spearCoolDown = TimeSpan.Zero;
-                    if (facing == "left")
-                    {
-                        spearAttack = new Rectangle(this.spriteX - 115, this.spriteY, 115, 50);
-                        PlayAnimation(spearLeft);
-                    }
-
-                    if (facing == "right")
-                    {
-                        spearAttack = new Rectangle(this.spriteX + 50, this.spriteY, 115, 50);
-                        PlayAnimation(spearRight);
-                    }
-
-                    if (facing == "up")
-                    {
-                        spearAttack = new Rectangle(this.spriteX, this.spriteY - 115, 50, 115);
-                        PlayAnimation(spearUp);
-                    }
-
-                    if (facing == "down")
-                    {
-                        spearAttack = new Rectangle(this.spriteX, this.spriteY + 50, 50, 115);
-                        PlayAnimation(spearDown);
-                    }
-                    for (int i = 0; i < Baddies.Count; i++)
-                    {
-                        if (spearAttack.Intersects(Baddies[i].rectangle))
-                        {
-                            Baddies.Remove(Baddies[i]);
-                            this.incrementScore(100);
-                            i--;
-                        }
-                    }
-                }
-            }
-
-        }
-
-        public void Attack(Controls controls, List<Tree> Trees, List<Enemy> Baddies)
-        {
-
-            if (controls.onPress(Keys.Space, Buttons.A))
-            {
-				AudioManager.PlaySound ("Attack");
+                AudioManager.PlaySound("Spear");
+                spearCoolDown = TimeSpan.Zero;
                 if (facing == "left")
                 {
-                    attack = new Rectangle(this.spriteX - 50, this.spriteY, 50, 50);
-                    PlayAnimation(normalLeft);
+                    spearAttack = new Rectangle(this.spriteX - 115, this.spriteY, 115, 50);
+                    PlayAnimation(spearLeft);
                 }
 
                 if (facing == "right")
                 {
-                    attack = new Rectangle(this.spriteX + 50, this.spriteY, 50, 50);
-                    PlayAnimation(normalRight);
+                    spearAttack = new Rectangle(this.spriteX + 50, this.spriteY, 115, 50);
+                    PlayAnimation(spearRight);
                 }
 
                 if (facing == "up")
                 {
-                    attack = new Rectangle(this.spriteX, this.spriteY - 50, 50, 50);
-                    PlayAnimation(normalUp);
+                    spearAttack = new Rectangle(this.spriteX, this.spriteY - 115, 50, 115);
+                    PlayAnimation(spearUp);
                 }
 
                 if (facing == "down")
                 {
-                    attack = new Rectangle(this.spriteX, this.spriteY + 50, 50, 50);
-                    PlayAnimation(normalDown);
+                    spearAttack = new Rectangle(this.spriteX, this.spriteY + 50, 50, 115);
+                    PlayAnimation(spearDown);
                 }
                 for (int i = 0; i < Baddies.Count; i++)
                 {
-                    if (attack.Intersects(Baddies[i].rectangle))
+                    if (spearAttack.Intersects(Baddies[i].rectangle))
                     {
-                        Baddies[i].decrementHealth();
-                        if (Baddies[i].health == 0)
-                        {
-                            Baddies.RemoveAt(i);
-                            this.incrementScore(100);
-                            rage += 25;
-                        }
-                        else
-                        {
-                            Baddies[i].pushBack(this, Trees, facing);
-                        }
+                        Baddies.Remove(Baddies[i]);
+                        this.incrementScore(100);
+                        i--;
                     }
                 }
             }
+        }
 
+        public void Attack(Controls controls, List<Tree> Trees, List<Enemy> Baddies)
+        {
+            AudioManager.PlaySound("Attack");
+            if (facing == "left")
+            {
+                attack = new Rectangle(this.spriteX - 50, this.spriteY, 50, 50);
+                PlayAnimation(normalLeft);
+            }
+
+            if (facing == "right")
+            {
+                attack = new Rectangle(this.spriteX + 50, this.spriteY, 50, 50);
+                PlayAnimation(normalRight);
+            }
+
+            if (facing == "up")
+            {
+                attack = new Rectangle(this.spriteX, this.spriteY - 50, 50, 50);
+                PlayAnimation(normalUp);
+            }
+
+            if (facing == "down")
+            {
+                attack = new Rectangle(this.spriteX, this.spriteY + 50, 50, 50);
+                PlayAnimation(normalDown);
+            }
+            for (int i = 0; i < Baddies.Count; i++)
+            {
+                if (attack.Intersects(Baddies[i].rectangle))
+                {
+                    Baddies[i].decrementHealth();
+                    if (Baddies[i].health == 0)
+                    {
+                        Baddies.RemoveAt(i);
+                        this.incrementScore(100);
+                        rage += 25;
+                    }
+                    else
+                    {
+                        Baddies[i].pushBack(this, Trees, facing);
+                    }
+                }
+            }
         }
 
         public void Move(Controls controls, List<Tree> Trees, List<Enemy> Enemies, List<Object> Objects)
@@ -438,14 +438,16 @@ namespace Berserker
             {
                 speed = 4;
             }
-
-            if (controls.onPress(Keys.Space, Buttons.A))
+            if (!IsAttacking)
             {
-                IsAttacking = true;
-                Attack(controls, Trees, Enemies);
+                if (controls.onPress(Keys.Space, Buttons.A))
+                {
+                    IsAttacking = true;
+                    Attack(controls, Trees, Enemies);
+                }
             }
 
-            if (!IsAttacking)
+            if (!IsAttacking && spearCoolDown >= spearCooldownTime)
             {
                 if (controls.onPress(Keys.A, Buttons.A))
                 {

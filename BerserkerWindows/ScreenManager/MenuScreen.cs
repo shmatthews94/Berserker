@@ -14,6 +14,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input.Touch;
 using Microsoft.Xna.Framework.Input;
+using Berserker;
 #endregion
 
 namespace GameStateManagement
@@ -295,7 +296,7 @@ namespace GameStateManagement
 
             spriteBatch.Begin();
 
-			spriteBatch.Draw (background, new Rectangle(0, 0, 600, 600), Color.White);
+			spriteBatch.Draw (background, new Rectangle(0, 0, BerserkerGame.screenwidth, BerserkerGame.screenheight), Color.White);
             // Draw each menu entry in turn.
             for (int i = 0; i < menuEntries.Count; i++)
             {

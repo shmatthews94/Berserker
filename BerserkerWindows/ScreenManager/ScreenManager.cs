@@ -17,6 +17,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input.Touch;
 using System.IO;
 using System.IO.IsolatedStorage;
+using Berserker;
 #endregion
 
 namespace GameStateManagement
@@ -119,7 +120,7 @@ namespace GameStateManagement
 
             spriteBatch = new SpriteBatch(GraphicsDevice);
             // font = content.Load<SpriteFont>("Fonts/MenuFont");
-            // sblankTexture = content.Load<Texture2D>("Textures/Backgrounds/blank");
+            blankTexture = content.Load<Texture2D>("Textures/Backgrounds/blank");
 
             // Tell each of the screens to load their content.
             foreach (GameScreen screen in screens)
@@ -301,8 +302,8 @@ namespace GameStateManagement
         public void FadeBackBufferToBlack(float alpha)
         {
             Viewport viewport = GraphicsDevice.Viewport;
-			viewport.Height = 600;
-			viewport.Width = 600;
+			viewport.Height = BerserkerGame.screenheight;
+			viewport.Width = BerserkerGame.screenwidth;
             spriteBatch.Begin();
 
             spriteBatch.Draw(blankTexture,

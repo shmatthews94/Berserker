@@ -24,16 +24,25 @@ namespace Berserker
 			public void LoadContent(Game game)
 			{
 				if (type == 1) {
-					image = game.Content.Load<Texture2D> ("border left1.png");
+					image = game.Content.Load<Texture2D> ("border tree type 1.png");
 				}
 				if (type == 2) {
-					image = game.Content.Load<Texture2D> ("border right1.png");
+					image = game.Content.Load<Texture2D> ("border tree type 2.png");
 				}
 				if (type == 3) {
-					image = game.Content.Load<Texture2D> ("border top1.png");
+					image = game.Content.Load<Texture2D> ("border tree type 3.png");
 				}
 				if (type == 4) {
-					image = game.Content.Load<Texture2D> ("border bottom1.png");
+					image = game.Content.Load<Texture2D> ("shrub.png");
+				}
+				if (type == 5){
+					image = game.Content.Load<Texture2D> ("reverse border tree type 1.png");
+				}
+				if (type == 6){
+					image = game.Content.Load<Texture2D> ("reverse border tree type 2.png");
+				}
+				if (type == 7){
+					image = game.Content.Load<Texture2D>("reverse border tree type 3.png");
 				}
 
 

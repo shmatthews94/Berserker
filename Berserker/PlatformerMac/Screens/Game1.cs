@@ -69,6 +69,7 @@ namespace Berserker
 			this.player1 = player;
 			player.setX (275);
 			player.setY (275);
+            player1.Reset();
 			spawncounter = 0;
 			enemycount = 0;
 			AudioManager.PlaySound("Soundtrack");
@@ -344,8 +345,6 @@ namespace Berserker
 				Enemies[i].Update(controls, gameTime, player1.getX(), player1.getY(), player1, Enemies, Trees);
 
 			}
-			player1.Attack(controls, Trees, Enemies);
-			player1.SpearAttack(controls, Enemies);
 			spawncounter++;
 			objectcounter++;
 			base.Update(gameTime, otherScreenHasFocus, coveredByOtherScreen);

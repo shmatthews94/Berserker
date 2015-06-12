@@ -106,3 +106,10 @@ C:\Users\AdrianLeo\Documents\GitHub\Berserker\BerserkerWindows\bin\WindowsGL\Deb
 C:\Users\AdrianLeo\Documents\GitHub\Berserker\BerserkerWindows\bin\WindowsGL\Debug\Content\Sounds\valhalla.wav
 C:\Users\AdrianLeo\Documents\GitHub\Berserker\BerserkerWindows\bin\WindowsGL\Debug\Content\background.png
 C:\Users\AdrianLeo\Documents\GitHub\Berserker\BerserkerWindows\bin\WindowsGL\Debug\Content\ragebackground.png
+C:\Users\AdrianLeo\Documents\GitHub\Berserker\BerserkerWindows\bin\WindowsGL\Debug\Content\border tree type 1.png
+C:\Users\AdrianLeo\Documents\GitHub\Berserker\BerserkerWindows\bin\WindowsGL\Debug\Content\border tree type 2.png
+C:\Users\AdrianLeo\Documents\GitHub\Berserker\BerserkerWindows\bin\WindowsGL\Debug\Content\border tree type 3.png
+C:\Users\AdrianLeo\Documents\GitHub\Berserker\BerserkerWindows\bin\WindowsGL\Debug\Content\reverse border tree type 1.png
+C:\Users\AdrianLeo\Documents\GitHub\Berserker\BerserkerWindows\bin\WindowsGL\Debug\Content\reverse border tree type 2.png
+C:\Users\AdrianLeo\Documents\GitHub\Berserker\BerserkerWindows\bin\WindowsGL\Debug\Content\reverse border tree type 3.png
+C:\Users\AdrianLeo\Documents\GitHub\Berserker\BerserkerWindows\bin\WindowsGL\Debug\Content\shrub.png

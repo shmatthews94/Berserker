@@ -151,7 +151,7 @@ namespace Berserker
 			// Draw Background
 
 			ScreenManager.SpriteBatch.DrawString (font, "WAVE " + (this.wave+1), new Vector2 (200, 250), Color.Red);
-			ScreenManager.SpriteBatch.Draw(background, new Rectangle (0, 0, 600, 600), Color.Black*(TransitionAlpha));
+			ScreenManager.SpriteBatch.Draw(background, new Rectangle (0, 0, BerserkerGame.screenwidth, BerserkerGame.screenheight), Color.Black*(TransitionAlpha));
 			Console.WriteLine (TransitionAlpha.ToString());
 			// If loading gameplay screen resource in the 
 			// background show "Loading..." text
