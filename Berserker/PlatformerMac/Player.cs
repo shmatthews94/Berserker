@@ -93,10 +93,10 @@ namespace Berserker
 			attackR = game.Content.Load<Texture2D>("slashRight");
 			attackU = game.Content.Load<Texture2D>("slashUp");
 			attackD = game.Content.Load<Texture2D>("slashDown");
-			sAttackL = game.Content.Load<Texture2D>("lanceLeft");
-			sAttackR = game.Content.Load<Texture2D>("lanceRight");
-			sAttackU = game.Content.Load<Texture2D>("lanceUp");
-			sAttackD = game.Content.Load<Texture2D>("lanceDown");
+			sAttackL = game.Content.Load<Texture2D>("lance_left.png");
+			sAttackR = game.Content.Load<Texture2D>("lance_right.png");
+			sAttackU = game.Content.Load<Texture2D>("lance_up.png");
+			sAttackD = game.Content.Load<Texture2D>("lance_down.png");
 			rageBar = game.Content.Load<Texture2D> ("rage");
 		}
 
