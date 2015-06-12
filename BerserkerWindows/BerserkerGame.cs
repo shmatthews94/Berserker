@@ -14,6 +14,7 @@ using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
+//using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Input.Touch;
@@ -40,7 +41,7 @@ namespace Berserker
 			graphics = new GraphicsDeviceManager(this);
 			//graphics.SynchronizeWithVerticalRetrace = false;
 			graphics.PreferredBackBufferWidth = 600;  // set this value to the desired width of your window
-			graphics.PreferredBackBufferHeight = 700;
+			graphics.PreferredBackBufferHeight = 600;
 			Content.RootDirectory = "Content";
 
 			// Frame rate is 30 fps by default for Windows Phone.
@@ -59,7 +60,7 @@ namespace Berserker
 			// screenManager.AddScreen(new BackgroundScreen(), null);
 			screenManager.AddScreen(new MainMenuScreen(), null);
 
-			//AudioManager.Initialize(this);
+			AudioManager.Initialize(this);
 		}
 
 		/// <summary>
@@ -77,7 +78,7 @@ namespace Berserker
 		#region Loading
 		protected override void LoadContent()
 		{
-			//AudioManager.LoadSounds();
+			AudioManager.LoadSounds();
 			base.LoadContent();
 		}
 		#endregion

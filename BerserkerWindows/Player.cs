@@ -34,7 +34,7 @@ namespace Berserker
         public Rectangle attack;
         public Rectangle spearAttack;
 
-        public String facing = "down";
+        public String facing;
         public Texture2D attackTex;
         public Texture2D attackL;
         public Texture2D attackR;
@@ -148,6 +148,7 @@ namespace Berserker
             attackDuration = TimeSpan.Zero;
             spearCoolDown = spearCooldownTime;
             IsAttacking = false;
+            facing = "down";
         }
 
         private void initializeAnimations()
@@ -229,7 +230,7 @@ namespace Berserker
             sheet = game.Content.Load<Texture2D>("sheet");
 
             initializeAnimations();
-            PlayAnimation(walkDown);
+            PlayAnimation(idleDown);
             currentAnimation.Position = new Vector2(spriteX, spriteY);
         }
 

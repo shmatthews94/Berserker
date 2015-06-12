@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Storage;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 using System.Collections.Specialized;
 using Berserker;
 using GameStateManagement;
@@ -19,38 +20,70 @@ namespace Berserker
 	/// </summary>
 	class Game1 : GameScreen
 	{
-		GraphicsDeviceManager graphics;
-		SpriteBatch spriteBatch;
 		Player player1;
 		public Texture2D healthbar;
 		int spawncounter;
 		int objectcounter;
+		public int wave;
+		public int enemycount;
 		public static List<Enemy> Enemies = new List<Enemy>();
+		public static List<Enemy> Wave1 = new List<Enemy>();
+		public static List<Enemy> Wave2 = new List<Enemy>();
+		public static List<Enemy> Wave3 = new List<Enemy>();
+		public static List<Enemy> Wave4 = new List<Enemy>();
+		public static List<Enemy> SpawnEnemies = new List<Enemy>();
 		public static List<Tree> Trees = new List<Tree>();
+		public static List<Tree> Trees1 = new List<Tree>();
+		public static List<Tree> Trees2 = new List<Tree>();
 		public static List<Object> Objects = new List<Object>();
 		public static List<BorderTree> BorderTrees = new List<BorderTree>();
-		Texture2D tree;
-		Texture2D viking;
-		Texture2D enemy;
+		public static List<List<Enemy>> EnemyWaves = new List<List<Enemy>> ();
+		public static List<List<Tree>> TreeWaves = new List<List<Tree>> ();
 		Controls controls = new Controls();
 		Tree Castle1, Castle2, Castle3, Castle4;
-		TimeSpan elapsedTime = TimeSpan.Zero;
+		Background RegBackground, RageBackground;
 		SpriteFont font;
 
-		public Game1()
+		public Game1(int wave)
 		{
+			this.wave = wave;
 			player1 = new Player (275, 275, 50, 50);
+			spawncounter = 0;
+			enemycount = 0;
+			AudioManager.PlaySound("Soundtrack");
+			Enemies.Clear();
 			/*
-			graphics = new GraphicsDeviceManager(this);
-			graphics.PreferredBackBufferWidth = 600;  // set this value to the desired width of your window
-			graphics.PreferredBackBufferHeight = 600;   // set this value to the desired height of your window
-			graphics.ApplyChanges();
+            graphics = new GraphicsDeviceManager(this);
+            graphics.PreferredBackBufferWidth = 600;  // set this value to the desired width of your window
+            graphics.PreferredBackBufferHeight = 600;   // set this value to the desired height of your window
+            graphics.ApplyChanges();
 
-			this.TargetElapsedTime = TimeSpan.FromSeconds(1.0f / 40.0f);
-			*/
+            this.TargetElapsedTime = TimeSpan.FromSeconds(1.0f / 40.0f);
+            */
 			// ScreenManager.Game.Content.RootDirectory = "Content";
 		}
-		
+
+		public Game1(int wave, Player player)
+		{
+			this.wave = wave;
+			this.player1 = player;
+			player.setX (275);
+			player.setY (275);
+			spawncounter = 0;
+			enemycount = 0;
+			AudioManager.PlaySound("Soundtrack");
+			Enemies.Clear();
+			/*
+            graphics = new GraphicsDeviceManager(this);
+            graphics.PreferredBackBufferWidth = 600;  // set this value to the desired width of your window
+            graphics.PreferredBackBufferHeight = 600;   // set this value to the desired height of your window
+            graphics.ApplyChanges();
+
+            this.TargetElapsedTime = TimeSpan.FromSeconds(1.0f / 40.0f);
+            */
+			// ScreenManager.Game.Content.RootDirectory = "Content";
+		}
+
 
 		/// <summary>
 		/// Allows the game to perform any initialization it needs to before starting to run.
@@ -62,7 +95,8 @@ namespace Berserker
 		{
 			// TODO: Add your initialization logic here
 
-	
+			RegBackground = new Background(-100, -100, 800, 800, 1);
+			RageBackground = new Background(-100, -100, 800, 800, 2);
 			Trees.Add (new Tree (150, 150, 50, 50, 1));
 			Trees.Add (new Tree (100, 150, 50, 50, 1));
 			Trees.Add (new Tree (200, 250, 50, 50, 1));
@@ -80,7 +114,20 @@ namespace Berserker
 			BorderTrees.Add(new BorderTree(74, 0, 437, 65, 3));
 			BorderTrees.Add(new BorderTree(74, 519, 437, 81, 4));
 
+			RegBackground.LoadContent(ScreenManager.Game);
+			RageBackground.LoadContent(ScreenManager.Game);
 
+
+			Wave1.Add (new Enemy (50, 50, 50, 50, 1, 100));
+			Wave1.Add (new Enemy (500, 50, 50, 50, 1, 100)); 
+			Wave1.Add (new Enemy (50, 500, 50, 50, 1, 100));
+			Wave1.Add (new Enemy (500, 500, 50, 50, 1, 100));
+			Wave2.Add (new Enemy (50, 50, 50, 50, 5, 100));
+			Wave2.Add (new Enemy (500, 50, 50, 50, 5, 100)); 
+			Wave2.Add (new Enemy (50, 500, 50, 50, 5, 100));
+			Wave2.Add (new Enemy (500, 500, 50, 50, 5, 100));
+			EnemyWaves.Add (Wave1);
+			EnemyWaves.Add (Wave2);
 			player1.LoadContent (ScreenManager.Game);
 
 			for (int i = 0; i < Trees.Count; i++)
@@ -98,7 +145,12 @@ namespace Berserker
 			healthbar = Load<Texture2D>("healthbar");
 			Console.WriteLine("Init");
 
-			 font = ScreenManager.Game.Content.Load<SpriteFont>("Fonts/MenuFont");
+			font = ScreenManager.Game.Content.Load<SpriteFont>("Fonts/MenuFont");
+
+			for (int i = 0; i < EnemyWaves [wave].Count; i++) {
+				SpawnEnemies.Add (EnemyWaves [wave] [i]);
+			}
+
 		}
 
 		/// <summary>
@@ -114,9 +166,9 @@ namespace Berserker
 			base.LoadContent();
 			LoadAssets();
 			base.LoadContent();
-			#if ANDROID || IPHONE			
+			#if ANDROID || IPHONE            
 			LoadAssets();
-			#endif			
+			#endif            
 			// Start the game
 
 			// TODO: use this.Content to load your game content here
@@ -143,34 +195,72 @@ namespace Berserker
 			// TODO: Add your update logic here
 			//Up, down, left, right affect the coordinates of the sprite
 
+
+			if (SpawnEnemies.Count > 0) {
+				if (SpawnEnemies [enemycount].getSpawn () == spawncounter) {
+					Enemy newenemy = SpawnEnemies [enemycount];
+					newenemy.LoadContent (ScreenManager.Game);
+					Enemies.Add (newenemy);
+					spawncounter = 0;
+					SpawnEnemies.Remove(SpawnEnemies[enemycount]);
+				}
+			}
+
+			if (Enemies.Count == 0 && SpawnEnemies.Count == 0) {
+				ExitScreen ();
+				wave++;
+				ScreenManager.AddScreen (new WaveScreen(wave, player1), null);
+			}
+
 			Console.WriteLine();
+			/*
+            if (spawncounter % 61 == 0) {
+                spawncounter1 -= 1;
+                spawncounter2 -= 2;
+                spawncounter3 -= 3;
+                spawncounter4 -= 4;
+            }
+            */
 
+			if (Keyboard.GetState().IsKeyDown(Keys.Escape))
+				ExitScreen();
 
-			if (spawncounter == 120)
-			{
-				Enemy newenemy = new Enemy(50, 50, 50, 50);
-				newenemy.LoadContent(ScreenManager.Game);
-				Enemies.Add (newenemy);
-			}
-			if (spawncounter == 240)
-			{
-				Enemy newenemy = new Enemy(500, 50, 50, 50);
-				newenemy.LoadContent(ScreenManager.Game);
-				Enemies.Add (newenemy);
-			}
-			if (spawncounter == 360)
-			{
-				Enemy newenemy = new Enemy(50, 500, 50, 50);
-				newenemy.LoadContent(ScreenManager.Game);
-				Enemies.Add (newenemy);
+			// TODO: Add your update logic here
+			//Up, down, left, right affect the coordinates of the sprite
 
-			}
-			if (spawncounter == 480) {
-				Enemy newenemy = new Enemy (500, 500, 50, 50);
-				newenemy.LoadContent (ScreenManager.Game);
-				Enemies.Add (newenemy);
-				spawncounter = 0;
-			}
+			Console.WriteLine();
+			/*
+            double speed0 = 1 + (objectcounter / 250.0f);
+            double speed1 = Math.Ceiling (speed0);
+            int speed2 = Convert.ToInt32 (speed1);
+            Console.WriteLine (speed2.ToString());
+
+            if (spawncounter == spawncounter1)
+            {
+                Enemy newenemy = new Enemy(50, 50, 50, 50, speed2);
+                newenemy.LoadContent(ScreenManager.Game);
+                Enemies.Add (newenemy);
+            }
+            if (spawncounter == spawncounter2)
+            {
+                Enemy newenemy = new Enemy(500, 50, 50, 50, speed2);
+                newenemy.LoadContent(ScreenManager.Game);
+                Enemies.Add (newenemy);
+            }
+            if (spawncounter == spawncounter3)
+            {
+                Enemy newenemy = new Enemy(50, 500, 50, 50, speed2);
+                newenemy.LoadContent(ScreenManager.Game);
+                Enemies.Add (newenemy);
+
+            }
+            if (spawncounter == spawncounter4) {
+                Enemy newenemy = new Enemy (500, 500, 50, 50, speed2);
+                newenemy.LoadContent (ScreenManager.Game);
+                Enemies.Add (newenemy);
+                spawncounter = 0;
+            }
+            */
 			if (objectcounter % 997 == 0)
 			{
 				Random rand = new Random();
@@ -185,43 +275,43 @@ namespace Berserker
 				Enemies[i].Update(controls, gameTime, player1.getX(), player1.getY(), player1, Enemies, Trees);
 
 			}
-			player1.Attack(controls, Trees, Enemies);
-			player1.SpearAttack(controls, Enemies);
+			//player1.Attack(controls, Trees, Enemies);
+			//player1.SpearAttack(controls, Enemies);
 			spawncounter++;
 			objectcounter++;
 			base.Update(gameTime, otherScreenHasFocus, coveredByOtherScreen);
 		}
 
 
-        /// <summary>
-        /// Allows the game to perform any initialization it needs to before starting to run.
-        /// This is where it can query for any required services and load any non-graphic
-        /// related content.  Calling base.Initialize will enumerate through any components
-        /// and initialize them as well.
-        /// </summary>
-       
+		/// <summary>
+		/// Allows the game to perform any initialization it needs to before starting to run.
+		/// This is where it can query for any required services and load any non-graphic
+		/// related content.  Calling base.Initialize will enumerate through any components
+		/// and initialize them as well.
+		/// </summary>
 
-        /// <summary>
-        /// LoadContent will be called once per game and is the place to load
-        /// all of your content.
-        /// </summary>
-   
 
-        /// <summary>
-        /// UnloadContent will be called once per game and is the place to unload
-        /// all content.
-        /// </summary>
+		/// <summary>
+		/// LoadContent will be called once per game and is the place to load
+		/// all of your content.
+		/// </summary>
 
-        /// <summary>
-        /// Allows the game to run logic such as updating the world,
-        /// checking for collisions, gathering input, and playing audio.
-        /// </summary>
-        /// <param name="gameTime">Provides a snapshot of timing values.</param>
-       
-        /// <summary>
-        /// This is called when the game should draw itself.
-        /// </summary>
-        /// <param name="gameTime">Provides a snapshot of timing values.</param>
+
+		/// <summary>
+		/// UnloadContent will be called once per game and is the place to unload
+		/// all content.
+		/// </summary>
+
+		/// <summary>
+		/// Allows the game to run logic such as updating the world,
+		/// checking for collisions, gathering input, and playing audio.
+		/// </summary>
+		/// <param name="gameTime">Provides a snapshot of timing values.</param>
+
+		/// <summary>
+		/// This is called when the game should draw itself.
+		/// </summary>
+		/// <param name="gameTime">Provides a snapshot of timing values.</param>
 
 		public override void HandleInput (InputState input)
 		{
@@ -238,18 +328,19 @@ namespace Berserker
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
 		public override void Draw(GameTime gameTime)
 		{
-
+			ScreenManager.SpriteBatch.Begin();
 			if (player1.rageMode == false)
 			{
-				ScreenManager.GraphicsDevice.Clear(new Color(227, 219, 219));
+				RegBackground.Draw(ScreenManager.SpriteBatch);
+
 			}
 			else if (player1.rageMode)
 			{
-				ScreenManager.GraphicsDevice.Clear(Color.Red);
+				RageBackground.Draw(ScreenManager.SpriteBatch);
 			}
 
 			// TODO: Add your drawing code here
-			ScreenManager.SpriteBatch.Begin();
+
 
 			player1.Draw (ScreenManager.SpriteBatch);
 

@@ -13,6 +13,7 @@ namespace Berserker
 	public class Enemy : Sprite
 	{
 		private int speed;
+		public int spawn;
 		public int health;
 		public String facing;
 		public bool normalAttacking = false;
@@ -47,7 +48,23 @@ namespace Berserker
 			set;
 		}
 
-		public Enemy(int x, int y, int width, int height)
+		public Enemy(int x, int y, int width, int height, int spawntime)
+		{
+			this.spriteX = x;
+			this.spriteY = y;
+			this.spriteWidth = width;
+			this.spriteHeight = height;
+			this.spawn = spawntime;
+			health = 3;
+			// Movement
+			speed = 1;
+			movePattern = 0;
+			elapsedWanderTime = TimeSpan.Zero;
+			elapsedAttackTime = TimeSpan.Zero;
+			targetWanderTime = new TimeSpan(10000);
+		}
+
+		public Enemy(int x, int y, int width, int height, int s, int spawntime)
 		{
 			this.spriteX = x;
 			this.spriteY = y;
@@ -55,7 +72,8 @@ namespace Berserker
 			this.spriteHeight = height;
 			health = 3;
 			// Movement
-			speed = 1;
+			this.speed = s;
+			this.spawn = spawntime;
 			movePattern = 0;
 			elapsedWanderTime = TimeSpan.Zero;
 			elapsedAttackTime = TimeSpan.Zero;
@@ -75,6 +93,11 @@ namespace Berserker
 		public void decrementHealth()
 		{
 			this.health = this.health - 1;
+		}
+
+		public int getSpawn()
+		{
+			return this.spawn;
 		}
 
 		public void Attack(Controls controls, Player player, List<Enemy> Enemies, List<Tree> Trees)

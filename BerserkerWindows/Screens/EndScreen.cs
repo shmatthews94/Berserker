@@ -51,6 +51,7 @@ namespace Berserker
 			TransitionOnTime = TimeSpan.FromSeconds (0);
 			TransitionOffTime = TimeSpan.FromSeconds (0.5);
 			this.playerscore = score;
+			AudioManager.PlaySound ("Valhalla");
 		}
 		#endregion
 
@@ -98,7 +99,7 @@ namespace Berserker
 				input.MouseGesture.HasFlag(MouseGestureType.LeftClick)||
 				input.IsNewButtonPress (Microsoft.Xna.Framework.Input.Buttons.Start, ControllingPlayer, out player)) {
 				// Create a new instance of the gameplay screen
-				ScreenManager.AddScreen(new Game1(), null);
+				ScreenManager.AddScreen(new Game1(0), null);
 				// Start loading the resources in additional thread
 				#if MONOMAC
 				// create a new thread using BackgroundWorkerThread as method to execute
@@ -113,7 +114,6 @@ namespace Berserker
 			foreach (var gesture in input.Gestures) {
 				if (gesture.GestureType == GestureType.Tap) {
 					// Create a new instance of the gameplay screen
-					gameplayScreen = new Game1();
 					gameplayScreen.ScreenManager = ScreenManager;
 
 					#if ANDROID || IPHONE	

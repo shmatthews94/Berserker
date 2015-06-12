@@ -96,7 +96,8 @@ namespace Berserker
 			    input.MouseGesture.HasFlag(MouseGestureType.LeftClick)||
 			    input.IsNewButtonPress (Microsoft.Xna.Framework.Input.Buttons.Start, ControllingPlayer, out player)) {
 				// Create a new instance of the gameplay screen
-				ScreenManager.AddScreen(new Game1(), null);
+				ScreenManager.RemoveScreen(this);
+				ScreenManager.AddScreen (new WaveScreen (0), null);
 				// Start loading the resources in additional thread
 #if MONOMAC
 				// create a new thread using BackgroundWorkerThread as method to execute
@@ -111,7 +112,6 @@ namespace Berserker
 			foreach (var gesture in input.Gestures) {
 				if (gesture.GestureType == GestureType.Tap) {
 					// Create a new instance of the gameplay screen
-					gameplayScreen = new Game1();
 					gameplayScreen.ScreenManager = ScreenManager;
 					
 #if ANDROID || IPHONE	
