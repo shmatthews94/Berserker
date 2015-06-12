@@ -196,6 +196,11 @@ namespace Berserker
 			RageBackground.LoadContent(ScreenManager.Game);
 
 			if (Wave1.Count == 0) {
+				Wave1.Add (new Enemy (300, 100, 50, 50, 5));
+				Wave1.Add (new Enemy (300, 100, 50, 50, 5));
+				Wave1.Add (new Enemy (300, 100, 50, 50, 5));
+				Wave1.Add (new Enemy (300, 100, 50, 50, 5));
+				Wave1.Add (new Enemy (300, 100, 50, 50, 5));
 				Wave1.Add (new Enemy (50, 50, 50, 50, 1, 100));
 				Wave1.Add (new Enemy (600, 50, 50, 50, 1, 100)); 
 				Wave1.Add (new Enemy (50, 600, 50, 50, 1, 100));

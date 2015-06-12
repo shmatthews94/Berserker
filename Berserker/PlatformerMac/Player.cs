@@ -51,6 +51,7 @@ namespace Berserker
 
         bool normalAttacking = false;
         bool spearAttacking = false;
+		bool smashAttacking = false;
 
         #region Player Animations
         Animation idleUp;
@@ -135,6 +136,8 @@ namespace Berserker
 
         TimeSpan spearCoolDown;
         TimeSpan spearCooldownTime = new TimeSpan(30000000);
+		TimeSpan smashCoolDown;
+		TimeSpan smashCooldownTime = new TimeSpan(30000000);
 
         public Player(int x, int y, int width, int height)
         {
@@ -150,6 +153,7 @@ namespace Berserker
             health = 5;
             attackDuration = TimeSpan.Zero;
             spearCoolDown = spearCooldownTime;
+			smashCoolDown = smashCooldownTime;
             IsAttacking = false;
         }
 
@@ -158,6 +162,7 @@ namespace Berserker
             PlayAnimation(idleDown);
             facing = "down";
             spearCoolDown = spearCooldownTime;
+			smashCoolDown = smashCooldownTime;
             IsAttacking = false;
         }
 
@@ -293,20 +298,20 @@ namespace Berserker
             Move(controls, Trees, Enemies, Objects);
             UpdateAnimation(gameTime);
 
-            if (normalAttacking || spearAttacking)
+            if (normalAttacking || spearAttacking || smashAttacking)
             {
                 attackDuration += gameTime.ElapsedGameTime;
             }
 
             if (rage >= 260)
             {
-                if (playsound)
-                {
-                    AudioManager.PlaySound("RageMode1");
-                    playsound = false;
-                    rage = 260;
-                    rageMode = true;
-                }
+				if (playsound == true) {
+					AudioManager.PlaySound ("rage1");
+					rage = 260;
+					playsound = false;
+					rageMode = true;
+				}
+
             }
 
             if (rageMode == true)
@@ -314,13 +319,8 @@ namespace Berserker
                 counter += gameTime.ElapsedGameTime.TotalMilliseconds;
                 if (counter >= 9000)
                 {
-<<<<<<< HEAD
-                    rageMode = false;
-                    playsound = true;
-=======
 					playsound = true;
 					rageMode = false;
->>>>>>> origin/master
                     counter = 0;
                     rage = 0;
                 }
@@ -333,6 +333,7 @@ namespace Berserker
             }
             counter2 += 1;
             spearCoolDown += gameTime.ElapsedGameTime;
+			smashCoolDown += gameTime.ElapsedGameTime;
         }
 
 
@@ -371,6 +372,7 @@ namespace Berserker
                     {
                         Baddies.Remove(Baddies[i]);
                         this.incrementScore(100);
+						rage += 25;
                         i--;
                     }
                 }
@@ -421,6 +423,25 @@ namespace Berserker
                 }
             }
         }
+			
+		public void SmashAttack(Controls controls, List<Enemy> Baddies)
+		{
+			if (smashCoolDown >= smashCooldownTime)
+			{
+				//AudioManager.PlaySound("Smash");
+				smashCoolDown = TimeSpan.Zero;
+				Circle smash = new Circle (new Vector2 (this.getX (), this.getY ()), 150);
+				for (int i = 0; i < Baddies.Count; i++)
+				{
+					if (smash.Intersects(Baddies[i].rectangle))
+					{
+						Baddies.Remove(Baddies[i]);
+						this.incrementScore(100);
+						rage += 25;
+					}
+				}
+			}
+		}
 
         public void Move(Controls controls, List<Tree> Trees, List<Enemy> Enemies, List<Object> Objects)
         {
@@ -438,6 +459,14 @@ namespace Berserker
             if (rageMode == true)
             {
                 speed = 6;
+				if (!IsAttacking && smashCoolDown >= smashCooldownTime)
+				{
+					if (controls.onPress(Keys.S, Buttons.B) )
+					{
+						IsAttacking = true;
+						SmashAttack(controls, Enemies);
+					}
+				}
             }
             else
             {
@@ -454,12 +483,15 @@ namespace Berserker
 
             if (!IsAttacking && spearCoolDown >= spearCooldownTime)
             {
-                if (controls.onPress(Keys.A, Buttons.A))
+                if (controls.onPress(Keys.A, Buttons.B))
                 {
                     IsAttacking = true;
                     SpearAttack(controls, Enemies);
                 }
             }
+
+
+				
 
             if (IsAttacking)
                 return;
