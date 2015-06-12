@@ -44,8 +44,27 @@ namespace Berserker
 				if (type == 7){
 					image = game.Content.Load<Texture2D>("reverse border tree type 3.png");
 				}
-
-
+				if(type == 8){
+					image = game.Content.Load<Texture2D>("body.png");	
+				}
+				if(type == 9){
+					image = game.Content.Load<Texture2D>("reversebody.png");
+				}
+				if(type == 10){
+					image = game.Content.Load<Texture2D>("headonpike1.png");
+				}
+				if(type == 11){
+					image = game.Content.Load<Texture2D>("bodyonpike.png");
+				}
+				if(type == 12){
+					image = game.Content.Load<Texture2D>("reversebodyonpike.png");
+				}
+				if(type == 13){
+					image = game.Content.Load<Texture2D>("diagonalbodyonpike.png");
+				}
+				if(type == 14){
+					image = game.Content.Load<Texture2D>("reversediagonalbodyonpike.png");
+				}
 			}
 
 			public void Draw(SpriteBatch sb)

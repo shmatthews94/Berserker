@@ -209,6 +209,14 @@
     <BundleResource Include="Content\border tree type 3.png" />
     <BundleResource Include="Content\shrub.png" />
     <BundleResource Include="Content\sheet.png" />
+    <BundleResource Include="Content\body.png" />
+    <BundleResource Include="Content\bodyonpike.png" />
+    <BundleResource Include="Content\diagonalbodyonpike.png" />
+    <BundleResource Include="Content\headonpike.png" />
+    <BundleResource Include="Content\reversebody.png" />
+    <BundleResource Include="Content\reversebodyonpike.png" />
+    <BundleResource Include="Content\reversediagonalbodyonpike.png" />
+    <BundleResource Include="Content\headonpike1.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ScreenManager\" />
