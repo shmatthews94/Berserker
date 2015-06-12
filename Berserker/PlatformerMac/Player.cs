@@ -47,6 +47,7 @@ namespace Berserker
         public Texture2D sAttackR;
         public Texture2D sAttackU;
         public Texture2D sAttackD;
+		public Texture2D smashimage;
 
         public Texture2D sheet;
 
@@ -74,6 +75,8 @@ namespace Berserker
         Animation spearDown;
         Animation spearLeft;
         Animation spearRight;
+
+		Animation smash;
         #endregion
 
         #region Animation fields and methods
@@ -189,6 +192,8 @@ namespace Berserker
             spearLeft = new Animation(sheet, new Point(250, 100), new Point(1000, 390), new Vector2(-115, 0), 4, FrameTime, false, spriteWidth + 115, spriteHeight);
             spearRight = new Animation(sheet, new Point(250, 100), new Point(0, 390), new Vector2(0, 0), 4, FrameTime, false, spriteWidth + 115, spriteHeight);
 
+			smash = new Animation (smashimage, new Point (700, 700), new Point (0, 0), new Vector2 (-50, -50), 1, FrameTime, false, 400, 400);
+
             AddAnimation(idleUp);
             AddAnimation(idleDown);
             AddAnimation(idleRight);
@@ -246,6 +251,7 @@ namespace Berserker
             sAttackD = game.Content.Load<Texture2D>("lanceDown");
             rageBar = game.Content.Load<Texture2D>("rage");
             sheet = game.Content.Load<Texture2D>("sheet");
+			smashimage = game.Content.Load<Texture2D> ("smash");
 
             initializeAnimations();
             PlayAnimation(walkDown);
@@ -257,6 +263,7 @@ namespace Berserker
             //sb.Draw(image, new Rectangle(spriteX, spriteY, spriteWidth, spriteHeight), Color.White);
             //sb.Draw(sheet, new Rectangle(300, 300, 100, 100), Color.White);
             currentAnimation.Draw(sb);
+
             //if (normalAttacking)
             //{
             //    if (facing == "left")
@@ -433,11 +440,11 @@ namespace Berserker
 			{
 				//AudioManager.PlaySound("Smash");
 				smashCoolDown = TimeSpan.Zero;
-				Circle smash = new Circle (new Vector2 (this.getX (), this.getY ()), 300);
-
+				Circle smashcircle = new Circle (new Vector2 (this.getX (), this.getY ()), 300);
+				PlayAnimation(smash);
 				for (int i = 0; i < Baddies.Count; i++)
 				{
-					if (smash.Intersects(Baddies[i].rectangle))
+					if (smashcircle.Intersects(Baddies[i].rectangle))
 					{
 						Baddies.Remove(Baddies[i]);
 						this.incrementScore(100);
