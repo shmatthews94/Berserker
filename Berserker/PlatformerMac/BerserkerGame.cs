@@ -33,15 +33,19 @@ namespace Berserker
 		#region Fields
 		GraphicsDeviceManager graphics;
 		ScreenManager screenManager;
+		public const int screenwidth = 800;
+		public const int screenheight = 800;
 		#endregion
 
 		#region Initialization Methods
 		public BerserkerGame()
 		{
+			this.Window.AllowUserResizing = true;
+			this.Window.ClientSizeChanged += new EventHandler<EventArgs>(Window_ClientSizeChanged);
 			graphics = new GraphicsDeviceManager(this);
 			//graphics.SynchronizeWithVerticalRetrace = false;
-			graphics.PreferredBackBufferWidth = 800;  // set this value to the desired width of your window
-			graphics.PreferredBackBufferHeight = 800;
+			graphics.PreferredBackBufferWidth = screenwidth;  // set this value to the desired width of your window
+			graphics.PreferredBackBufferHeight = screenheight;
 			Content.RootDirectory = "Content";
 
 			// Frame rate is 30 fps by default for Windows Phone.
@@ -61,6 +65,11 @@ namespace Berserker
 			screenManager.AddScreen(new MainMenuScreen(), null);
 
 			AudioManager.Initialize(this);
+		}
+
+		void Window_ClientSizeChanged(object sender, EventArgs e)
+		{
+			// Make changes to handle the new window size.            
 		}
 
 		/// <summary>

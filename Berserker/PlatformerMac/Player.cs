@@ -15,6 +15,7 @@ namespace Berserker
         private int speed;
         public int health;
         public int score;
+		public bool playsound;
 
         int prevSpriteX;
         int prevSpriteY;
@@ -143,6 +144,7 @@ namespace Berserker
             this.spriteHeight = height;
 
             // Movement
+			playsound = true;
             score = 0;
             speed = 3;
             health = 5;
@@ -198,6 +200,7 @@ namespace Berserker
         {
             if (rageMode == false)
                 this.health--;
+				AudioManager.PlaySound ("Hurt");
         }
 
         public int getHealth()
@@ -289,8 +292,12 @@ namespace Berserker
 
             if (rage >= 260)
             {
-                rage = 260;
-                rageMode = true;
+				if (playsound) {
+					AudioManager.PlaySound ("RageMode1");
+					playsound = false;
+					rage = 260;
+					rageMode = true;
+				}
             }
 
             if (rageMode == true)
@@ -299,6 +306,7 @@ namespace Berserker
                 if (counter >= 9000)
                 {
                     rageMode = false;
+					playsound = true;
                     counter = 0;
                     rage = 0;
                 }
@@ -320,6 +328,7 @@ namespace Berserker
             {
                 if (controls.onPress(Keys.A, Buttons.A))
                 {
+					AudioManager.PlaySound ("Spear");
                     spearCoolDown = TimeSpan.Zero;
                     if (facing == "left")
                     {
@@ -363,6 +372,7 @@ namespace Berserker
 
             if (controls.onPress(Keys.Space, Buttons.A))
             {
+				AudioManager.PlaySound ("Attack");
                 if (facing == "left")
                 {
                     attack = new Rectangle(this.spriteX - 50, this.spriteY, 50, 50);

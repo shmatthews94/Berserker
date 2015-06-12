@@ -95,8 +95,8 @@ namespace Berserker
 		{
 			// TODO: Add your initialization logic here
 
-			RegBackground = new Background(0, 0, 800, 800, 1);
-			RageBackground = new Background(0, 0, 800, 800, 2);
+			RegBackground = new Background(0, 0, BerserkerGame.screenwidth, BerserkerGame.screenheight, 1);
+			RageBackground = new Background(0, 0, BerserkerGame.screenwidth, BerserkerGame.screenheight, 2);
 			Trees.Add (new Tree (150, 150, 50, 50, 1));
 			Trees.Add (new Tree (100, 150, 50, 50, 1));
 			Trees.Add (new Tree (200, 250, 50, 50, 1));
@@ -185,15 +185,16 @@ namespace Berserker
 			RegBackground.LoadContent(ScreenManager.Game);
 			RageBackground.LoadContent(ScreenManager.Game);
 
-
-			Wave1.Add (new Enemy (50, 50, 50, 50, 1, 100));
-			Wave1.Add (new Enemy (500, 50, 50, 50, 1, 100)); 
-			Wave1.Add (new Enemy (50, 500, 50, 50, 1, 100));
-			Wave1.Add (new Enemy (500, 500, 50, 50, 1, 100));
-			Wave2.Add (new Enemy (50, 50, 50, 50, 5, 100));
-			Wave2.Add (new Enemy (500, 50, 50, 50, 5, 100)); 
-			Wave2.Add (new Enemy (50, 500, 50, 50, 5, 100));
-			Wave2.Add (new Enemy (500, 500, 50, 50, 5, 100));
+			if (Wave1.Count == 0) {
+				Wave1.Add (new Enemy (50, 50, 50, 50, 1, 100));
+				Wave1.Add (new Enemy (500, 50, 50, 50, 1, 100)); 
+				Wave1.Add (new Enemy (50, 500, 50, 50, 1, 100));
+				Wave1.Add (new Enemy (500, 500, 50, 50, 1, 100));
+				Wave2.Add (new Enemy (50, 50, 50, 50, 5, 100));
+				Wave2.Add (new Enemy (500, 50, 50, 50, 5, 100)); 
+				Wave2.Add (new Enemy (50, 500, 50, 50, 5, 100));
+				Wave2.Add (new Enemy (500, 500, 50, 50, 5, 100));
+			}
 			EnemyWaves.Add (Wave1);
 			EnemyWaves.Add (Wave2);
 			player1.LoadContent (ScreenManager.Game);

@@ -164,7 +164,7 @@ namespace Berserker
 			spriteBatch.Begin ();
 
 			// Draw Background
-			spriteBatch.Draw (background, new Rectangle(0, 0, 600, 600), new Color (255, 255, 255, TransitionAlpha));
+			spriteBatch.Draw (background, new Rectangle(0, 0, BerserkerGame.screenwidth, BerserkerGame.screenheight), new Color (255, 255, 255, TransitionAlpha));
 
 			// If loading gameplay screen resource in the 
 			// background show "Loading..." text
