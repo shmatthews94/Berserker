@@ -106,9 +106,9 @@ namespace Berserker
 			Trees.Add (new Tree (400, 400, 50, 50, 1));
 			Trees.Add (new Tree (450, 400, 50, 50, 1));
 			Castle1 = new Tree(50, 50, 50, 50, 2);
-			Castle2 = new Tree(500, 500, 50, 50, 2);
-			Castle3 = new Tree(50, 500, 50, 50, 2);
-			Castle4 = new Tree(500, 50, 50, 50, 2);
+			Castle2 = new Tree(600, 600, 50, 50, 2);
+			Castle3 = new Tree(50, 600, 50, 50, 2);
+			Castle4 = new Tree(600, 50, 50, 50, 2);
 			BorderTrees.Add(new BorderTree(12, 18, 23, 61, 5));
 			BorderTrees.Add(new BorderTree(27, 48, 61, 45, 4));
 			BorderTrees.Add(new BorderTree(39, 74, 44, 97, 7));
@@ -181,19 +181,25 @@ namespace Berserker
 			BorderTrees.Add(new BorderTree(628, 18, 23, 61, 5));
 			BorderTrees.Add(new BorderTree(657, 5, 27, 101, 5));
 			BorderTrees.Add(new BorderTree(642, 48, 23, 61, 5));
+			for (int i = 0; i < BorderTrees.Count; i++) {
+				double newX = BorderTrees [i].getX () * 7 / 8;
+				double newY = BorderTrees [i].getY () * 7 / 8;
+				BorderTrees [i].setX (Convert.ToInt32(newX));
+				BorderTrees [i].setY (Convert.ToInt32(newY));
+			}
 
 			RegBackground.LoadContent(ScreenManager.Game);
 			RageBackground.LoadContent(ScreenManager.Game);
 
 			if (Wave1.Count == 0) {
 				Wave1.Add (new Enemy (50, 50, 50, 50, 1, 100));
-				Wave1.Add (new Enemy (500, 50, 50, 50, 1, 100)); 
-				Wave1.Add (new Enemy (50, 500, 50, 50, 1, 100));
-				Wave1.Add (new Enemy (500, 500, 50, 50, 1, 100));
+				Wave1.Add (new Enemy (600, 50, 50, 50, 1, 100)); 
+				Wave1.Add (new Enemy (50, 600, 50, 50, 1, 100));
+				Wave1.Add (new Enemy (600, 600, 50, 50, 1, 100));
 				Wave2.Add (new Enemy (50, 50, 50, 50, 5, 100));
-				Wave2.Add (new Enemy (500, 50, 50, 50, 5, 100)); 
-				Wave2.Add (new Enemy (50, 500, 50, 50, 5, 100));
-				Wave2.Add (new Enemy (500, 500, 50, 50, 5, 100));
+				Wave2.Add (new Enemy (600, 50, 50, 50, 5, 100)); 
+				Wave2.Add (new Enemy (50, 600, 50, 50, 5, 100));
+				Wave2.Add (new Enemy (600, 600, 50, 50, 5, 100));
 			}
 			EnemyWaves.Add (Wave1);
 			EnemyWaves.Add (Wave2);
@@ -312,19 +318,19 @@ namespace Berserker
             }
             if (spawncounter == spawncounter2)
             {
-                Enemy newenemy = new Enemy(500, 50, 50, 50, speed2);
+                Enemy newenemy = new Enemy(600, 50, 50, 50, speed2);
                 newenemy.LoadContent(ScreenManager.Game);
                 Enemies.Add (newenemy);
             }
             if (spawncounter == spawncounter3)
             {
-                Enemy newenemy = new Enemy(50, 500, 50, 50, speed2);
+                Enemy newenemy = new Enemy(50, 600, 50, 50, speed2);
                 newenemy.LoadContent(ScreenManager.Game);
                 Enemies.Add (newenemy);
 
             }
             if (spawncounter == spawncounter4) {
-                Enemy newenemy = new Enemy (500, 500, 50, 50, speed2);
+                Enemy newenemy = new Enemy (600, 600, 50, 50, speed2);
                 newenemy.LoadContent (ScreenManager.Game);
                 Enemies.Add (newenemy);
                 spawncounter = 0;
@@ -438,7 +444,7 @@ namespace Berserker
 
 			ScreenManager.SpriteBatch.Draw (healthbar, new Rectangle (0, 0, 150, 50), Color.Red);
 			ScreenManager.SpriteBatch.Draw (healthbar, new Rectangle (0, 0, player1.getHealth()*30, 50), Color.DarkGreen);
-			ScreenManager.SpriteBatch.DrawString (font, player1.getScore().ToString(), new Vector2 (500, 0), Color.Red);
+			ScreenManager.SpriteBatch.DrawString (font, player1.getScore().ToString(), new Vector2 (600, 0), Color.Red);
 			ScreenManager.SpriteBatch.End ();
 
 			base.Draw(gameTime);
