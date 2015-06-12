@@ -97,3 +97,4 @@ C:\Users\AdrianLeo\Documents\GitHub\Berserker\BerserkerWindows\bin\WindowsGL\Deb
 C:\Users\AdrianLeo\Documents\GitHub\Berserker\BerserkerWindows\bin\WindowsGL\Debug\Content\Textures\HUD\Arrow.xnb
 C:\Users\AdrianLeo\Documents\GitHub\Berserker\BerserkerWindows\bin\WindowsGL\Debug\Content\Textures\HUD\hudBackground.xnb
 C:\Users\AdrianLeo\Documents\GitHub\Berserker\BerserkerWindows\bin\WindowsGL\Debug\Content\Textures\HUD\windArrow.xnb
+C:\Users\AdrianLeo\Documents\GitHub\Berserker\BerserkerWindows\bin\WindowsGL\Debug\Content\sheet.png

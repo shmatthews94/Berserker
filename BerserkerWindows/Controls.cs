@@ -40,6 +40,12 @@ namespace Berserker
 			return kb.IsKeyDown(key);// || gp.IsButtonDown(button);
 		}
 
+        public bool isPressed(Keys key)
+        {
+            //Console.WriteLine (button);
+            return kb.IsKeyDown(key);// || gp.IsButtonDown(button);
+        }
+
 		public bool onPress(Keys key, Buttons button)
 		{
 			//			if ((gp.IsButtonDown (button) && gpo.IsButtonUp (button))) {

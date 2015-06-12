@@ -40,7 +40,7 @@ namespace Berserker
 			graphics = new GraphicsDeviceManager(this);
 			//graphics.SynchronizeWithVerticalRetrace = false;
 			graphics.PreferredBackBufferWidth = 600;  // set this value to the desired width of your window
-			graphics.PreferredBackBufferHeight = 600;
+			graphics.PreferredBackBufferHeight = 700;
 			Content.RootDirectory = "Content";
 
 			// Frame rate is 30 fps by default for Windows Phone.

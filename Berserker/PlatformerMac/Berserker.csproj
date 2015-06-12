@@ -92,6 +92,7 @@
     <Compile Include="AudioManager.cs" />
     <Compile Include="Screens\WaveScreen.cs" />
     <Compile Include="Background.cs" />
+    <Compile Include="Animation.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
@@ -199,6 +200,7 @@
     <BundleResource Include="Content\border tree type 2.png" />
     <BundleResource Include="Content\border tree type 3.png" />
     <BundleResource Include="Content\shrub.png" />
+    <BundleResource Include="Content\sheet.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ScreenManager\" />
