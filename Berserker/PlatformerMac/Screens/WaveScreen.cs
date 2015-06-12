@@ -63,7 +63,6 @@ namespace Berserker
 			this.wave = wave;
 			this.player = player;
 			EnabledGestures = GestureType.Tap;
-			AudioManager.PlaySound ("BePrepared");
 			TransitionOnTime = TimeSpan.FromSeconds (1);
 			TransitionOffTime = TimeSpan.FromSeconds (1);
 		}
@@ -150,7 +149,7 @@ namespace Berserker
 
 			// Draw Background
 
-			ScreenManager.SpriteBatch.DrawString (font, "WAVE " + (this.wave+1), new Vector2 (200, 250), Color.Red);
+			ScreenManager.SpriteBatch.DrawString (font, "WAVE " + (this.wave+1), new Vector2 (275, 275), Color.Red);
 			ScreenManager.SpriteBatch.Draw(background, new Rectangle (0, 0, BerserkerGame.screenwidth, BerserkerGame.screenheight), Color.Black*(TransitionAlpha));
 			Console.WriteLine (TransitionAlpha.ToString());
 			// If loading gameplay screen resource in the 
