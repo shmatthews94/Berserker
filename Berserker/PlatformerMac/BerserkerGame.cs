@@ -33,8 +33,8 @@ namespace Berserker
 		#region Fields
 		GraphicsDeviceManager graphics;
 		ScreenManager screenManager;
-		public const int screenwidth = 800;
-		public const int screenheight = 800;
+		public const int screenwidth = 700;
+		public const int screenheight = 700;
 		#endregion
 
 		#region Initialization Methods

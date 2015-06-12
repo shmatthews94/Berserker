@@ -220,12 +220,12 @@ namespace Berserker
 			}
 
 			#region Clamp position to screen
-			if (spriteX >= 500)
-				spriteX = 500;
+			if (spriteX >= 600)
+				spriteX = 600;
 			else if (spriteX <= 50)
 				spriteX = 50;
-			if (spriteY >= 500)
-				spriteY = 500;
+			if (spriteY >= 600)
+				spriteY = 600;
 			else if (spriteY <= 50)
 				spriteY = 50;
 			#endregion
@@ -276,7 +276,7 @@ namespace Berserker
 			if (elapsedWanderTime >= targetWanderTime)
 			{
 				wanderDir = rand.Next(1, 10);
-				targetWanderTime = new TimeSpan(rand.Next(5000000, 20000000));
+				targetWanderTime = new TimeSpan(rand.Next(6000000, 20000000));
 				elapsedWanderTime = TimeSpan.Zero;
 			}
 			switch (wanderDir)

@@ -107,94 +107,103 @@ namespace Berserker
 			Trees.Add (new Tree (400, 400, 50, 50, 1));
 			Trees.Add (new Tree (450, 400, 50, 50, 1));
 			Castle1 = new Tree(50, 50, 50, 50, 2);
-			Castle2 = new Tree(500, 500, 50, 50, 2);
-			Castle3 = new Tree(50, 500, 50, 50, 2);
-			Castle4 = new Tree(500, 50, 50, 50, 2);
-			BorderTrees.Add(new BorderTree(12, 18, 23, 61, 5));
-			BorderTrees.Add(new BorderTree(27, 48, 61, 45, 4));
-			BorderTrees.Add(new BorderTree(39, 74, 44, 97, 7));
-			BorderTrees.Add(new BorderTree(9, 111, 23, 61, 5));
-			BorderTrees.Add(new BorderTree(45, 147, 23, 61, 1));
-			BorderTrees.Add(new BorderTree(-19, 205, 108, 103, 2));
-			BorderTrees.Add(new BorderTree(47, 253, 27, 101, 5));
-			BorderTrees.Add(new BorderTree(2, 327, 61, 45, 4));
-			BorderTrees.Add(new BorderTree(45, 332, 23, 61, 5));
-			BorderTrees.Add(new BorderTree(11, 330, 27, 101, 1));
-			BorderTrees.Add(new BorderTree(6, 445, 71, 64, 6));
-			BorderTrees.Add(new BorderTree(10, 475, 32, 92, 3));
-			BorderTrees.Add(new BorderTree(-26, 572, 68, 57, 2));
-			BorderTrees.Add(new BorderTree(42, 409, 69, 246, 5));
-			BorderTrees.Add(new BorderTree(14, 638, 61, 45, 4));
-			BorderTrees.Add(new BorderTree(2, 653, 23, 69, 2));
-			BorderTrees.Add(new BorderTree(26, 707, 27, 101, 5));
-			BorderTrees.Add(new BorderTree(70, 670, 32, 92, 2));
-			BorderTrees.Add(new BorderTree(119, 691, 27, 101, 1));
-			BorderTrees.Add(new BorderTree(110, 752, 61, 45, 4));
-			BorderTrees.Add(new BorderTree(188, 681, 77, 75, 2));
-			BorderTrees.Add(new BorderTree(194, 730, 23, 61, 1));
-			BorderTrees.Add(new BorderTree(213, 748, 61, 45, 4));
-			BorderTrees.Add(new BorderTree(265, 708, 23, 69, 3));
-			BorderTrees.Add(new BorderTree(293, 710, 27, 101, 1));
-			BorderTrees.Add(new BorderTree(345, 721, 23, 61, 1));
-			BorderTrees.Add(new BorderTree(432, 695, 27, 101, 1));
-			BorderTrees.Add(new BorderTree(364, 718, 108, 103, 2));
-			BorderTrees.Add(new BorderTree(470, 684, 44, 97, 7));
-			BorderTrees.Add(new BorderTree(497, 745, 61, 45, 4));
-			BorderTrees.Add(new BorderTree(533, 699, 23, 61, 5));
-			BorderTrees.Add(new BorderTree(567, 687, 77, 75, 6));
-			BorderTrees.Add(new BorderTree(633, 706, 23, 69, 3));
-			BorderTrees.Add(new BorderTree(641, 706, 27, 101, 5));
-			BorderTrees.Add(new BorderTree(588, 754, 61, 45, 4));
+			Castle2 = new Tree(600, 600, 50, 50, 2);
+			Castle3 = new Tree(50, 600, 50, 50, 2);
+			Castle4 = new Tree(600, 50, 50, 50, 2);
+			if (BorderTrees.Count == 0) {
+				BorderTrees.Add(new BorderTree(12, 18, 23, 61, 5));
+				BorderTrees.Add(new BorderTree(27, 48, 61, 45, 4));
+				BorderTrees.Add(new BorderTree(39, 74, 44, 97, 7));
+				BorderTrees.Add(new BorderTree(9, 111, 23, 61, 5));
+				BorderTrees.Add(new BorderTree(45, 147, 23, 61, 1));
+				BorderTrees.Add(new BorderTree(-19, 205, 108, 103, 2));
+				BorderTrees.Add(new BorderTree(47, 253, 27, 101, 5));
+				BorderTrees.Add(new BorderTree(2, 327, 61, 45, 4));
+				BorderTrees.Add(new BorderTree(45, 332, 23, 61, 5));
+				BorderTrees.Add(new BorderTree(11, 330, 27, 101, 1));
+				BorderTrees.Add(new BorderTree(6, 445, 71, 64, 6));
+				BorderTrees.Add(new BorderTree(10, 475, 32, 92, 3));
+				BorderTrees.Add(new BorderTree(-26, 572, 68, 57, 2));
+				BorderTrees.Add(new BorderTree(42, 409, 69, 246, 5));
+				BorderTrees.Add(new BorderTree(14, 638, 61, 45, 4));
+				BorderTrees.Add(new BorderTree(2, 653, 23, 69, 2));
+				BorderTrees.Add(new BorderTree(26, 707, 27, 101, 5));
+				BorderTrees.Add(new BorderTree(70, 670, 32, 92, 2));
+				BorderTrees.Add(new BorderTree(119, 691, 27, 101, 1));
+				BorderTrees.Add(new BorderTree(110, 752, 61, 45, 4));
+				BorderTrees.Add(new BorderTree(188, 681, 77, 75, 2));
+				BorderTrees.Add(new BorderTree(194, 730, 23, 61, 1));
+				BorderTrees.Add(new BorderTree(213, 748, 61, 45, 4));
+				BorderTrees.Add(new BorderTree(265, 708, 23, 69, 3));
+				BorderTrees.Add(new BorderTree(293, 710, 27, 101, 1));
+				BorderTrees.Add(new BorderTree(345, 721, 23, 61, 1));
+				BorderTrees.Add(new BorderTree(432, 695, 27, 101, 1));
+				BorderTrees.Add(new BorderTree(364, 718, 108, 103, 2));
+				BorderTrees.Add(new BorderTree(470, 684, 44, 97, 7));
+				BorderTrees.Add(new BorderTree(497, 745, 61, 45, 4));
+				BorderTrees.Add(new BorderTree(533, 699, 23, 61, 5));
+				BorderTrees.Add(new BorderTree(567, 687, 77, 75, 6));
+				BorderTrees.Add(new BorderTree(633, 706, 23, 69, 3));
+				BorderTrees.Add(new BorderTree(641, 706, 27, 101, 5));
+				BorderTrees.Add(new BorderTree(588, 754, 61, 45, 4));
 
 
 
-			BorderTrees.Add(new BorderTree(716, -12, 108, 103, 6));
-			BorderTrees.Add(new BorderTree(729, 28, 27, 101, 1));
-			BorderTrees.Add(new BorderTree(765, 56, 32, 92, 7));
-			BorderTrees.Add(new BorderTree(708, 141, 61, 45, 4));
-			BorderTrees.Add(new BorderTree(762, 113, 27, 101, 1));
-			BorderTrees.Add(new BorderTree(710, 219, 41, 88, 3));
-			BorderTrees.Add(new BorderTree(765, 244, 27, 101, 5));
-			BorderTrees.Add(new BorderTree(729, 302, 26, 61, 5));
-			BorderTrees.Add(new BorderTree(760, 325, 26, 61, 5));
-			BorderTrees.Add(new BorderTree(742, 381, 23, 69, 3));
-			BorderTrees.Add(new BorderTree(745, 454, 61, 45, 4));
-			BorderTrees.Add(new BorderTree(713, 507, 108, 103, 6));
-			BorderTrees.Add(new BorderTree(717, 535, 27, 101, 1));
-			BorderTrees.Add(new BorderTree(739, 738, 61, 45, 4));
-			BorderTrees.Add(new BorderTree(766, 563, 41, 88, 3));
-			BorderTrees.Add(new BorderTree(708, 629, 108, 103, 6));
-			BorderTrees.Add(new BorderTree(714, 718, 23, 69, 3));
-			BorderTrees.Add(new BorderTree(766, 683, 27, 101, 1));
-			BorderTrees.Add(new BorderTree(735, 757, 61, 45, 4));
-			BorderTrees.Add(new BorderTree(151, -31, 108, 103, 2));
-			BorderTrees.Add(new BorderTree(162, 8, 23, 69, 3));
-			BorderTrees.Add(new BorderTree(121, 33, 61, 45, 4));
-			BorderTrees.Add(new BorderTree(220, 4, 41, 88, 3));
-			BorderTrees.Add(new BorderTree(276, -42, 27, 101, 5));
-			BorderTrees.Add(new BorderTree(298, 16, 23, 61, 5));
-			BorderTrees.Add(new BorderTree(246, 34, 61, 45, 4));
-			BorderTrees.Add(new BorderTree(334, 35, 23, 69, 7));
-			BorderTrees.Add(new BorderTree(417, -7, 108, 103, 6));
-			BorderTrees.Add(new BorderTree(406, 12, 23, 69, 3));
-			BorderTrees.Add(new BorderTree(486, 41, 61, 45, 4));
-			BorderTrees.Add(new BorderTree(561, 1, 41, 88, 7));
-			BorderTrees.Add(new BorderTree(628, 18, 23, 61, 5));
-			BorderTrees.Add(new BorderTree(657, 5, 27, 101, 5));
-			BorderTrees.Add(new BorderTree(642, 48, 23, 61, 5));
+				BorderTrees.Add(new BorderTree(716, -12, 108, 103, 6));
+				BorderTrees.Add(new BorderTree(729, 28, 27, 101, 1));
+				BorderTrees.Add(new BorderTree(765, 56, 32, 92, 7));
+				BorderTrees.Add(new BorderTree(708, 141, 61, 45, 4));
+				BorderTrees.Add(new BorderTree(762, 113, 27, 101, 1));
+				BorderTrees.Add(new BorderTree(710, 219, 41, 88, 3));
+				BorderTrees.Add(new BorderTree(765, 244, 27, 101, 5));
+				BorderTrees.Add(new BorderTree(729, 302, 26, 61, 5));
+				BorderTrees.Add(new BorderTree(760, 325, 26, 61, 5));
+				BorderTrees.Add(new BorderTree(742, 381, 23, 69, 3));
+				BorderTrees.Add(new BorderTree(745, 454, 61, 45, 4));
+				BorderTrees.Add(new BorderTree(713, 507, 108, 103, 6));
+				BorderTrees.Add(new BorderTree(717, 535, 27, 101, 1));
+				BorderTrees.Add(new BorderTree(739, 738, 61, 45, 4));
+				BorderTrees.Add(new BorderTree(766, 563, 41, 88, 3));
+				BorderTrees.Add(new BorderTree(708, 629, 108, 103, 6));
+				BorderTrees.Add(new BorderTree(714, 718, 23, 69, 3));
+				BorderTrees.Add(new BorderTree(766, 683, 27, 101, 1));
+				BorderTrees.Add(new BorderTree(735, 757, 61, 45, 4));
+				BorderTrees.Add(new BorderTree(151, -31, 108, 103, 2));
+				BorderTrees.Add(new BorderTree(162, 8, 23, 69, 3));
+				BorderTrees.Add(new BorderTree(121, 33, 61, 45, 4));
+				BorderTrees.Add(new BorderTree(220, 4, 41, 88, 3));
+				BorderTrees.Add(new BorderTree(276, -42, 27, 101, 5));
+				BorderTrees.Add(new BorderTree(298, 16, 23, 61, 5));
+				BorderTrees.Add(new BorderTree(246, 34, 61, 45, 4));
+				BorderTrees.Add(new BorderTree(334, 35, 23, 69, 7));
+				BorderTrees.Add(new BorderTree(417, -7, 108, 103, 6));
+				BorderTrees.Add(new BorderTree(406, 12, 23, 69, 3));
+				BorderTrees.Add(new BorderTree(486, 41, 61, 45, 4));
+				BorderTrees.Add(new BorderTree(561, 1, 41, 88, 7));
+				BorderTrees.Add(new BorderTree(628, 18, 23, 61, 5));
+				BorderTrees.Add(new BorderTree(657, 5, 27, 101, 5));
+				BorderTrees.Add(new BorderTree(642, 48, 23, 61, 5));
+
+				for (int i = 0; i < BorderTrees.Count; i++) {
+					double newX = BorderTrees [i].getX () * 7 / 8;
+					double newY = BorderTrees [i].getY () * 7 / 8;
+					BorderTrees [i].setX (Convert.ToInt32(newX));
+					BorderTrees [i].setY (Convert.ToInt32(newY));
+				}
+			}
 
 			RegBackground.LoadContent(ScreenManager.Game);
 			RageBackground.LoadContent(ScreenManager.Game);
 
 			if (Wave1.Count == 0) {
 				Wave1.Add (new Enemy (50, 50, 50, 50, 1, 100));
-				Wave1.Add (new Enemy (500, 50, 50, 50, 1, 100)); 
-				Wave1.Add (new Enemy (50, 500, 50, 50, 1, 100));
-				Wave1.Add (new Enemy (500, 500, 50, 50, 1, 100));
+				Wave1.Add (new Enemy (600, 50, 50, 50, 1, 100)); 
+				Wave1.Add (new Enemy (50, 600, 50, 50, 1, 100));
+				Wave1.Add (new Enemy (600, 600, 50, 50, 1, 100));
 				Wave2.Add (new Enemy (50, 50, 50, 50, 5, 100));
-				Wave2.Add (new Enemy (500, 50, 50, 50, 5, 100)); 
-				Wave2.Add (new Enemy (50, 500, 50, 50, 5, 100));
-				Wave2.Add (new Enemy (500, 500, 50, 50, 5, 100));
+				Wave2.Add (new Enemy (600, 50, 50, 50, 5, 100)); 
+				Wave2.Add (new Enemy (50, 600, 50, 50, 5, 100));
+				Wave2.Add (new Enemy (600, 600, 50, 50, 5, 100));
 			}
 			EnemyWaves.Add (Wave1);
 			EnemyWaves.Add (Wave2);
@@ -313,19 +322,19 @@ namespace Berserker
             }
             if (spawncounter == spawncounter2)
             {
-                Enemy newenemy = new Enemy(500, 50, 50, 50, speed2);
+                Enemy newenemy = new Enemy(600, 50, 50, 50, speed2);
                 newenemy.LoadContent(ScreenManager.Game);
                 Enemies.Add (newenemy);
             }
             if (spawncounter == spawncounter3)
             {
-                Enemy newenemy = new Enemy(50, 500, 50, 50, speed2);
+                Enemy newenemy = new Enemy(50, 600, 50, 50, speed2);
                 newenemy.LoadContent(ScreenManager.Game);
                 Enemies.Add (newenemy);
 
             }
             if (spawncounter == spawncounter4) {
-                Enemy newenemy = new Enemy (500, 500, 50, 50, speed2);
+                Enemy newenemy = new Enemy (600, 600, 50, 50, speed2);
                 newenemy.LoadContent (ScreenManager.Game);
                 Enemies.Add (newenemy);
                 spawncounter = 0;
@@ -384,6 +393,10 @@ namespace Berserker
 		public override void HandleInput (InputState input)
 		{
 			if (player1.getHealth () == 0) {
+				Enemies.Clear ();
+				SpawnEnemies.Clear ();
+				Wave1.Clear ();
+				Wave2.Clear ();
 				ScreenManager.RemoveScreen (this);
 				ScreenManager.AddScreen (new EndScreen (player1.getScore()), null);
 			}
@@ -437,7 +450,7 @@ namespace Berserker
 
 			ScreenManager.SpriteBatch.Draw (healthbar, new Rectangle (0, 0, 150, 50), Color.Red);
 			ScreenManager.SpriteBatch.Draw (healthbar, new Rectangle (0, 0, player1.getHealth()*30, 50), Color.DarkGreen);
-			ScreenManager.SpriteBatch.DrawString (font, player1.getScore().ToString(), new Vector2 (500, 0), Color.Red);
+			ScreenManager.SpriteBatch.DrawString (font, player1.getScore().ToString(), new Vector2 (600, 0), Color.Red);
 			ScreenManager.SpriteBatch.End ();
 
 			base.Draw(gameTime);
