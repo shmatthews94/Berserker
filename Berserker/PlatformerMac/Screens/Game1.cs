@@ -35,6 +35,8 @@ namespace Berserker
 		public static List<Tree> Trees = new List<Tree>();
 		public static List<Tree> Trees1 = new List<Tree>();
 		public static List<Tree> Trees2 = new List<Tree>();
+		public static List<Tree> Trees3 = new List<Tree>();
+		public static List<Tree> Trees4 = new List<Tree>();
 		public static List<Object> Objects = new List<Object>();
 		public static List<BorderTree> BorderTrees = new List<BorderTree>();
 		public static List<BorderTree> Bodies = new List<BorderTree>();
@@ -68,6 +70,11 @@ namespace Berserker
 		{
 			this.wave = wave;
 			this.player1 = player;
+			if (this.player1.rageMode == true) {
+				this.player1.rageMode = false;
+				this.player1.rage = 0;
+			}
+
 			player.setX (275);
 			player.setY (275);
             player1.Reset();
@@ -99,14 +106,7 @@ namespace Berserker
 
 			RegBackground = new Background(0, 0, BerserkerGame.screenwidth, BerserkerGame.screenheight, 1);
 			RageBackground = new Background(0, 0, BerserkerGame.screenwidth, BerserkerGame.screenheight, 2);
-			Trees.Add (new Tree (150, 150, 50, 50, 1));
-			Trees.Add (new Tree (100, 150, 50, 50, 1));
-			Trees.Add (new Tree (200, 250, 50, 50, 1));
-			Trees.Add (new Tree (200, 300, 50, 50, 1));
-			Trees.Add (new Tree (350, 250, 50, 50, 1));
-			Trees.Add (new Tree (350, 300, 50, 50, 1));
-			Trees.Add (new Tree (400, 400, 50, 50, 1));
-			Trees.Add (new Tree (450, 400, 50, 50, 1));
+
 			Castle1 = new Tree(50, 50, 50, 50, 2);
 			Castle2 = new Tree(600, 600, 50, 50, 2);
 			Castle3 = new Tree(50, 600, 50, 50, 2);
@@ -254,28 +254,72 @@ namespace Berserker
 			RageBackground.LoadContent(ScreenManager.Game);
 
 			if (Wave1.Count == 0) {
-				Wave1.Add (new Enemy (300, 100, 50, 50, 5));
-				Wave1.Add (new Enemy (300, 100, 50, 50, 5));
-				Wave1.Add (new Enemy (300, 100, 50, 50, 5));
-				Wave1.Add (new Enemy (300, 100, 50, 50, 5));
-				Wave1.Add (new Enemy (300, 100, 50, 50, 5));
 				Wave1.Add (new Enemy (50, 50, 50, 50, 1, 100));
 				Wave1.Add (new Enemy (600, 50, 50, 50, 1, 100)); 
 				Wave1.Add (new Enemy (50, 600, 50, 50, 1, 100));
 				Wave1.Add (new Enemy (600, 600, 50, 50, 1, 100));
-				Wave2.Add (new Enemy (50, 50, 50, 50, 5, 100));
-				Wave2.Add (new Enemy (600, 50, 50, 50, 5, 100)); 
-				Wave2.Add (new Enemy (50, 600, 50, 50, 5, 100));
-				Wave2.Add (new Enemy (600, 600, 50, 50, 5, 100));
+
+				Wave2.Add (new Enemy (50, 50, 50, 50, 3, 100));
+				Wave2.Add (new Enemy (600, 50, 50, 50, 3, 100));
+				Wave2.Add (new Enemy (50, 600, 50, 50, 3, 100));
+				Wave2.Add (new Enemy (600, 600, 50, 50, 3, 100));
+				Wave2.Add (new Enemy (600, 50, 50, 50, 3, 100));
+				Wave2.Add (new Enemy (50, 600, 50, 50, 3, 5));
+				Wave2.Add (new Enemy (600, 600, 50, 50, 3, 100));
+				Wave2.Add (new Enemy (50, 50, 50, 50, 3, 5));
+
+				Wave3.Add (new Enemy (50, 50, 50, 50, 4, 50));
+				Wave3.Add (new Enemy (600, 50, 50, 50, 4, 5)); 
+				Wave3.Add (new Enemy (50, 600, 50, 50, 4, 5));
+				Wave3.Add (new Enemy (600, 600, 50, 50, 4, 5));
+				Wave3.Add (new Enemy (600, 600, 50, 50, 5, 100));
+				Wave3.Add (new Enemy (600, 50, 50, 50, 5, 50)); 
+				Wave3.Add (new Enemy (50, 50, 50, 50, 5, 100));
+				Wave3.Add (new Enemy (50, 600, 50, 50, 5, 50));
+				Wave3.Add (new Enemy (50, 50, 50, 50, 7, 100));
+				Wave3.Add (new Enemy (600, 600, 50, 50, 7, 5));
+
+
+				Wave4.Add (new Enemy (50, 50, 50, 50, 5, 100));
+				Wave4.Add (new Enemy (600, 50, 50, 50, 5, 100)); 
+				Wave4.Add (new Enemy (50, 600, 50, 50, 5, 100));
+				Wave4.Add (new Enemy (600, 600, 50, 50, 5, 100));
 			}
 			EnemyWaves.Add (Wave1);
 			EnemyWaves.Add (Wave2);
+			EnemyWaves.Add (Wave3);
+			EnemyWaves.Add (Wave4);
 			player1.LoadContent (ScreenManager.Game);
+			if (Trees1.Count == 0) {
+				Trees1.Add (new Tree (150, 150, 50, 50, 1));
+				Trees1.Add (new Tree (100, 150, 50, 50, 1));
+				Trees1.Add (new Tree (200, 250, 50, 50, 1));
+				Trees1.Add (new Tree (200, 300, 50, 50, 1));
+				Trees1.Add (new Tree (450, 350, 50, 50, 1));
+				Trees1.Add (new Tree (450, 400, 50, 50, 1));
+				Trees1.Add (new Tree (500, 500, 50, 50, 1));
+				Trees1.Add (new Tree (550, 500, 50, 50, 1));
 
-			for (int i = 0; i < Trees.Count; i++)
-			{
-				Trees[i].LoadContent(ScreenManager.Game);
+				Trees2.Add (new Tree (150, 150, 50, 50, 1));
+				Trees2.Add (new Tree (200, 150, 50, 50, 1));
+				Trees2.Add (new Tree (350, 150, 50, 50, 1));
+				Trees2.Add (new Tree (400, 150, 50, 50, 1));
+				Trees2.Add (new Tree (250, 300, 50, 50, 1));
+				Trees2.Add (new Tree (250, 350, 50, 50, 1));
+				Trees2.Add (new Tree (400, 300, 50, 50, 1));
+				Trees2.Add (new Tree (400, 350, 50, 50, 1));
+				Trees2.Add (new Tree (250, 500, 50, 50, 1));
+				Trees2.Add (new Tree (300, 500, 50, 50, 1));
+				Trees2.Add (new Tree (450, 500, 50, 50, 1));
+				Trees2.Add (new Tree (500, 500, 50, 50, 1));
+
+
 			}
+			TreeWaves.Add (Trees1);
+			TreeWaves.Add (Trees2);
+			TreeWaves.Add (Trees3);
+			TreeWaves.Add (Trees4);
+
 			Castle1.LoadContent (ScreenManager.Game);
 			Castle2.LoadContent (ScreenManager.Game);
 			Castle3.LoadContent (ScreenManager.Game);
@@ -291,6 +335,13 @@ namespace Berserker
 			Console.WriteLine("Init");
 
 			font = ScreenManager.Game.Content.Load<SpriteFont>("Fonts/MenuFont");
+			for (int i = 0; i < TreeWaves [wave].Count; i++) {
+				Trees.Add (TreeWaves [wave] [i]);
+			}
+			for (int i = 0; i < Trees.Count; i++)
+			{
+				Trees[i].LoadContent(ScreenManager.Game);
+			}
 
 			for (int i = 0; i < EnemyWaves [wave].Count; i++) {
 				SpawnEnemies.Add (EnemyWaves [wave] [i]);
@@ -352,6 +403,7 @@ namespace Berserker
 			}
 
 			if (Enemies.Count == 0 && SpawnEnemies.Count == 0) {
+				Trees.Clear ();
 				ExitScreen ();
 				wave++;
 				ScreenManager.AddScreen (new WaveScreen(wave, player1), null);

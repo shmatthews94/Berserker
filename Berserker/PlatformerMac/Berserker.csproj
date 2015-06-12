@@ -139,7 +139,6 @@
     <None Include="Content\Textures\HUD\hudBackground.xnb" />
     <None Include="Content\Textures\HUD\windArrow.xnb" />
     <None Include="Content\Fonts\Peric.ttf" />
-    <None Include="Content\smash.gif" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -172,6 +171,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Sounds\ragewub.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\smash.gif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
