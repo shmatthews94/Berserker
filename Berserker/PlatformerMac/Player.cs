@@ -211,9 +211,10 @@ namespace Berserker
 
         public void decrementHealth()
         {
-            if (rageMode == false)
-                this.health--;
-            AudioManager.PlaySound("Hurt");
+			if (rageMode == false) {
+				this.health--;
+				AudioManager.PlaySound ("Hurt");
+			}
         }
 
         public int getHealth()
@@ -298,7 +299,7 @@ namespace Berserker
             Move(controls, Trees, Enemies, Objects);
             UpdateAnimation(gameTime);
 
-            if (normalAttacking || spearAttacking || smashAttacking)
+            if (normalAttacking || spearAttacking)
             {
                 attackDuration += gameTime.ElapsedGameTime;
             }
@@ -459,14 +460,6 @@ namespace Berserker
             if (rageMode == true)
             {
                 speed = 6;
-				if (!IsAttacking && smashCoolDown >= smashCooldownTime)
-				{
-					if (controls.onPress(Keys.S, Buttons.B) )
-					{
-						IsAttacking = true;
-						SmashAttack(controls, Enemies);
-					}
-				}
             }
             else
             {
@@ -490,7 +483,15 @@ namespace Berserker
                 }
             }
 
-
+			if (smashCoolDown >= smashCooldownTime)
+			{
+				if (controls.onPress(Keys.S, Buttons.B) )
+				{
+					if (rageMode == true) {
+						SmashAttack(controls, Enemies);
+					}
+				}
+			}
 				
 
             if (IsAttacking)
