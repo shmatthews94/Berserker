@@ -50,7 +50,7 @@ namespace Berserker
 		public Game1(int wave)
 		{
 			this.wave = wave;
-			player1 = new Player (275, 275, 50, 50);
+			player1 = new Player (350, 350, 50, 50);
 			spawncounter = 0;
 			enemycount = 0;
 			AudioManager.PlaySound("Soundtrack");
@@ -75,8 +75,8 @@ namespace Berserker
 				this.player1.rage = 0;
 			}
 
-			player.setX (275);
-			player.setY (275);
+			player1.setX (350);
+			player1.setY (350);
             player1.Reset();
 			spawncounter = 0;
 			enemycount = 0;
@@ -279,11 +279,19 @@ namespace Berserker
 				Wave3.Add (new Enemy (50, 50, 50, 50, 7, 100));
 				Wave3.Add (new Enemy (600, 600, 50, 50, 7, 5));
 
+				Wave4.Add (new Enemy (50, 50, 50, 50, 6, 25));
+				Wave4.Add (new Enemy (600, 50, 50, 50, 6, 25)); 
+				Wave4.Add (new Enemy (50, 600, 50, 50, 6, 25));
+				Wave4.Add (new Enemy (600, 600, 50, 50, 6, 25));
+				Wave4.Add (new Enemy (600, 600, 50, 50, 8, 50));
+				Wave4.Add (new Enemy (50, 600, 50, 50, 8, 5));
+				Wave4.Add (new Enemy (50, 50, 50, 50, 8, 50));
+				Wave4.Add (new Enemy (600, 60, 50, 50, 8, 5));
+				Wave4.Add (new Enemy (50, 50, 50, 50, 9, 75));
+				Wave4.Add (new Enemy (600, 50, 50, 50, 9, 75)); 
+				Wave4.Add (new Enemy (50, 600, 50, 50, 9, 75));
+				Wave4.Add (new Enemy (600, 600, 50, 50, 9, 75));
 
-				Wave4.Add (new Enemy (50, 50, 50, 50, 5, 100));
-				Wave4.Add (new Enemy (600, 50, 50, 50, 5, 100)); 
-				Wave4.Add (new Enemy (50, 600, 50, 50, 5, 100));
-				Wave4.Add (new Enemy (600, 600, 50, 50, 5, 100));
 			}
 			EnemyWaves.Add (Wave1);
 			EnemyWaves.Add (Wave2);
@@ -312,6 +320,44 @@ namespace Berserker
 				Trees2.Add (new Tree (300, 500, 50, 50, 1));
 				Trees2.Add (new Tree (450, 500, 50, 50, 1));
 				Trees2.Add (new Tree (500, 500, 50, 50, 1));
+
+				Trees3.Add (new Tree (150, 150, 50, 50, 1));
+				Trees3.Add (new Tree (200, 200, 50, 50, 1));
+				Trees3.Add (new Tree (250, 250, 50, 50, 1));
+				Trees3.Add (new Tree (300, 300, 50, 50, 1));
+				Trees3.Add (new Tree (200, 300, 50, 50, 1));
+				Trees3.Add (new Tree (300, 200, 50, 50, 1));
+				Trees3.Add (new Tree (550, 550, 50, 50, 1));
+				Trees3.Add (new Tree (500, 500, 50, 50, 1));
+				Trees3.Add (new Tree (450, 450, 50, 50, 1));
+				Trees3.Add (new Tree (400, 400, 50, 50, 1));
+				Trees3.Add (new Tree (400, 500, 50, 50, 1));
+				Trees3.Add (new Tree (500, 400, 50, 50, 1));
+
+				Trees4.Add (new Tree (150, 150, 50, 50, 1));
+				Trees4.Add (new Tree (100, 200, 50, 50, 1));
+				Trees4.Add (new Tree (150, 250, 50, 50, 1));
+				Trees4.Add (new Tree (150, 350, 50, 50, 1));
+				Trees4.Add (new Tree (150, 400, 50, 50, 1));
+				Trees4.Add (new Tree (150, 450, 50, 50, 1));
+				Trees4.Add (new Tree (200, 300, 50, 50, 1));
+				Trees4.Add (new Tree (200, 500, 50, 50, 1));
+				Trees4.Add (new Tree (250, 250, 50, 50, 1));
+				Trees4.Add (new Tree (250, 400, 50, 50, 1));
+				Trees4.Add (new Tree (250, 550, 50, 50, 1));
+				Trees4.Add (new Tree (300, 250, 50, 50, 1));
+				Trees4.Add (new Tree (350, 250, 50, 50, 1));
+				Trees4.Add (new Tree (400, 250, 50, 50, 1));
+				Trees4.Add (new Tree (400, 400, 50, 50, 1));
+				Trees4.Add (new Tree (400, 550, 50, 50, 1));
+				Trees4.Add (new Tree (450, 300, 50, 50, 1));
+				Trees4.Add (new Tree (450, 500, 50, 50, 1));
+				Trees4.Add (new Tree (500, 150, 50, 50, 1));
+				Trees4.Add (new Tree (500, 250, 50, 50, 1));
+				Trees4.Add (new Tree (500, 350, 50, 50, 1));
+				Trees4.Add (new Tree (500, 400, 50, 50, 1));
+				Trees4.Add (new Tree (500, 450, 50, 50, 1));
+				Trees4.Add (new Tree (550, 200, 50, 50, 1));
 
 
 			}
@@ -513,6 +559,7 @@ namespace Berserker
 			if (player1.getHealth () == 0) {
 				Enemies.Clear ();
 				SpawnEnemies.Clear ();
+				Trees.Clear ();
 				Wave1.Clear ();
 				Wave2.Clear ();
 				ScreenManager.RemoveScreen (this);
