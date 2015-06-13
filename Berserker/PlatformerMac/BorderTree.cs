@@ -44,8 +44,6 @@ namespace Berserker
 				if (type == 7){
 					image = game.Content.Load<Texture2D>("reverse border tree type 3.png");
 				}
-<<<<<<< HEAD
-=======
 				if(type == 8){
 					image = game.Content.Load<Texture2D>("body.png");	
 				}
@@ -67,7 +65,6 @@ namespace Berserker
 				if(type == 14){
 					image = game.Content.Load<Texture2D>("reversediagonalbodyonpike.png");
 				}
->>>>>>> 1aab4f077cafe9405a5eb7ba956d066c876726e9
 			}
 
 			public override void Draw(SpriteBatch sb)

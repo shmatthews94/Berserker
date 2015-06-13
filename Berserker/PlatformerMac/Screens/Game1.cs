@@ -110,7 +110,6 @@ namespace Berserker
 			RageBackground = new Background(0, 0, BerserkerGame.screenwidth, BerserkerGame.screenheight, 2);
 
 			Castle1 = new Tree(50, 50, 50, 50, 2);
-<<<<<<< HEAD
 			Castle2 = new Tree(500, 500, 50, 50, 2);
 			Castle3 = new Tree(50, 500, 50, 50, 2);
 			Castle4 = new Tree(500, 50, 50, 50, 2);
@@ -186,7 +185,6 @@ namespace Berserker
 			BorderTrees.Add(new BorderTree(628, 18, 23, 61, 5));
 			BorderTrees.Add(new BorderTree(657, 5, 27, 101, 5));
 			BorderTrees.Add(new BorderTree(642, 48, 23, 61, 5));
-=======
 			Castle2 = new Tree(600, 600, 50, 50, 2);
 			Castle3 = new Tree(50, 600, 50, 50, 2);
 			Castle4 = new Tree(600, 50, 50, 50, 2);
@@ -268,7 +266,6 @@ namespace Berserker
 					BorderTrees [i].setY (Convert.ToInt32(newY));
 				}
 			}
->>>>>>> 1aab4f077cafe9405a5eb7ba956d066c876726e9
 
 			if(Bodies.Count == 0){
 				Bodies.Add(new BorderTree(-31, -33, 126, 102, 12));
@@ -337,7 +334,6 @@ namespace Berserker
             if (Wave1.Count == 0) {
                 Wave1.Add(new Boss(210, 200, 100, 100, 100));
 				Wave1.Add (new Enemy (50, 50, 50, 50, 1, 100));
-<<<<<<< HEAD
 				Wave1.Add (new Enemy (500, 50, 50, 50, 1, 100)); 
 				Wave1.Add (new Enemy (50, 500, 50, 50, 1, 100));
 				Wave1.Add (new Enemy (500, 500, 50, 50, 1, 100));
@@ -345,7 +341,6 @@ namespace Berserker
 				Wave2.Add (new Enemy (500, 50, 50, 50, 5, 100)); 
 				Wave2.Add (new Enemy (50, 500, 50, 50, 5, 100));
 				Wave2.Add (new Enemy (500, 500, 50, 50, 5, 100));
-=======
 				Wave1.Add (new Enemy (600, 50, 50, 50, 1, 100)); 
 				Wave1.Add (new Enemy (50, 600, 50, 50, 1, 100));
 				Wave1.Add (new Enemy (600, 600, 50, 50, 1, 100));
@@ -382,8 +377,6 @@ namespace Berserker
 				Wave4.Add (new Enemy (600, 50, 50, 50, 9, 75)); 
 				Wave4.Add (new Enemy (50, 600, 50, 50, 9, 75));
 				Wave4.Add (new Enemy (600, 600, 50, 50, 9, 75));
-
->>>>>>> 1aab4f077cafe9405a5eb7ba956d066c876726e9
 			}
 			EnemyWaves.Add (Wave1);
 			EnemyWaves.Add (Wave2);
@@ -653,14 +646,11 @@ namespace Berserker
 		public override void HandleInput (InputState input)
 		{
 			if (player1.getHealth () == 0) {
-<<<<<<< HEAD
-=======
 				Enemies.Clear ();
 				SpawnEnemies.Clear ();
 				Trees.Clear ();
 				Wave1.Clear ();
 				Wave2.Clear ();
->>>>>>> 1aab4f077cafe9405a5eb7ba956d066c876726e9
 				ScreenManager.RemoveScreen (this);
 				ScreenManager.AddScreen (new EndScreen (player1.getScore()), null);
 			}

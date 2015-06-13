@@ -328,13 +328,10 @@ namespace Berserker
                 counter += gameTime.ElapsedGameTime.TotalMilliseconds;
                 if (counter >= 9000)
                 {
-<<<<<<< HEAD
                     rageMode = false;
                     playsound = true;
-=======
 					playsound = true;
 					rageMode = false;
->>>>>>> 1aab4f077cafe9405a5eb7ba956d066c876726e9
                     counter = 0;
                     rage = 0;
 					stopsounds = true;

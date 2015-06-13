@@ -115,3 +115,13 @@ C:\Users\AdrianLeo\Documents\GitHub\Berserker\BerserkerWindows\bin\WindowsGL\Deb
 C:\Users\AdrianLeo\Documents\GitHub\Berserker\BerserkerWindows\bin\WindowsGL\Debug\Content\shrub.png
 C:\Users\AdrianLeo\Documents\GitHub\Berserker\BerserkerWindows\bin\WindowsGL\Debug\Content\hud.png
 C:\Users\AdrianLeo\Documents\GitHub\Berserker\BerserkerWindows\bin\WindowsGL\Debug\Content\yeti.png
+C:\Users\AdrianLeo\Documents\GitHub\Berserker\BerserkerWindows\bin\WindowsGL\Debug\Content\bodyonpike.png
+C:\Users\AdrianLeo\Documents\GitHub\Berserker\BerserkerWindows\bin\WindowsGL\Debug\Content\diagonalbodyonpike.png
+C:\Users\AdrianLeo\Documents\GitHub\Berserker\BerserkerWindows\bin\WindowsGL\Debug\Content\headonpike.png
+C:\Users\AdrianLeo\Documents\GitHub\Berserker\BerserkerWindows\bin\WindowsGL\Debug\Content\headonpike1.png
+C:\Users\AdrianLeo\Documents\GitHub\Berserker\BerserkerWindows\bin\WindowsGL\Debug\Content\reversebody.png
+C:\Users\AdrianLeo\Documents\GitHub\Berserker\BerserkerWindows\bin\WindowsGL\Debug\Content\reversebodyonpike.png
+C:\Users\AdrianLeo\Documents\GitHub\Berserker\BerserkerWindows\bin\WindowsGL\Debug\Content\reversediagonalbodyonpike.png
+C:\Users\AdrianLeo\Documents\GitHub\Berserker\BerserkerWindows\bin\WindowsGL\Debug\Content\smash.gif
+C:\Users\AdrianLeo\Documents\GitHub\Berserker\BerserkerWindows\bin\WindowsGL\Debug\Content\Sounds\ragewub.wav
+C:\Users\AdrianLeo\Documents\GitHub\Berserker\BerserkerWindows\bin\WindowsGL\Debug\Content\body.png

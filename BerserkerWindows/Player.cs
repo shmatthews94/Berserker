@@ -26,6 +26,7 @@ namespace Berserker
         public TimeSpan FrameTime = new TimeSpan(500000);
 
         public bool rageMode = false;
+		public bool stopsounds = true;
         public Texture2D rageBar;
         public int rage = 50;
         public double counter;
@@ -46,11 +47,13 @@ namespace Berserker
         public Texture2D sAttackR;
         public Texture2D sAttackU;
         public Texture2D sAttackD;
+		public Texture2D smashimage;
 
         public Texture2D sheet;
 
         bool normalAttacking = false;
         bool spearAttacking = false;
+		bool smashAttacking = false;
 
         #region Player Animations
         Animation idleUp;
@@ -72,6 +75,8 @@ namespace Berserker
         Animation spearDown;
         Animation spearLeft;
         Animation spearRight;
+
+		Animation smash;
         #endregion
 
         #region Animation fields and methods
@@ -135,6 +140,8 @@ namespace Berserker
 
         TimeSpan spearCoolDown;
         TimeSpan spearCooldownTime = new TimeSpan(30000000);
+		TimeSpan smashCoolDown;
+		TimeSpan smashCooldownTime = new TimeSpan(30000000);
 
         public Player(int x, int y, int width, int height)
         {
@@ -150,6 +157,7 @@ namespace Berserker
             health = 5;
             attackDuration = TimeSpan.Zero;
             spearCoolDown = spearCooldownTime;
+			smashCoolDown = smashCooldownTime;
             IsAttacking = false;
         }
 
@@ -158,6 +166,7 @@ namespace Berserker
             PlayAnimation(idleDown);
             facing = "down";
             spearCoolDown = spearCooldownTime;
+			smashCoolDown = smashCooldownTime;
             IsAttacking = false;
         }
 
@@ -183,6 +192,8 @@ namespace Berserker
             spearLeft = new Animation(sheet, new Point(250, 100), new Point(1000, 390), new Vector2(-115, 0), 4, FrameTime, false, spriteWidth + 115, spriteHeight);
             spearRight = new Animation(sheet, new Point(250, 100), new Point(0, 390), new Vector2(0, 0), 4, FrameTime, false, spriteWidth + 115, spriteHeight);
 
+			smash = new Animation (smashimage, new Point (700, 700), new Point (0, 0), new Vector2 (-50, -50), 1, FrameTime, false, 400, 400);
+
             AddAnimation(idleUp);
             AddAnimation(idleDown);
             AddAnimation(idleRight);
@@ -206,9 +217,10 @@ namespace Berserker
 
         public void decrementHealth()
         {
-            if (rageMode == false)
-                this.health--;
-            AudioManager.PlaySound("Hurt");
+			if (rageMode == false) {
+				this.health--;
+				AudioManager.PlaySound ("Hurt");
+			}
         }
 
         public int getHealth()
@@ -239,6 +251,7 @@ namespace Berserker
             sAttackD = game.Content.Load<Texture2D>("lanceDown");
             rageBar = game.Content.Load<Texture2D>("rage");
             sheet = game.Content.Load<Texture2D>("sheet");
+			smashimage = game.Content.Load<Texture2D> ("smash");
 
             initializeAnimations();
             PlayAnimation(walkDown);
@@ -250,6 +263,7 @@ namespace Berserker
             //sb.Draw(image, new Rectangle(spriteX, spriteY, spriteWidth, spriteHeight), Color.White);
             //sb.Draw(sheet, new Rectangle(300, 300, 100, 100), Color.White);
             currentAnimation.Draw(sb);
+
             //if (normalAttacking)
             //{
             //    if (facing == "left")
@@ -300,13 +314,13 @@ namespace Berserker
 
             if (rage >= 260)
             {
-                if (playsound)
-                {
-                    AudioManager.PlaySound("RageMode1");
-                    playsound = false;
-                    rage = 260;
-                    rageMode = true;
-                }
+				if (playsound == true) {
+					AudioManager.PlaySound ("rage1");
+					rage = 260;
+					playsound = false;
+					rageMode = true;
+				}
+
             }
 
             if (rageMode == true)
@@ -316,8 +330,11 @@ namespace Berserker
                 {
                     rageMode = false;
                     playsound = true;
+					playsound = true;
+					rageMode = false;
                     counter = 0;
                     rage = 0;
+					stopsounds = true;
                 }
             }
 
@@ -328,10 +345,7 @@ namespace Berserker
             }
             counter2 += 1;
             spearCoolDown += gameTime.ElapsedGameTime;
-            if (rage >= 260)
-            {
-                rage = 260;
-            }
+			smashCoolDown += gameTime.ElapsedGameTime;
         }
 
 
@@ -370,6 +384,7 @@ namespace Berserker
                     {
                         Baddies.Remove(Baddies[i]);
                         this.incrementScore(100);
+						rage += 25;
                         i--;
                     }
                 }
@@ -421,6 +436,27 @@ namespace Berserker
                 }
             }
         }
+			
+		public void SmashAttack(Controls controls, List<Enemy> Baddies)
+		{
+			if (smashCoolDown >= smashCooldownTime)
+			{
+				//AudioManager.PlaySound("Smash");
+				smashCoolDown = TimeSpan.Zero;
+				Circle smashcircle = new Circle (new Vector2 (this.getX (), this.getY ()), 300);
+				PlayAnimation(smash);
+				for (int i = 0; i < Baddies.Count; i++)
+				{
+					if (smashcircle.Intersects(Baddies[i].rectangle))
+					{
+						Baddies.Remove(Baddies[i]);
+						this.incrementScore(100);
+						rage += 25;
+                        i--;
+					}
+				}
+			}
+		}
 
         public void Move(Controls controls, List<Tree> Trees, List<Enemy> Enemies, List<Object> Objects)
         {
@@ -437,10 +473,16 @@ namespace Berserker
 
             if (rageMode == true)
             {
+				if(stopsounds) {
+					AudioManager.StopSounds();
+					stopsounds = false;
+				}
+				AudioManager.PlaySound("RageWub");
                 speed = 6;
             }
             else
             {
+				AudioManager.PlaySound("Soundtrack");
                 speed = 4;
             }
             if (!IsAttacking)
@@ -454,12 +496,23 @@ namespace Berserker
 
             if (!IsAttacking && spearCoolDown >= spearCooldownTime)
             {
-                if (controls.onPress(Keys.A, Buttons.A))
+                if (controls.onPress(Keys.A, Buttons.B))
                 {
                     IsAttacking = true;
                     SpearAttack(controls, Enemies);
                 }
             }
+
+			if (smashCoolDown >= smashCooldownTime)
+			{
+				if (controls.onPress(Keys.S, Buttons.B) )
+				{
+					if (rageMode == true) {
+						SmashAttack(controls, Enemies);
+					}
+				}
+			}
+				
 
             if (IsAttacking)
                 return;
@@ -528,6 +581,7 @@ namespace Berserker
                     Objects.Remove(Objects[i]);
                     rage += 100;
                     this.incrementScore(500);
+                    i--;
                 }
             }
 
@@ -585,7 +639,11 @@ namespace Berserker
 
         public int getRage()
         {
-            return this.rage;
+			if (this.rage >= 260) {
+				return 260;
+			} else {
+				return this.rage;
+			}
         }
 
 
