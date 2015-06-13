@@ -93,6 +93,7 @@
     <Compile Include="Screens\WaveScreen.cs" />
     <Compile Include="Background.cs" />
     <Compile Include="Animation.cs" />
+    <Compile Include="Circle.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
@@ -146,7 +147,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Sounds\RageMode1.wav">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Textures\Backgrounds\blank.xnb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -167,6 +168,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Sounds\spear.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Sounds\ragewub.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\smash.gif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
@@ -204,6 +211,14 @@
     <BundleResource Include="Content\border tree type 3.png" />
     <BundleResource Include="Content\shrub.png" />
     <BundleResource Include="Content\sheet.png" />
+    <BundleResource Include="Content\body.png" />
+    <BundleResource Include="Content\bodyonpike.png" />
+    <BundleResource Include="Content\diagonalbodyonpike.png" />
+    <BundleResource Include="Content\headonpike.png" />
+    <BundleResource Include="Content\reversebody.png" />
+    <BundleResource Include="Content\reversebodyonpike.png" />
+    <BundleResource Include="Content\reversediagonalbodyonpike.png" />
+    <BundleResource Include="Content\headonpike1.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ScreenManager\" />

@@ -35,8 +35,11 @@ namespace Berserker
 		public static List<Tree> Trees = new List<Tree>();
 		public static List<Tree> Trees1 = new List<Tree>();
 		public static List<Tree> Trees2 = new List<Tree>();
+		public static List<Tree> Trees3 = new List<Tree>();
+		public static List<Tree> Trees4 = new List<Tree>();
 		public static List<Object> Objects = new List<Object>();
 		public static List<BorderTree> BorderTrees = new List<BorderTree>();
+		public static List<BorderTree> Bodies = new List<BorderTree>();
 		public static List<List<Enemy>> EnemyWaves = new List<List<Enemy>> ();
 		public static List<List<Tree>> TreeWaves = new List<List<Tree>> ();
 		Controls controls = new Controls();
@@ -49,7 +52,7 @@ namespace Berserker
 		public Game1(int wave)
 		{
 			this.wave = wave;
-			player1 = new Player (275, 275, 50, 50);
+			player1 = new Player (350, 350, 50, 50);
 			spawncounter = 0;
 			enemycount = 0;
 			AudioManager.PlaySound("Soundtrack");
@@ -69,8 +72,13 @@ namespace Berserker
 		{
 			this.wave = wave;
 			this.player1 = player;
-			player.setX (275);
-			player.setY (275);
+			if (this.player1.rageMode == true) {
+				this.player1.rageMode = false;
+				this.player1.rage = 0;
+			}
+
+			player1.setX (350);
+			player1.setY (350);
             player1.Reset();
 			spawncounter = 0;
 			enemycount = 0;
@@ -100,15 +108,9 @@ namespace Berserker
             #region load trees and background
             RegBackground = new Background(0, 0, BerserkerGame.screenwidth, BerserkerGame.screenheight, 1);
 			RageBackground = new Background(0, 0, BerserkerGame.screenwidth, BerserkerGame.screenheight, 2);
-			Trees.Add (new Tree (150, 150, 50, 50, 1));
-			Trees.Add (new Tree (100, 150, 50, 50, 1));
-			Trees.Add (new Tree (200, 250, 50, 50, 1));
-			Trees.Add (new Tree (200, 300, 50, 50, 1));
-			Trees.Add (new Tree (350, 250, 50, 50, 1));
-			Trees.Add (new Tree (350, 300, 50, 50, 1));
-			Trees.Add (new Tree (400, 400, 50, 50, 1));
-			Trees.Add (new Tree (450, 400, 50, 50, 1));
+
 			Castle1 = new Tree(50, 50, 50, 50, 2);
+<<<<<<< HEAD
 			Castle2 = new Tree(500, 500, 50, 50, 2);
 			Castle3 = new Tree(50, 500, 50, 50, 2);
 			Castle4 = new Tree(500, 50, 50, 50, 2);
@@ -184,6 +186,149 @@ namespace Berserker
 			BorderTrees.Add(new BorderTree(628, 18, 23, 61, 5));
 			BorderTrees.Add(new BorderTree(657, 5, 27, 101, 5));
 			BorderTrees.Add(new BorderTree(642, 48, 23, 61, 5));
+=======
+			Castle2 = new Tree(600, 600, 50, 50, 2);
+			Castle3 = new Tree(50, 600, 50, 50, 2);
+			Castle4 = new Tree(600, 50, 50, 50, 2);
+			if (BorderTrees.Count == 0) {
+				BorderTrees.Add(new BorderTree(12, 18, 23, 61, 5));
+				BorderTrees.Add(new BorderTree(27, 48, 61, 45, 4));
+				BorderTrees.Add(new BorderTree(39, 74, 44, 97, 7));
+				BorderTrees.Add(new BorderTree(9, 111, 23, 61, 5));
+				BorderTrees.Add(new BorderTree(45, 147, 23, 61, 1));
+				BorderTrees.Add(new BorderTree(-19, 205, 108, 103, 2));
+				BorderTrees.Add(new BorderTree(47, 253, 27, 101, 5));
+				BorderTrees.Add(new BorderTree(2, 327, 61, 45, 4));
+				BorderTrees.Add(new BorderTree(45, 332, 23, 61, 5));
+				BorderTrees.Add(new BorderTree(11, 330, 27, 101, 1));
+				BorderTrees.Add(new BorderTree(6, 445, 71, 64, 6));
+				BorderTrees.Add(new BorderTree(10, 475, 32, 92, 3));
+				BorderTrees.Add(new BorderTree(-26, 572, 68, 57, 2));
+				BorderTrees.Add(new BorderTree(42, 409, 27, 101, 5));
+				BorderTrees.Add(new BorderTree(14, 638, 61, 45, 4));
+				BorderTrees.Add(new BorderTree(2, 653, 23, 69, 2));
+				BorderTrees.Add(new BorderTree(26, 707, 27, 101, 5));
+				BorderTrees.Add(new BorderTree(70, 670, 32, 92, 2));
+				BorderTrees.Add(new BorderTree(119, 691, 27, 101, 1));
+				BorderTrees.Add(new BorderTree(110, 752, 61, 45, 4));
+				BorderTrees.Add(new BorderTree(188, 681, 77, 75, 2));
+				BorderTrees.Add(new BorderTree(194, 730, 23, 61, 1));
+				BorderTrees.Add(new BorderTree(213, 748, 61, 45, 4));
+				BorderTrees.Add(new BorderTree(265, 708, 23, 69, 3));
+				BorderTrees.Add(new BorderTree(293, 710, 27, 101, 1));
+				BorderTrees.Add(new BorderTree(345, 721, 23, 61, 1));
+				BorderTrees.Add(new BorderTree(432, 695, 27, 101, 1));
+				BorderTrees.Add(new BorderTree(364, 718, 108, 103, 2));
+				BorderTrees.Add(new BorderTree(470, 684, 44, 97, 7));
+				BorderTrees.Add(new BorderTree(497, 745, 61, 45, 4));
+				BorderTrees.Add(new BorderTree(533, 699, 23, 61, 5));
+				BorderTrees.Add(new BorderTree(567, 687, 77, 75, 6));
+				BorderTrees.Add(new BorderTree(633, 706, 23, 69, 3));
+				BorderTrees.Add(new BorderTree(641, 706, 27, 101, 5));
+				BorderTrees.Add(new BorderTree(588, 754, 61, 45, 4));
+				BorderTrees.Add(new BorderTree(716, -12, 108, 103, 6));
+				BorderTrees.Add(new BorderTree(729, 28, 27, 101, 1));
+				BorderTrees.Add(new BorderTree(765, 56, 32, 92, 7));
+				BorderTrees.Add(new BorderTree(708, 141, 61, 45, 4));
+				BorderTrees.Add(new BorderTree(762, 113, 27, 101, 1));
+				BorderTrees.Add(new BorderTree(710, 219, 41, 88, 3));
+				BorderTrees.Add(new BorderTree(765, 244, 27, 101, 5));
+				BorderTrees.Add(new BorderTree(729, 302, 26, 61, 5));
+				BorderTrees.Add(new BorderTree(760, 325, 26, 61, 5));
+				BorderTrees.Add(new BorderTree(742, 381, 23, 69, 3));
+				BorderTrees.Add(new BorderTree(745, 454, 61, 45, 4));
+				BorderTrees.Add(new BorderTree(713, 507, 108, 103, 6));
+				BorderTrees.Add(new BorderTree(717, 535, 27, 101, 1));
+				BorderTrees.Add(new BorderTree(739, 738, 61, 45, 4));
+				BorderTrees.Add(new BorderTree(766, 563, 41, 88, 3));
+				BorderTrees.Add(new BorderTree(708, 629, 108, 103, 6));
+				BorderTrees.Add(new BorderTree(714, 718, 23, 69, 3));
+				BorderTrees.Add(new BorderTree(766, 683, 27, 101, 1));
+				BorderTrees.Add(new BorderTree(735, 757, 61, 45, 4));
+				BorderTrees.Add(new BorderTree(151, -31, 108, 103, 2));
+				BorderTrees.Add(new BorderTree(162, 8, 23, 69, 3));
+				BorderTrees.Add(new BorderTree(121, 33, 61, 45, 4));
+				BorderTrees.Add(new BorderTree(220, 4, 41, 88, 3));
+				BorderTrees.Add(new BorderTree(276, -42, 27, 101, 5));
+				BorderTrees.Add(new BorderTree(298, 16, 23, 61, 5));
+				BorderTrees.Add(new BorderTree(246, 34, 61, 45, 4));
+				BorderTrees.Add(new BorderTree(334, 35, 23, 69, 7));
+				BorderTrees.Add(new BorderTree(417, -7, 108, 103, 6));
+				BorderTrees.Add(new BorderTree(406, 12, 23, 69, 3));
+				BorderTrees.Add(new BorderTree(486, 41, 61, 45, 4));
+				BorderTrees.Add(new BorderTree(561, 1, 41, 88, 7));
+				BorderTrees.Add(new BorderTree(628, 18, 23, 61, 5));
+				BorderTrees.Add(new BorderTree(657, 5, 27, 101, 5));
+				BorderTrees.Add(new BorderTree(642, 48, 23, 61, 5));
+
+				for (int i = 0; i < BorderTrees.Count; i++) {
+					double newX = BorderTrees [i].getX () * 7 / 8;
+					double newY = BorderTrees [i].getY () * 7 / 8;
+					BorderTrees [i].setX (Convert.ToInt32(newX));
+					BorderTrees [i].setY (Convert.ToInt32(newY));
+				}
+			}
+>>>>>>> 1aab4f077cafe9405a5eb7ba956d066c876726e9
+
+			if(Bodies.Count == 0){
+				Bodies.Add(new BorderTree(-31, -33, 126, 102, 12));
+				Bodies.Add(new BorderTree(-5, 0, 25, 96, 10));
+				Bodies.Add(new BorderTree(-12, 49, 122, 137, 14));
+				Bodies.Add(new BorderTree(-16, 152, 133, 67, 9));
+				Bodies.Add(new BorderTree(9, 204, 133, 66, 8));
+				Bodies.Add(new BorderTree(-25, 246, 126, 102, 12));
+				Bodies.Add(new BorderTree(3, 358, 126, 102, 12));
+				Bodies.Add(new BorderTree(-17, 404, 122, 137, 13));
+				Bodies.Add(new BorderTree(17, 462, 133, 66, 8));
+				Bodies.Add(new BorderTree(1, 515, 25, 96, 10));
+				Bodies.Add(new BorderTree(-14, 565, 122, 137, 12));
+				Bodies.Add(new BorderTree(-29, 650, 126, 102, 9));
+				Bodies.Add(new BorderTree(101, 643, 122, 137, 14));
+				Bodies.Add(new BorderTree(28, 730, 133, 66, 9));
+				Bodies.Add(new BorderTree(172, 683, 25, 115, 10));
+				Bodies.Add(new BorderTree(197, 683, 126, 102, 8));
+				Bodies.Add(new BorderTree(207, 735, 133, 66, 12));
+				Bodies.Add(new BorderTree(316, 691, 122, 137, 14));
+				Bodies.Add(new BorderTree(409, 758, 133, 66, 8));
+				Bodies.Add(new BorderTree(435, 680, 126, 102, 11));
+				Bodies.Add(new BorderTree(466, 709, 126, 102, 12));
+				Bodies.Add(new BorderTree(571, 678, 122, 137, 13));
+				Bodies.Add(new BorderTree(598, 744, 153, 137, 8));
+				Bodies.Add(new BorderTree(674, -11, 126, 102, 11));
+				Bodies.Add(new BorderTree(687, 42, 133, 66, 9));
+				Bodies.Add(new BorderTree(708, 34, 25, 115, 10));
+				Bodies.Add(new BorderTree(758, 25, 25, 115, 10));
+				Bodies.Add(new BorderTree(732, 74, 25, 115, 10));
+				Bodies.Add(new BorderTree(706, 133, 122, 137, 13));
+				Bodies.Add(new BorderTree(664, 336, 126, 102, 14));
+				Bodies.Add(new BorderTree(662, 193, 126, 102, 11));
+				Bodies.Add(new BorderTree(673, 258, 133, 68, 9));
+				Bodies.Add(new BorderTree(685, 321, 126, 102, 11));
+				Bodies.Add(new BorderTree(773, 347, 25, 115, 10));
+				Bodies.Add(new BorderTree(664, 336, 122, 137, 13));
+				Bodies.Add(new BorderTree(702, 464, 133, 68, 9));
+				Bodies.Add(new BorderTree(701, 517, 126, 102, 11));
+				Bodies.Add(new BorderTree(726, 536, 25, 115, 10));
+				Bodies.Add(new BorderTree(710, 587, 122, 137, 13));
+				Bodies.Add(new BorderTree(670, 636, 122, 137, 14));
+				Bodies.Add(new BorderTree(753, 698, 25, 115, 10));
+				Bodies.Add(new BorderTree(56, 5, 126, 102, 8));
+				Bodies.Add(new BorderTree(59, 57, 133, 66, 9));
+				Bodies.Add(new BorderTree(176, -38, 122, 137, 13));
+				Bodies.Add(new BorderTree(176, 28, 133, 66, 9));
+				Bodies.Add(new BorderTree(272, -22, 126, 102, 11));
+				Bodies.Add(new BorderTree(349, 17, 133, 66, 8));
+				Bodies.Add(new BorderTree(424, -20, 122, 137, 14));
+				Bodies.Add(new BorderTree(500, -2, 126, 102, 9));
+				Bodies.Add(new BorderTree(555, -19, 122, 137, 13));
+
+				for (int i = 0; i < Bodies.Count; i++) {
+					double newX = Bodies [i].getX () * 7 / 8;
+					double newY = Bodies [i].getY () * 7 / 8;
+					Bodies [i].setX (Convert.ToInt32(newX));
+					Bodies [i].setY (Convert.ToInt32(newY));
+				}
+			}
 
 			RegBackground.LoadContent(ScreenManager.Game);
 			RageBackground.LoadContent(ScreenManager.Game);
@@ -192,6 +337,7 @@ namespace Berserker
             if (Wave1.Count == 0) {
                 Wave1.Add(new Boss(210, 200, 100, 100, 100));
 				Wave1.Add (new Enemy (50, 50, 50, 50, 1, 100));
+<<<<<<< HEAD
 				Wave1.Add (new Enemy (500, 50, 50, 50, 1, 100)); 
 				Wave1.Add (new Enemy (50, 500, 50, 50, 1, 100));
 				Wave1.Add (new Enemy (500, 500, 50, 50, 1, 100));
@@ -199,15 +345,119 @@ namespace Berserker
 				Wave2.Add (new Enemy (500, 50, 50, 50, 5, 100)); 
 				Wave2.Add (new Enemy (50, 500, 50, 50, 5, 100));
 				Wave2.Add (new Enemy (500, 500, 50, 50, 5, 100));
+=======
+				Wave1.Add (new Enemy (600, 50, 50, 50, 1, 100)); 
+				Wave1.Add (new Enemy (50, 600, 50, 50, 1, 100));
+				Wave1.Add (new Enemy (600, 600, 50, 50, 1, 100));
+
+				Wave2.Add (new Enemy (50, 50, 50, 50, 3, 100));
+				Wave2.Add (new Enemy (600, 50, 50, 50, 3, 100));
+				Wave2.Add (new Enemy (50, 600, 50, 50, 3, 100));
+				Wave2.Add (new Enemy (600, 600, 50, 50, 3, 100));
+				Wave2.Add (new Enemy (600, 50, 50, 50, 3, 100));
+				Wave2.Add (new Enemy (50, 600, 50, 50, 3, 5));
+				Wave2.Add (new Enemy (600, 600, 50, 50, 3, 100));
+				Wave2.Add (new Enemy (50, 50, 50, 50, 3, 5));
+
+				Wave3.Add (new Enemy (50, 50, 50, 50, 4, 50));
+				Wave3.Add (new Enemy (600, 50, 50, 50, 4, 5)); 
+				Wave3.Add (new Enemy (50, 600, 50, 50, 4, 5));
+				Wave3.Add (new Enemy (600, 600, 50, 50, 4, 5));
+				Wave3.Add (new Enemy (600, 600, 50, 50, 5, 100));
+				Wave3.Add (new Enemy (600, 50, 50, 50, 5, 50)); 
+				Wave3.Add (new Enemy (50, 50, 50, 50, 5, 100));
+				Wave3.Add (new Enemy (50, 600, 50, 50, 5, 50));
+				Wave3.Add (new Enemy (50, 50, 50, 50, 7, 100));
+				Wave3.Add (new Enemy (600, 600, 50, 50, 7, 5));
+
+				Wave4.Add (new Enemy (50, 50, 50, 50, 6, 25));
+				Wave4.Add (new Enemy (600, 50, 50, 50, 6, 25)); 
+				Wave4.Add (new Enemy (50, 600, 50, 50, 6, 25));
+				Wave4.Add (new Enemy (600, 600, 50, 50, 6, 25));
+				Wave4.Add (new Enemy (600, 600, 50, 50, 8, 50));
+				Wave4.Add (new Enemy (50, 600, 50, 50, 8, 5));
+				Wave4.Add (new Enemy (50, 50, 50, 50, 8, 50));
+				Wave4.Add (new Enemy (600, 60, 50, 50, 8, 5));
+				Wave4.Add (new Enemy (50, 50, 50, 50, 9, 75));
+				Wave4.Add (new Enemy (600, 50, 50, 50, 9, 75)); 
+				Wave4.Add (new Enemy (50, 600, 50, 50, 9, 75));
+				Wave4.Add (new Enemy (600, 600, 50, 50, 9, 75));
+
+>>>>>>> 1aab4f077cafe9405a5eb7ba956d066c876726e9
 			}
 			EnemyWaves.Add (Wave1);
 			EnemyWaves.Add (Wave2);
+			EnemyWaves.Add (Wave3);
+			EnemyWaves.Add (Wave4);
 			player1.LoadContent (ScreenManager.Game);
+			if (Trees1.Count == 0) {
+				Trees1.Add (new Tree (150, 150, 50, 50, 1));
+				Trees1.Add (new Tree (100, 150, 50, 50, 1));
+				Trees1.Add (new Tree (200, 250, 50, 50, 1));
+				Trees1.Add (new Tree (200, 300, 50, 50, 1));
+				Trees1.Add (new Tree (450, 350, 50, 50, 1));
+				Trees1.Add (new Tree (450, 400, 50, 50, 1));
+				Trees1.Add (new Tree (500, 500, 50, 50, 1));
+				Trees1.Add (new Tree (550, 500, 50, 50, 1));
 
-			for (int i = 0; i < Trees.Count; i++)
-			{
-				Trees[i].LoadContent(ScreenManager.Game);
+				Trees2.Add (new Tree (150, 150, 50, 50, 1));
+				Trees2.Add (new Tree (200, 150, 50, 50, 1));
+				Trees2.Add (new Tree (350, 150, 50, 50, 1));
+				Trees2.Add (new Tree (400, 150, 50, 50, 1));
+				Trees2.Add (new Tree (250, 300, 50, 50, 1));
+				Trees2.Add (new Tree (250, 350, 50, 50, 1));
+				Trees2.Add (new Tree (400, 300, 50, 50, 1));
+				Trees2.Add (new Tree (400, 350, 50, 50, 1));
+				Trees2.Add (new Tree (250, 500, 50, 50, 1));
+				Trees2.Add (new Tree (300, 500, 50, 50, 1));
+				Trees2.Add (new Tree (450, 500, 50, 50, 1));
+				Trees2.Add (new Tree (500, 500, 50, 50, 1));
+
+				Trees3.Add (new Tree (150, 150, 50, 50, 1));
+				Trees3.Add (new Tree (200, 200, 50, 50, 1));
+				Trees3.Add (new Tree (250, 250, 50, 50, 1));
+				Trees3.Add (new Tree (300, 300, 50, 50, 1));
+				Trees3.Add (new Tree (200, 300, 50, 50, 1));
+				Trees3.Add (new Tree (300, 200, 50, 50, 1));
+				Trees3.Add (new Tree (550, 550, 50, 50, 1));
+				Trees3.Add (new Tree (500, 500, 50, 50, 1));
+				Trees3.Add (new Tree (450, 450, 50, 50, 1));
+				Trees3.Add (new Tree (400, 400, 50, 50, 1));
+				Trees3.Add (new Tree (400, 500, 50, 50, 1));
+				Trees3.Add (new Tree (500, 400, 50, 50, 1));
+
+				Trees4.Add (new Tree (150, 150, 50, 50, 1));
+				Trees4.Add (new Tree (100, 200, 50, 50, 1));
+				Trees4.Add (new Tree (150, 250, 50, 50, 1));
+				Trees4.Add (new Tree (150, 350, 50, 50, 1));
+				Trees4.Add (new Tree (150, 400, 50, 50, 1));
+				Trees4.Add (new Tree (150, 450, 50, 50, 1));
+				Trees4.Add (new Tree (200, 300, 50, 50, 1));
+				Trees4.Add (new Tree (200, 500, 50, 50, 1));
+				Trees4.Add (new Tree (250, 250, 50, 50, 1));
+				Trees4.Add (new Tree (250, 400, 50, 50, 1));
+				Trees4.Add (new Tree (250, 550, 50, 50, 1));
+				Trees4.Add (new Tree (300, 250, 50, 50, 1));
+				Trees4.Add (new Tree (350, 250, 50, 50, 1));
+				Trees4.Add (new Tree (400, 250, 50, 50, 1));
+				Trees4.Add (new Tree (400, 400, 50, 50, 1));
+				Trees4.Add (new Tree (400, 550, 50, 50, 1));
+				Trees4.Add (new Tree (450, 300, 50, 50, 1));
+				Trees4.Add (new Tree (450, 500, 50, 50, 1));
+				Trees4.Add (new Tree (500, 150, 50, 50, 1));
+				Trees4.Add (new Tree (500, 250, 50, 50, 1));
+				Trees4.Add (new Tree (500, 350, 50, 50, 1));
+				Trees4.Add (new Tree (500, 400, 50, 50, 1));
+				Trees4.Add (new Tree (500, 450, 50, 50, 1));
+				Trees4.Add (new Tree (550, 200, 50, 50, 1));
+
+
 			}
+			TreeWaves.Add (Trees1);
+			TreeWaves.Add (Trees2);
+			TreeWaves.Add (Trees3);
+			TreeWaves.Add (Trees4);
+
 			Castle1.LoadContent (ScreenManager.Game);
 			Castle2.LoadContent (ScreenManager.Game);
 			Castle3.LoadContent (ScreenManager.Game);
@@ -216,12 +466,22 @@ namespace Berserker
 			{
 				BorderTrees[j].LoadContent(ScreenManager.Game);
 			}
+			for(int j = 0; j < Bodies.Count; j++){
+				Bodies[j].LoadContent(ScreenManager.Game);
+			}
 			healthbar = Load<Texture2D>("healthbar");
 			Console.WriteLine("Init");
 
             hud = Load<Texture2D>("hud");
 
 			font = ScreenManager.Game.Content.Load<SpriteFont>("Fonts/MenuFont");
+			for (int i = 0; i < TreeWaves [wave].Count; i++) {
+				Trees.Add (TreeWaves [wave] [i]);
+			}
+			for (int i = 0; i < Trees.Count; i++)
+			{
+				Trees[i].LoadContent(ScreenManager.Game);
+			}
 
 			for (int i = 0; i < EnemyWaves [wave].Count; i++) {
 				SpawnEnemies.Add (EnemyWaves [wave] [i]);
@@ -285,6 +545,7 @@ namespace Berserker
 			}
 
 			if (Enemies.Count == 0 && SpawnEnemies.Count == 0) {
+				Trees.Clear ();
 				ExitScreen ();
 				wave++;
 				ScreenManager.AddScreen (new WaveScreen(wave, player1), null);
@@ -339,10 +600,10 @@ namespace Berserker
                 spawncounter = 0;
             }
             */
-			if (objectcounter % 997 == 0)
+			if (objectcounter % 997 == 0 && player1.rageMode == false)
 			{
 				Random rand = new Random();
-				Object object1 = new Object((int)rand.Next(100, 450), (int)rand.Next(100, 450), 50, 50);
+				Object object1 = new Object((int)rand.Next(100, 550), (int)rand.Next(100, 550), 50, 50);
 				object1.LoadContent(ScreenManager.Game);
 				Objects.Add(object1);
 			}
@@ -392,6 +653,14 @@ namespace Berserker
 		public override void HandleInput (InputState input)
 		{
 			if (player1.getHealth () == 0) {
+<<<<<<< HEAD
+=======
+				Enemies.Clear ();
+				SpawnEnemies.Clear ();
+				Trees.Clear ();
+				Wave1.Clear ();
+				Wave2.Clear ();
+>>>>>>> 1aab4f077cafe9405a5eb7ba956d066c876726e9
 				ScreenManager.RemoveScreen (this);
 				ScreenManager.AddScreen (new EndScreen (player1.getScore()), null);
 			}
@@ -457,9 +726,17 @@ namespace Berserker
 			{
 				Trees[i].Draw(ScreenManager.SpriteBatch);
 			}
-			for (int i = 0; i < BorderTrees.Count; i++)
+			if(player1.rageMode)
 			{
-				BorderTrees[i].Draw(ScreenManager.SpriteBatch);
+				for (int i = 0; i < Bodies.Count; i++)
+				{
+					Bodies[i].Draw(ScreenManager.SpriteBatch);
+				}
+			}else{
+				for (int i = 0; i < BorderTrees.Count; i++)
+				{
+					BorderTrees[i].Draw(ScreenManager.SpriteBatch);
+				}
 			}
 			for (int i = 0; i < Objects.Count; i++)
 			{
