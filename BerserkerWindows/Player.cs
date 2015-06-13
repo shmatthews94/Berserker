@@ -245,7 +245,7 @@ namespace Berserker
             currentAnimation.Position = new Vector2(spriteX, spriteY);
         }
 
-        public void Draw(SpriteBatch sb)
+        public override void Draw(SpriteBatch sb)
         {
             //sb.Draw(image, new Rectangle(spriteX, spriteY, spriteWidth, spriteHeight), Color.White);
             //sb.Draw(sheet, new Rectangle(300, 300, 100, 100), Color.White);

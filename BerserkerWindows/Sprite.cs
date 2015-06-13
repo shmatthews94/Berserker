@@ -56,6 +56,10 @@ namespace Berserker
                 return new Rectangle(spriteX, spriteY, spriteWidth, spriteHeight);
             }
         }
+        public virtual void Draw(SpriteBatch sb)
+        {
+            sb.Draw(image, new Vector2(spriteX, spriteY), Color.White);
+        }
 	}
 }
 

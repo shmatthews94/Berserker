@@ -44,6 +44,8 @@ namespace Berserker
 		Background RegBackground, RageBackground;
 		SpriteFont font;
 
+        Texture2D hud;
+
 		public Game1(int wave)
 		{
 			this.wave = wave;
@@ -94,9 +96,9 @@ namespace Berserker
 		/// </summary>
 		public void LoadAssets()
 		{
-			// TODO: Add your initialization logic here
-
-			RegBackground = new Background(0, 0, BerserkerGame.screenwidth, BerserkerGame.screenheight, 1);
+            // TODO: Add your initialization logic here
+            #region load trees and background
+            RegBackground = new Background(0, 0, BerserkerGame.screenwidth, BerserkerGame.screenheight, 1);
 			RageBackground = new Background(0, 0, BerserkerGame.screenwidth, BerserkerGame.screenheight, 2);
 			Trees.Add (new Tree (150, 150, 50, 50, 1));
 			Trees.Add (new Tree (100, 150, 50, 50, 1));
@@ -185,8 +187,10 @@ namespace Berserker
 
 			RegBackground.LoadContent(ScreenManager.Game);
 			RageBackground.LoadContent(ScreenManager.Game);
+            #endregion
 
-			if (Wave1.Count == 0) {
+            if (Wave1.Count == 0) {
+                Wave1.Add(new Boss(210, 200, 100, 100, 100));
 				Wave1.Add (new Enemy (50, 50, 50, 50, 1, 100));
 				Wave1.Add (new Enemy (500, 50, 50, 50, 1, 100)); 
 				Wave1.Add (new Enemy (50, 500, 50, 50, 1, 100));
@@ -215,6 +219,8 @@ namespace Berserker
 			healthbar = Load<Texture2D>("healthbar");
 			Console.WriteLine("Init");
 
+            hud = Load<Texture2D>("hud");
+
 			font = ScreenManager.Game.Content.Load<SpriteFont>("Fonts/MenuFont");
 
 			for (int i = 0; i < EnemyWaves [wave].Count; i++) {
@@ -232,6 +238,8 @@ namespace Berserker
 			SpriteBatch spritebatch = ScreenManager.SpriteBatch;
 			// Create a new SpriteBatch, which can be used to draw textures.
 			//spriteBatch = new SpriteBatch(GraphicsDevice);
+
+            
 
 			base.LoadContent();
 			LoadAssets();
@@ -400,7 +408,6 @@ namespace Berserker
 			if (player1.rageMode == false)
 			{
 				RegBackground.Draw(ScreenManager.SpriteBatch);
-
 			}
 			else if (player1.rageMode)
 			{
@@ -409,7 +416,37 @@ namespace Berserker
 
 			// TODO: Add your drawing code here
 
+            List<Sprite> AllSprites = new List<Sprite>();
 
+            AllSprites.Add(player1);
+            foreach (Enemy e in Enemies)
+            {
+                AllSprites.Add(e);
+            }
+            foreach (Tree t in Trees) {
+                AllSprites.Add(t);
+            }
+            foreach (BorderTree t in BorderTrees)
+            {
+                AllSprites.Add(t);
+            }
+            foreach (Object o in Objects)
+            {
+                AllSprites.Add(o);
+            }
+            AllSprites.Add(Castle1);
+            AllSprites.Add(Castle2);
+            AllSprites.Add(Castle3);
+            AllSprites.Add(Castle4);
+
+            AllSprites = AllSprites.OrderBy(s => s.getY()).ToList();
+
+            foreach (Sprite s in AllSprites)
+            {
+                s.Draw(ScreenManager.SpriteBatch);
+            }
+
+            /*
 			player1.Draw (ScreenManager.SpriteBatch);
 
 			for (int i = 0; i < Enemies.Count; i++)
@@ -432,12 +469,20 @@ namespace Berserker
 			Castle2.Draw (ScreenManager.SpriteBatch);
 			Castle3.Draw (ScreenManager.SpriteBatch);
 			Castle4.Draw (ScreenManager.SpriteBatch);
-			ScreenManager.SpriteBatch.Draw (healthbar, new Rectangle(200, 0, 260, 50), Color.Black);
-			ScreenManager.SpriteBatch.Draw(player1.rageBar, new Rectangle(200, 0, player1.getRage(), 50), Color.White);
+             */
 
-			ScreenManager.SpriteBatch.Draw (healthbar, new Rectangle (0, 0, 150, 50), Color.Red);
-			ScreenManager.SpriteBatch.Draw (healthbar, new Rectangle (0, 0, player1.getHealth()*30, 50), Color.DarkGreen);
-			ScreenManager.SpriteBatch.DrawString (font, player1.getScore().ToString(), new Vector2 (500, 0), Color.Red);
+            ScreenManager.SpriteBatch.Draw(hud, new Rectangle(0, 0, BerserkerGame.screenwidth, 40), Color.White);
+            ScreenManager.SpriteBatch.Draw(healthbar, new Rectangle(10, 5, 150, 30), Color.Red);
+            ScreenManager.SpriteBatch.Draw(healthbar, new Rectangle(10, 5, player1.getHealth() * 30, 30), Color.DarkGreen);
+
+            ScreenManager.SpriteBatch.DrawString(font, "HP", new Vector2(50, 0), Color.White);
+
+            ScreenManager.SpriteBatch.Draw(healthbar, new Rectangle(200, 5, 260, 30), Color.Black);
+            ScreenManager.SpriteBatch.Draw(healthbar, new Rectangle(200, 5, player1.getRage(), 30), Color.Red);
+			ScreenManager.SpriteBatch.Draw(player1.rageBar, new Rectangle(200, 5, 260, 30), Color.White);
+
+			
+			ScreenManager.SpriteBatch.DrawString (font, "SCORE: " + player1.getScore().ToString(), new Vector2 (500, 0), Color.White);
 			ScreenManager.SpriteBatch.End ();
 
 			base.Draw(gameTime);

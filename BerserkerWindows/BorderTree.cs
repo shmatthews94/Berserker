@@ -44,11 +44,9 @@ namespace Berserker
 				if (type == 7){
 					image = game.Content.Load<Texture2D>("reverse border tree type 3.png");
 				}
-
-
 			}
 
-			public void Draw(SpriteBatch sb)
+			public override void Draw(SpriteBatch sb)
 			{
 				sb.Draw(image, new Rectangle(spriteX, spriteY, spriteWidth, spriteHeight), Color.White);
 			}

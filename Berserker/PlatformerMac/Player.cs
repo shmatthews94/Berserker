@@ -23,7 +23,7 @@ namespace Berserker
         bool IsAttacking;
 
 
-        public TimeSpan FrameTime = new TimeSpan(600000);
+        public TimeSpan FrameTime = new TimeSpan(500000);
 
         public bool rageMode = false;
         public Texture2D rageBar;
@@ -245,7 +245,7 @@ namespace Berserker
             currentAnimation.Position = new Vector2(spriteX, spriteY);
         }
 
-        public void Draw(SpriteBatch sb)
+        public override void Draw(SpriteBatch sb)
         {
             //sb.Draw(image, new Rectangle(spriteX, spriteY, spriteWidth, spriteHeight), Color.White);
             //sb.Draw(sheet, new Rectangle(300, 300, 100, 100), Color.White);
@@ -314,13 +314,8 @@ namespace Berserker
                 counter += gameTime.ElapsedGameTime.TotalMilliseconds;
                 if (counter >= 9000)
                 {
-<<<<<<< HEAD
                     rageMode = false;
                     playsound = true;
-=======
-					playsound = true;
-					rageMode = false;
->>>>>>> origin/master
                     counter = 0;
                     rage = 0;
                 }
@@ -527,17 +522,17 @@ namespace Berserker
                 {
                     Objects.Remove(Objects[i]);
                     rage += 100;
-                    this.incrementScore(600);
+                    this.incrementScore(500);
                 }
             }
 
             #region Clamp Position to Screen
-            if (spriteX >= 600)
-                spriteX = 600;
+            if (spriteX >= 500)
+                spriteX = 500;
             else if (spriteX <= 50)
                 spriteX = 50;
-            if (spriteY >= 600)
-                spriteY = 600;
+            if (spriteY >= 500)
+                spriteY = 500;
             else if (spriteY <= 50)
                 spriteY = 50;
             #endregion
