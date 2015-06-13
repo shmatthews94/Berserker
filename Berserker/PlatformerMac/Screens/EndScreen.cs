@@ -94,8 +94,7 @@ namespace Berserker
 				return;
 			}
 			PlayerIndex player;
-			if (input.IsNewKeyPress (Microsoft.Xna.Framework.Input.Keys.Space, ControllingPlayer, out player) ||
-				input.IsNewKeyPress (Microsoft.Xna.Framework.Input.Keys.Enter, ControllingPlayer, out player) ||
+			if (input.IsNewKeyPress (Microsoft.Xna.Framework.Input.Keys.Enter, ControllingPlayer, out player) ||
 				input.MouseGesture.HasFlag(MouseGestureType.LeftClick)||
 				input.IsNewButtonPress (Microsoft.Xna.Framework.Input.Buttons.Start, ControllingPlayer, out player)) {
 				// Create a new instance of the gameplay screen
@@ -169,7 +168,7 @@ namespace Berserker
 			spriteBatch.Draw (background, new Rectangle(0, 0, BerserkerGame.screenwidth, BerserkerGame.screenheight), new Color (255, 255, 255, TransitionAlpha));
 			ScreenManager.SpriteBatch.DrawString (font, "YOUR SCORE: ", new Vector2 (230, 200), Color.Red);
 			ScreenManager.SpriteBatch.DrawString (font, playerscore.ToString(), new Vector2 (310, 250), Color.Red);
-			ScreenManager.SpriteBatch.DrawString (font, "PRESS SPACE TO DIE AGAIN", new Vector2 (100, 650), Color.Red);
+			ScreenManager.SpriteBatch.DrawString (font, "PRESS ENTER TO DIE AGAIN", new Vector2 (100, 650), Color.Red);
 			// If loading gameplay screen resource in the 
 			// background show "Loading..." text
 
