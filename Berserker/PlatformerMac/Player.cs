@@ -634,7 +634,11 @@ namespace Berserker
 
         public int getRage()
         {
-            return this.rage;
+			if (this.rage >= 260) {
+				return 260;
+			} else {
+				return this.rage;
+			}
         }
 
 
