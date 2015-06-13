@@ -328,6 +328,10 @@ namespace Berserker
             }
             counter2 += 1;
             spearCoolDown += gameTime.ElapsedGameTime;
+            if (rage >= 260)
+            {
+                rage = 260;
+            }
         }
 
 
@@ -403,11 +407,12 @@ namespace Berserker
                 if (attack.Intersects(Baddies[i].rectangle))
                 {
                     Baddies[i].decrementHealth();
-                    if (Baddies[i].health == 0)
+                    if (Baddies[i].health <= 0)
                     {
                         Baddies.RemoveAt(i);
                         this.incrementScore(100);
                         rage += 25;
+                        i--;
                     }
                     else
                     {

@@ -100,10 +100,10 @@ namespace Berserker
             this.spriteY = y;
             this.spriteWidth = width;
             this.spriteHeight = height;
-            maxHealth = 15;
+            maxHealth = 8;
             health = maxHealth;
             // Movement
-            speed = 1;
+            speed = 3;
             movePattern = 0;
             elapsedWanderTime = TimeSpan.Zero;
             elapsedAttackTime = TimeSpan.Zero;
@@ -143,25 +143,25 @@ namespace Berserker
 
                 if (facing == "left")
                 {
-                    attack = new Rectangle(this.spriteX - spriteWidth, this.spriteY, spriteWidth, spriteHeight);
+                    attack = new Rectangle(this.spriteX - spriteWidth/2, this.spriteY, spriteWidth/2, spriteHeight);
                     PlayAnimation(attackLeft);
                 }
 
                 if (facing == "right")
                 {
-                    attack = new Rectangle(this.spriteX + spriteWidth, this.spriteY, spriteWidth, spriteHeight);
+                    attack = new Rectangle(this.spriteX + spriteWidth, this.spriteY, spriteWidth/2, spriteHeight);
                     PlayAnimation(attackRight);
                 }
 
                 if (facing == "up")
                 {
-                    attack = new Rectangle(this.spriteX, this.spriteY - spriteHeight, spriteWidth, spriteHeight);
+                    attack = new Rectangle(this.spriteX, this.spriteY - spriteHeight/2, spriteWidth, spriteHeight/2);
                     PlayAnimation(attackUp);
                 }
 
                 if (facing == "down")
                 {
-                    attack = new Rectangle(this.spriteX, this.spriteY + spriteHeight, spriteWidth, spriteHeight);
+                    attack = new Rectangle(this.spriteX, this.spriteY + spriteHeight, spriteWidth, spriteHeight/2);
                     PlayAnimation(attackDown);
                 }
                 if (attack.Intersects(new Rectangle(player.getX(), player.getY(), player.getWidth(), player.getHeight())))
@@ -314,7 +314,7 @@ namespace Berserker
                 resolveCollisionsX(p, Trees);
             }
 
-            if (Math.Abs(prevSpriteX - x) >= 15)
+            if (Math.Abs(prevSpriteY - y) >= 15)
             {
                 if (prevSpriteY > y)
                 {

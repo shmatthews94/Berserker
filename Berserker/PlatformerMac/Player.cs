@@ -425,11 +425,12 @@ namespace Berserker
                 if (attack.Intersects(Baddies[i].rectangle))
                 {
                     Baddies[i].decrementHealth();
-                    if (Baddies[i].health == 0)
+                    if (Baddies[i].health <= 0)
                     {
                         Baddies.RemoveAt(i);
                         this.incrementScore(100);
                         rage += 25;
+                        i--;
                     }
                     else
                     {
@@ -454,6 +455,7 @@ namespace Berserker
 						Baddies.Remove(Baddies[i]);
 						this.incrementScore(100);
 						rage += 25;
+                        i--;
 					}
 				}
 			}
@@ -582,6 +584,7 @@ namespace Berserker
                     Objects.Remove(Objects[i]);
                     rage += 100;
                     this.incrementScore(500);
+                    i--;
                 }
             }
 

@@ -190,7 +190,7 @@ namespace Berserker
             #endregion
 
             if (Wave1.Count == 0) {
-                Wave1.Add(new Boss(210, 200, 100, 100, 100));
+                Wave1.Add(new Boss(500, 500, 100, 100, 100));
 				Wave1.Add (new Enemy (50, 50, 50, 50, 1, 100));
 				Wave1.Add (new Enemy (500, 50, 50, 50, 1, 100)); 
 				Wave1.Add (new Enemy (50, 500, 50, 50, 1, 100));
