@@ -58,7 +58,7 @@ namespace Berserker
 		#region Loading
 		public override void LoadContent ()
 		{
-			background = Load<Texture2D> ("Textures/Backgrounds/EndScreen");
+			background = Load<Texture2D> ("Textures/Backgrounds/endscreen1");
 			font = Load<SpriteFont> ("Fonts/MenuFont");
 		}
 		#endregion

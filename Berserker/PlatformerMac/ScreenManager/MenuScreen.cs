@@ -188,7 +188,7 @@ namespace GameStateManagement
 
 		public override void LoadContent() 
 		{
-			background = Load<Texture2D> ("Textures/Backgrounds/MainMenu");
+			background = Load<Texture2D> ("Textures/Backgrounds/MainMenu1");
 		}
 
 
