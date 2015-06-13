@@ -94,6 +94,7 @@
     <Compile Include="Background.cs" />
     <Compile Include="Animation.cs" />
     <Compile Include="Circle.cs" />
+    <Compile Include="Boss.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
@@ -219,6 +220,8 @@
     <BundleResource Include="Content\reversebodyonpike.png" />
     <BundleResource Include="Content\reversediagonalbodyonpike.png" />
     <BundleResource Include="Content\headonpike1.png" />
+    <BundleResource Include="Content\yeti.png" />
+    <BundleResource Include="Content\hud.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ScreenManager\" />

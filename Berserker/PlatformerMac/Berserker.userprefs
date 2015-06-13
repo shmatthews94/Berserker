@@ -1,28 +1,32 @@
-﻿<Properties MonoDevelop.MonoMac.LastXamMacNagTime="6/12/2015 7:57:43 PM">
+﻿<Properties MonoDevelop.MonoMac.LastXamMacNagTime="6/13/2015 7:10:02 AM">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="ScreenManager/InputState.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Player.cs">
     <Files>
       <File FileName="Controls.cs" Line="1" Column="1" />
       <File FileName="Main.cs" Line="1" Column="1" />
       <File FileName="MainMenu.cs" Line="1" Column="1" />
-      <File FileName="Player.cs" Line="260" Column="22" />
+      <File FileName="Player.cs" Line="334" Column="8" />
       <File FileName="Sprite.cs" Line="1" Column="1" />
       <File FileName="Enemy.cs" Line="1" Column="1" />
       <File FileName="Tree.cs" Line="1" Column="1" />
       <File FileName="packages.config" Line="1" Column="1" />
       <File FileName="Object.cs" Line="1" Column="1" />
-      <File FileName="Screens/Game1.cs" Line="1" Column="1" />
-      <File FileName="ScreenManager/GameScreen.cs" Line="1" Column="1" />
+      <File FileName="ScreenManager/GameScreen.cs" Line="13" Column="43" />
       <File FileName="Screens/PauseScreen.cs" Line="1" Column="1" />
       <File FileName="ScreenManager/ScreenManager.cs" Line="1" Column="1" />
       <File FileName="Screens/GameplayScreen.cs" Line="1" Column="1" />
       <File FileName="Screens/MainMenuScreen.cs" Line="1" Column="1" />
       <File FileName="ScreenManager/MenuScreen.cs" Line="1" Column="1" />
       <File FileName="ScreenManager/MenuEntry.cs" Line="1" Column="1" />
-      <File FileName="Screens/InstructionsScreen.cs" Line="1" Column="1" />
-      <File FileName="Screens/EndScreen.cs" Line="1" Column="1" />
-      <File FileName="../../../Berserker copy/Berserker/PlatformerMac/Screens/Game1.cs" Line="127" Column="27" />
-      <File FileName="ScreenManager/InputState.cs" Line="1" Column="1" />
+      <File FileName="Screens/InstructionsScreen.cs" Line="98" Column="52" />
+      <File FileName="Screens/EndScreen.cs" Line="157" Column="4" />
+      <File FileName="../../../Berserker copy/Berserker/PlatformerMac/Screens/Game1.cs" Line="1" Column="1" />
+      <File FileName="ScreenManager/InputState.cs" Line="17" Column="1" />
+      <File FileName="AudioManager.cs" Line="101" Column="22" />
+      <File FileName="Screens/WaveScreen.cs" Line="1" Column="1" />
+      <File FileName="BorderTree.cs" Line="1" Column="1" />
+      <File FileName="Boss.cs" Line="1" Column="1" />
+      <File FileName="Screens/Game1.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

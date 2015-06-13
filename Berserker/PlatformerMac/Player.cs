@@ -436,7 +436,7 @@ namespace Berserker
                 }
             }
         }
-			
+		/*
 		public void SmashAttack(Controls controls, List<Enemy> Baddies)
 		{
 			if (smashCoolDown >= smashCooldownTime)
@@ -457,6 +457,7 @@ namespace Berserker
 				}
 			}
 		}
+		*/
 
         public void Move(Controls controls, List<Tree> Trees, List<Enemy> Enemies, List<Object> Objects)
         {
@@ -502,7 +503,7 @@ namespace Berserker
                     SpearAttack(controls, Enemies);
                 }
             }
-
+			/*
 			if (smashCoolDown >= smashCooldownTime)
 			{
 				if (controls.onPress(Keys.S, Buttons.B) )
@@ -512,6 +513,7 @@ namespace Berserker
 					}
 				}
 			}
+			*/
 				
 
             if (IsAttacking)
@@ -586,12 +588,12 @@ namespace Berserker
             }
 
             #region Clamp Position to Screen
-            if (spriteX >= 500)
-                spriteX = 500;
+            if (spriteX >= 600)
+                spriteX = 600;
             else if (spriteX <= 50)
                 spriteX = 50;
-            if (spriteY >= 500)
-                spriteY = 500;
+            if (spriteY >= 600)
+                spriteY = 600;
             else if (spriteY <= 50)
                 spriteY = 50;
             #endregion

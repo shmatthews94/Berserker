@@ -224,14 +224,14 @@ namespace Berserker
             }
 
             #region Clamp position to screen
-            if (spriteX >= 500)
-                spriteX = 500;
-            else if (spriteX <= 50)
-                spriteX = 50;
-            if (spriteY >= 500)
-                spriteY = 500;
-            else if (spriteY <= 50)
-                spriteY = 50;
+			if (spriteX >= 600)
+				spriteX = 600;
+			else if (spriteX <= 50)
+				spriteX = 50;
+			if (spriteY >= 600)
+				spriteY = 600;
+			else if (spriteY <= 50)
+				spriteY = 50;
             #endregion
 
             // Gravity
